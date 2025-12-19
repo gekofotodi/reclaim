@@ -1,0 +1,192 @@
+.kit-content .manifesto-container {
+    padding-top: 200px;
+}
+
+.kit-schematic-section {
+
+
+    padding: 0 4rem 4rem 4rem;
+    margin-top: -20rem;
+    max-width: 100%;
+
+
+    margin: 0 auto;
+    font-family: "cofo-sans-mono-variable", monospace;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Common Box Styles */
+.schematic-box-label {
+    text-align: center;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    color: #333;
+    font-weight: 400;
+    width: 100%;
+}
+
+/* 1. CLOSED BOX (Blue Border) Removed - replaced by Image */
+.box-closed-image-container {
+    width: 100%;
+    /* Same width as open box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -7rem;
+}
+
+
+.box-image-shadow {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+    /* Slightly stronger for visibility */
+    transition: transform 0.3s ease;
+}
+
+/*.box-image-shadow:hover {
+    transform: scale(1.02);
+}
+
+/* 2. OPEN BOX (Content Container) - Shared with closed style */
+.box-open-image-container {
+    width: 100%;
+    /* Wider to accommodate callouts */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 4rem auto;
+    /* Centered horizontally */
+}
+
+.box-image-wrapper {
+    position: relative;
+    width: 52%;
+    /* Original size of the box */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Callout Annotations */
+.kit-callout {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.callout-line {
+    flex: 1;
+    height: 1px;
+    background-color: #ff3c01;
+    /* Orange accent */
+}
+
+.callout-label {
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-size: 0.9rem;
+    color: #000000;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0 0.5rem;
+}
+
+/* Alignment logic: Line position relative to text is handled by HTML order */
+.kit-callout {
+    flex-direction: row;
+}
+
+
+
+
+@media (max-width: 768px) {
+    .kit-schematic-section {
+        padding: 4rem 1.5rem;
+    }
+
+    /* Stack accessories vertically or wrap tightly */
+    .accessories-row {
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    .weapon-placeholder {
+        width: 90%;
+        height: 150px;
+    }
+
+    .box-open {
+        padding: 1.5rem;
+    }
+
+    .acc-item {
+        width: 45%;
+        /* Two columns */
+    }
+}
+
+/* Fixed Checkout Footer */
+.checkout-footer {
+    position: sticky;
+    /* Changed from fixed to sticky */
+    bottom: 0;
+    left: 0;
+    /* Full width */
+    width: 100%;
+    /* Full width */
+    background-color: #000;
+    /* Changed to black */
+    /* backdrop-filter: blur(10px); Removed as background is solid */
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9991;
+    /* Above cursor stamps */
+    border-top: 1px solid #333;
+
+}
+
+.checkout-button {
+    background-color: #ff3c01;
+    color: #fff;
+    border: none;
+    font-size: 1.2rem;
+    padding: 1rem 3rem;
+    font-weight: 400;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    /* Only animate colors */
+}
+
+.checkout-button:hover {
+    background-color: #e63600;
+    color: #fff;
+    border: none;
+}
+
+.checkout-button:active {
+    /* No animation on click */
+    background-color: #ff3c01;
+    transform: none;
+}
+
+@media (max-width: 768px) {
+    .checkout-footer {
+        left: 0;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    /* Ensure page has padding at bottom so content isn't covered by fixed footer */
+    .kit-schematic-section {
+        padding-bottom: 100px;
+    }
+}

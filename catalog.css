@@ -1,0 +1,207 @@
+/* ==========================================================================
+   CATALOG SECTION (BADGES PAGE)
+   Styles for the milestone badges showcase grid.
+   ========================================================================== */
+
+/**
+ * Main container for the catalog content.
+ * Ensures the section takes full width and prevents horizontal overflow.
+ */
+.catalog-section {
+    padding: 4rem 0;
+    width: 100%;
+    margin: 0;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/**
+ * Main heading for the badges page.
+ * Uses Neue Haas Unica for a premium, clean look.
+ */
+.catalog-title {
+    font-family: "neue-haas-unica", sans-serif;
+    font-size: 3rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: -0.02em;
+
+}
+
+/**
+ * Centered introductory text block ("a pacchetto").
+ * Limits width for better readability and centers it on the page.
+ */
+.catalog-intro {
+    max-width: 550px;
+    text-align: center;
+    margin: 2rem auto 3rem auto;
+}
+
+/* Paragraph styling inside the intro block */
+.catalog-intro p {
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #000000;
+    text-transform: uppercase;
+}
+
+/**
+ * The main catalog grid.
+ * Displays badge items in a 4-column layout on desktops.
+ */
+.catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 90%;
+    margin: 0 0;
+    /* Left aligned by default, can be centered if width is less than 100% */
+    gap: 0;
+    border-top: 1px solid #333;
+    border-left: 1px solid #333;
+    /* Left border of the grid frame */
+}
+
+/* ==========================================================================
+   RESPONSIVE ADJUSTMENTS
+   Modifications for tablets and mobile devices.
+   ========================================================================== */
+@media (max-width: 768px) {
+    .catalog-section {
+        margin-left: 0;
+        padding: 4rem 0;
+    }
+
+    /* Reduce title size for mobile */
+    .catalog-title {
+        font-size: 2rem;
+    }
+
+    /* Switch to 2 columns on mobile */
+    .catalog-grid {
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+    }
+
+    /* Adjust vertical spacing and padding in the intro section */
+    .catalog-intro {
+        margin-bottom: 3rem;
+        padding: 0 1.5rem;
+    }
+
+    /* Smaller font for mobile intro text */
+    .catalog-intro p {
+        font-size: 1rem;
+    }
+}
+
+/* ==========================================================================
+   CATALOG ITEM STYLING
+   Individual cells within the badge grid.
+   ========================================================================== */
+
+/**
+ * Individual badge cell.
+ * Maintains a 1:1 square aspect ratio for a clean archival look.
+ */
+.catalog-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-right: 1px solid #333;
+    /* Right border for grid lines */
+    border-bottom: 1px solid #333;
+    /*border-top: 1px solid #333;
+    /* Bottom border for grid lines */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+/**
+ * Visual container for the badge asset.
+ * Handles centering and hover transitions.
+ */
+.item-image-placeholder {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Individual badge image within the placeholder */
+.item-image-placeholder img {
+    transition: transform 0.4s ease;
+    width: 35%;
+    /* Scaled down for a elegant look */
+    height: 35%;
+    margin: 32.5%;
+    /* Calculated as (100 - 35) / 2 to center perfectly */
+    object-fit: contain;
+}
+
+/**
+ * Hover Animations.
+ * Subtle 3D rotation and scale for engagement.
+ */
+.catalog-item:hover .item-image-placeholder img {
+    transform: rotateY(30deg) rotateX(20deg) scale(1.1);
+}
+
+.catalog-item:hover .item-image-placeholder {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+/* Highlight the entire cell on hover */
+.catalog-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* ==========================================================================
+   METADATA STYLING
+   Text info displayed beneath each badge.
+   ========================================================================== */
+
+/**
+ * Metadata container (ID and Mission name).
+ */
+.item-meta {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 0.25rem;
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #000000;
+    width: 100%;
+    position: static;
+    /* Flows naturally below the image */
+}
+
+/* Ensure each meta line appears on its own row */
+.item-meta span {
+    display: block;
+}
+
+/**
+ * Note: Duplicate hover rule from line 125/156 left for consistency with 3D animation scripts
+ * that might target this specific rule.
+ */
+.catalog-item:hover .item-image-placeholder img {
+    transform: rotateY(30deg) rotateX(20deg) scale(1.1);
+}

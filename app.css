@@ -1,0 +1,195 @@
+/* App Specific Styles - Styles specific to the App page */
+
+.app-split-section {
+    display: flex;
+    /* Uses Flexbox to align children side-by-side */
+    align-items: center;
+    /* Vertically centers the content within the section */
+    justify-content: space-between;
+    /* Distributes space between text and visual columns */
+    padding: 2rem 6rem;
+    /* Removes padding inside the section */
+    gap: 2rem;
+    /* Removes gap between flex items */
+    min-height: 20vh;
+    /* Sets a minimum height of 50% of the viewport height */
+    width: 100%;
+    /* Ensures the section takes full width of the container */
+    max-width: 1400px;
+    /* Limits the maximum width to 1400px for large screens */
+    margin: 0 auto;
+    max-height: 700px;
+}
+
+.app-split-section.reverse-layout {
+    flex-direction: row-reverse;
+    /* Reverses the order of flex items (Image Left, Text Right) */
+    padding-left: 12rem;
+    /* Increases left padding to shift content right */
+    padding-right: 2rem;
+    /* Decreases right padding to push text closer to edge */
+}
+
+.app-text-column {
+    flex: 1;
+    /* Allows the text column to grow and fill available space */
+    display: flex;
+    /* Uses Flexbox for internal layout */
+    flex-direction: column;
+    /* Stacks children (H2, P) vertically */
+    justify-content: top;
+    /* Centers content vertically */
+    align-items: flex-start;
+    /* Aligns text to the left */
+}
+
+.app-text-column h2 {
+    font-family: 'neue-haas-unica', sans-serif;
+    /* Sets the font family for headings */
+    font-weight: 700;
+    /* Sets the font weight to bold */
+    font-size: 5rem;
+    /* Sets a large font size */
+    line-height: 0.9;
+    /* Sets a tight line height */
+    margin-bottom: 2rem;
+    /* Adds space below the heading */
+    text-transform: uppercase;
+    /* Transforms text to uppercase */
+    color: #000;
+    /* Sets text color to black */
+}
+
+.app-text-column p {
+    font-family: 'cofo-sans-mono-variable', monospace;
+    /* Sets the font family for body text */
+    font-size: 1.1rem;
+    /* Sets the font size */
+    line-height: 1.4;
+    /* Sets the line height for readability */
+    text-transform: uppercase;
+    /* Transforms text to uppercase */
+    color: #000;
+    /* Sets text color to black */
+    max-width: 500px;
+    /* Limits the width of the paragraph for readability */
+}
+
+.app-visual-column {
+    flex: 1;
+    /* Allows the visual column to grow and fill available space */
+    display: flex;
+    /* Uses Flexbox for centering content */
+    justify-content: center;
+    /* Centers content horizontally */
+    align-items: center;
+    /* Centers content vertically */
+    position: relative;
+    /* Establishes a positioning context for children */
+}
+
+.mockup-container {
+    position: relative;
+    /* Establishes a positioning context for absolute children (gradient) */
+    width: 100%;
+    /* Sets width to 100% of parent */
+    max-width: 400%;
+    /* Allows container to be very wide (override) */
+    z-index: 1;
+    /* Sets stacking order */
+}
+
+.mockup-container img {
+    width: 200%;
+    /* Magnifies image to 200% of container width */
+    max-width: none;
+    /* Removes max-width restriction */
+    margin-left: -50%;
+    margin-right: -50%;
+    /* Shifts image to the left to center it */
+    margin-top: 20%;
+    /* Pushes image down */
+    height: auto;
+    /* Maintains aspect ratio */
+    display: block;
+    /* Removes inline spacing */
+}
+
+
+
+.rotated-asset img {
+    transform: rotate(-50deg);
+    width: 200%;
+    margin-left: -60%;
+    margin-top: 0%;
+    /* Rotates only the image -45 degrees */
+}
+
+/* Gradient Overlay from Bottom */
+.mockup-container::after {
+    content: '';
+    /* Creates a pseudo-element */
+    position: absolute;
+    /* Positions it absolutely relative to container */
+    bottom: -1px;
+    /* Aligns to bottom with slight overlap */
+    left: -50%;
+    /* Aligns to left edge */
+    width: 200%;
+    /* Full width */
+    height: 50%;
+    /* Covers bottom 50% of the container */
+    background: linear-gradient(to top, #c5c5c5 60%, rgba(197, 197, 197, 0) 100%);
+    /* Creates fade effect */
+    pointer-events: none;
+    /* Allows clicks to pass through */
+    z-index: 2;
+    /* Sits on top of the image */
+}
+
+/* Adjustments for Hunt Session Section */
+.hunt-section .app-text-column {
+    padding-left: 4rem;
+    /* Moves text slightly right */
+}
+
+.hunt-section .mockup-container::after {
+    display: block;
+    /* Re-enable gradient */
+    background: linear-gradient(to top, #c5c5c5 50%, rgba(197, 197, 197, 0) 80%);
+    /* Specific gradient for rotated asset */
+    height: 90%;
+    /* Full height to cover rotated aspect */
+    bottom: -20%;
+    /* Lower padding */
+    left: -60%;
+    /* Match margin */
+}
+
+@media (max-width: 900px) {
+    .app-split-section {
+        flex-direction: column;
+        /* Stacks items vertically on small screens */
+        padding: 4rem 2rem;
+        /* Adds padding */
+        gap: 2rem;
+        /* Adds gap between items */
+        text-align: center;
+        /* Centers text */
+    }
+
+    .app-split-section.reverse-layout {
+        flex-direction: column;
+        /* Stacks items vertically even for reverse layout */
+    }
+
+    .app-text-column {
+        align-items: center;
+        /* Centers text items horizontally */
+    }
+
+    .app-text-column h2 {
+        font-size: 3rem;
+        /* Reduces font size for headings */
+    }
+}

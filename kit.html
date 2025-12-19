@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kit</title>
+    <link rel="icon" href="asset/loghi/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/aol2lxx.css">
+    <!-- Three.js and GLTFLoader -->
+
+</head>
+
+<body>
+    <nav class="main-navbar">
+        <div class="nav-logo-container">
+            <a href="index.html">
+                <img src="asset/immagini/logo_orange.png" alt="Reclaim Logo" class="nav-logo">
+            </a>
+
+        </div>
+        <div class="hamburger-menu" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <ul class="nav-links-mobile">
+            <li><a href="index.html">>Manifesto</a></li>
+            <li><a href="kit.html" class="active">>Kit</a></li>
+            <li><a href="app.html">>App</a></li>
+            <li><a href="badges.html">>Badges</a></li>
+            <li><a href="about.html">>About</a></li>
+        </ul>
+    </div>
+    <script src="ui_interactions.js"></script>
+
+    <!-- News Ticker -->
+    <a href="app.html" class="news-ticker-bar">
+        <div class="news-ticker-content">
+            JOIN RECLAIM -------------------- STOP THE INVASION -------------------- JOIN RECLAIM --------------------
+            STOP THE INVASION -------------------- JOIN RECLAIM -------------------- STOP THE INVASION
+            -------------------- JOIN RECLAIM -------------------- STOP THE INVASION --------------------
+        </div>
+    </a>
+
+    <!-- Info Bar -->
+    <div class="info-bar">
+        <div class="info-item" id="info-ip">LOCATING...</div>
+        <div class="info-item" id="info-counter">10,000</div>
+        <div class="info-item" id="info-time">--:--:--</div>
+    </div>
+
+    <!-- 3D Canvas Container -->
+
+
+    <main class="kit-content">
+        <section class="manifesto-container">
+            <div class="manifesto-header">
+                <div class="scrolling-line">
+                    <div class="scrolling-track scroll-left">
+                        <span>RECLAIM&nbsp;-&nbsp;KIT&nbsp;-&nbsp;RECLAIM&nbsp;-&nbsp;KIT&nbsp;-&nbsp;</span>
+                        <span>RECLAIM&nbsp;-&nbsp;KIT&nbsp;-&nbsp;RECLAIM&nbsp;-&nbsp;KIT&nbsp;-&nbsp;</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <!-- Schematic Layout Section (SCATOLA CHIUSA / APERTA) -->
+        <section class="kit-schematic-section">
+
+            <!-- Box 1: Closed -->
+            <!-- Box 1: Closed -->
+            <div class="box-closed-image-container">
+                <img src="asset/immagini/Structura_box_L_3_x.png" alt="Scatola Chiusa" class="box-image-shadow">
+            </div>
+
+            <!-- Box 2: Open -->
+            <div class="box-open-image-container">
+                <div class="box-image-wrapper">
+                    <img src="asset/immagini/scatola_aperta.png" alt="Scatola Aperta" class="box-image-shadow">
+
+                    <!-- Annotations -->
+                    <div class="kit-callout" style="top: 28%; right: -25%; width: 75%;">
+                        <div class="callout-line"></div>
+                        <span class="callout-label">GUN</span>
+                    </div>
+
+                    <div class="kit-callout" style="top: 59%; left: -25%; width: 83%;">
+                        <span class="callout-label">AMMO</span>
+                        <div class="callout-line"></div>
+                    </div>
+
+                    <div class="kit-callout" style="top: 65%; left: -25%; width: 64%;">
+                        <span class="callout-label">STENCIL</span>
+                        <div class="callout-line"></div>
+                    </div>
+
+                    <div class="kit-callout" style="top: 78%; left: -25%; width: 46%;">
+                        <span class="callout-label">SPRAY CAN</span>
+                        <div class="callout-line"></div>
+                    </div>
+
+                    <div class="kit-callout" style="top: 70%; right: -25%; width: 47%;">
+                        <div class="callout-line"></div>
+                        <span class="callout-label">BROCHURE</span>
+                    </div>
+
+                    <div class="kit-callout" style="top: 78%; right: -25%; width: 68%;">
+                        <div class="callout-line"></div>
+                        <span class="callout-label">WELCOME BADGE</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </section>
+
+        </section>
+        <!-- Fixed Checkout Footer -->
+        <div class="checkout-footer">
+            <a href="#" class="stencil-button checkout-button">SHOP NOW</a>
+        </div>
+    </main>
+
+    <footer>
+        <div>&copy; 2027 RECLAIM. ALL RIGHTS RESERVED.</div>
+        <div class="footer-links">
+            <a href="#">TERMS & CONDITIONS</a>
+            <a href="#">PRIVACY POLICY</a>
+            <a href="#">CONTACT</a>
+        </div>
+    </footer>
+
+    <script src="cursor.js"></script>
+    <script src="info_bar.js"></script>
+    <script src="scroll_detector.js"></script>
+    <script src="hacker_text.js"></script>
+    <script type="module" src="kit_3d.js"></script>
+
+</body>
+
+</html>

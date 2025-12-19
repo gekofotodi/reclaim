@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RECLAIM</title>
+    <link rel="icon" href="asset/loghi/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/aol2lxx.css">
+</head>
+
+<body>
+    <nav class="main-navbar">
+        <div class="nav-logo-container">
+            <a href="index.html">
+                <img src="asset/immagini/logo_orange.png" alt="Reclaim Logo" class="nav-logo">
+            </a>
+
+        </div>
+        <div class="hamburger-menu" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <ul class="nav-links-mobile">
+            <li><a href="index.html" class="active">>Manifesto</a></li>
+            <li><a href="kit.html">>Kit</a></li>
+            <li><a href="app.html">>App</a></li>
+            <li><a href="badges.html">>Badges</a></li>
+            <li><a href="about.html">>About</a></li>
+        </ul>
+    </div>
+    <script src="ui_interactions.js"></script>
+
+    <!-- (News Ticker and Info Bar code remains roughly same, implicit update via diffing scope if possible, but simplest to target specific sections) -->
+    <!-- Wait, I am using replace_file_content which requires StartLine/EndLine from the file I read. I read the file before it was renamed to index.html. The lines should match. -->
+
+    <a href="app.html" class="news-ticker-bar">
+        <div class="news-ticker-content">
+            JOIN RECLAIM -------------------- STOP THE INVASION -------------------- JOIN RECLAIM --------------------
+            STOP THE INVASION -------------------- JOIN RECLAIM -------------------- STOP THE INVASION
+            -------------------- JOIN RECLAIM -------------------- STOP THE INVASION -------------------- JOIN RECLAIM
+            -------------------- STOP THE INVASION -------------------- JOIN RECLAIM -------------------- STOP THE
+            INVASION -------------------- JOIN RECLAIM -------------------- STOP THE INVASION -------------------- JOIN
+            RECLAIM -------------------- STOP THE INVASION --------------------
+        </div>
+    </a>
+
+    <!-- Info Bar -->
+    <div class="info-bar">
+        <div class="info-item" id="info-ip">LOCATING...</div>
+        <div class="info-item" id="info-counter">10,000</div>
+        <div class="info-item" id="info-time">--:--:--</div>
+    </div>
+
+    <main>
+        <section class="manifesto-container">
+            <div class="manifesto-header">
+                <!-- Top Line: Right to Left -->
+                <div class="scrolling-line">
+                    <div class="scrolling-track scroll-left">
+                        <span>RECLAIM&nbsp;-&nbsp;MANIFESTO&nbsp;-&nbsp;RECLAIM&nbsp;-&nbsp;MANIFESTO&nbsp;-&nbsp;</span>
+                        <span>RECLAIM&nbsp;-&nbsp;MANIFESTO&nbsp;-&nbsp;RECLAIM&nbsp;-&nbsp;MANIFESTO&nbsp;-&nbsp;</span>
+                    </div>
+                </div>
+                <!-- Bottom Line: Left to Right (Rotated) -->
+
+            </div>
+            <div class="manifesto-text">
+                <img src="asset/immagini/manifesto.png" alt="Manifesto Text">
+            </div>
+
+            <div class="stencil-button-container">
+                <a href="asset/loghi/logo.png" download="logo.png" class="stencil-button">Download Stencil</a>
+                <a href="asset/immagini/manifesto.png" download="manifesto.png" class="stencil-button">Download
+                    Manifesto</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>&copy; 2027 RECLAIM. ALL RIGHTS RESERVED.</div>
+        <div class="footer-links">
+            <a href="#">TERMS & CONDITIONS</a>
+            <a href="#">PRIVACY POLICY</a>
+            <a href="#">CONTACT</a>
+        </div>
+    </footer>
+    <script src="cursor.js"></script>
+    <script src="info_bar.js"></script>
+    <script src="scroll_detector.js"></script>
+    <script src="hacker_text.js"></script>
+</body>
+
+</html>

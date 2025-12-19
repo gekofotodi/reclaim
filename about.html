@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="icon" href="asset/loghi/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://use.typekit.net/aol2lxx.css">
+    <style>
+        /* Specific adjustments for About page versions of split sections */
+        .app-split-section {
+            max-height: none;
+            height: auto;
+            min-height: 60vh;
+            padding: 6rem 15rem;
+            /* Increased padding to bring everything to center */
+            max-width: none;
+            display: flex;
+            align-items: center;
+            gap: 6rem;
+            /* Space between text and image */
+        }
+
+        .app-split-section.reverse-layout {
+            padding: 6rem 15rem;
+        }
+
+        .about-visual img {
+            width: 400px !important;
+            /* Fixed width */
+            height: 600px !important;
+            /* Fixed height for consistency */
+            margin: 0 !important;
+            transform: none !important;
+            object-fit: cover;
+            /* Ensures image fills the area without distortion */
+            display: block;
+        }
+
+
+        .about-visual::after {
+            display: none !important;
+        }
+
+        .about-visual {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            /* Center image within its column to bring it inward */
+        }
+
+        /* Standardize text column for About page */
+        .app-text-column p {
+            max-width: none;
+            /* Let the padding control the width */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header-gradient-overlay"></div>
+
+    <nav class="main-navbar">
+        <div class="nav-logo-container">
+            <a href="index.html">
+                <img src="asset/immagini/logo_orange.png" alt="Reclaim Logo" class="nav-logo">
+            </a>
+        </div>
+        <div class="hamburger-menu" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <ul class="nav-links-mobile">
+            <li><a href="index.html">>Manifesto</a></li>
+            <li><a href="kit.html">>Kit</a></li>
+            <li><a href="app.html">>App</a></li>
+            <li><a href="badges.html">>Badges</a></li>
+            <li><a href="about.html" class="active">>About</a></li>
+        </ul>
+    </div>
+    <script src="ui_interactions.js"></script>
+
+    <!-- News Ticker -->
+    <a href="app.html" class="news-ticker-bar">
+        <div class="news-ticker-content">
+            JOIN RECLAIM -------------------- STOP THE INVASION -------------------- JOIN RECLAIM --------------------
+            STOP THE INVASION -------------------- JOIN RECLAIM -------------------- STOP THE INVASION
+            -------------------- JOIN RECLAIM -------------------- STOP THE INVASION --------------------
+        </div>
+    </a>
+
+    <!-- Info Bar -->
+    <div class="info-bar">
+        <div class="info-item" id="info-ip">LOCATING...</div>
+        <div id="info-counter">10,000</div>
+        <div class="info-item" id="info-time">--:--:--</div>
+    </div>
+
+    <main>
+        <section class="manifesto-container">
+            <div class="manifesto-header">
+                <div class="scrolling-line">
+                    <div class="scrolling-track scroll-left">
+                        <span>RECLAIM&nbsp;-&nbsp;ABOUT&nbsp;-&nbsp;RECLAIM&nbsp;-&nbsp;ABOUT&nbsp;-&nbsp;</span>
+                        <span>RECLAIM&nbsp;-&nbsp;ABOUT&nbsp;-&nbsp;RECLAIM&nbsp;-&nbsp;ABOUT&nbsp;-&nbsp;</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section (Now at the top) -->
+        <section class="map-section"
+            style="width: 100vw; height: 100vh; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+            <video autoplay muted loop playsinline class="hero-video-placeholder"
+                style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <source src="asset/video/trailer_reclaim.mp4" type="video/mp4">
+            </video>
+        </section>
+
+
+
+        <div class="content-section" style="padding: 0; margin-top: 4rem;">
+            <!-- Section 1: THE STRUGGLE -->
+            <section class="app-split-section">
+                <div class="app-text-column">
+                    <h2>THE<br>STRUGGLE</h2>
+                    <p>Streets are suffocated. Neighborhoods are held hostage. Places are slowly stripped from local
+                        hands—the exception has become the norm: the city is deafening, and the resident's voice goes
+                        unheard. Travelers, investors, visitors—they are not guests, they are the symptoms of an
+                        infection. They are the beneficiaries of a system that forces us to be secondary in our own
+                        lives.<br><br>
+                        When systems stall and society no longer asks whether a solution is ethical, but how usable,
+                        immediate, and transformative it is, RECLAIM comes in as a way to re-establish boundaries,
+                        reassert presence, and recover ownership of our spaces. The principle is simple: when balance is
+                        lost, we build the tools to restore it.</p>
+                </div>
+                <div class="app-visual-column">
+                    <div class="mockup-container about-visual">
+                        <img src="asset/immagini/about1v.jpeg" alt="The Struggle">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: THE SOLUTION (Reverse Layout) -->
+            <section class="app-split-section reverse-layout">
+                <div class="app-text-column">
+                    <h2>THE<br>SOLUTION</h2>
+                    <p>RECLAIM is an immersive, physical gaming experience engineered as a practical solution to the
+                        systemic malaise of over-tourism and cultural displacement.<br><br>
+                        The game is a literal embodiment of the principle of "taking back what has been taken"—one's
+                        space, one's utility, one's daily rhythm. By requiring players to use physical tools to interact
+                        with and mark their territory, RECLAIM becomes a ritual of re-ownership. It is a refusal to
+                        remain a passive, secondary figure in one's own life, by forcing the residents to stop asking
+                        permission for their existence and to start asserting it through clear, physical action.</p>
+                </div>
+                <div class="app-visual-column">
+                    <div class="mockup-container about-visual">
+                        <img src="asset/immagini/about2v.jpg" alt="The Solution">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: THE RECLAMATION -->
+            <section class="app-split-section">
+                <div class="app-text-column">
+                    <h2>THE<br>RECLAMATION</h2>
+                    <p>RECLAIM is a mechanism for turning invisible grievances—the daily erosion of calm, the weight of
+                        being "overlooked"—into visible, strategic engagement. It is a call to move beyond mere critique
+                        and to engage in a deliberate, deterministic act of control through action, forging a real-world
+                        path toward re-establishing a relationship with the place one calls home and freeing the city
+                        from the invasion of tourists.</p>
+                </div>
+                <div class="app-visual-column">
+                    <div class="mockup-container about-visual">
+                        <img src="asset/immagini/about3v.jpeg" alt="The Reclamation">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Map Section (Now at the bottom) -->
+        <section class="home-hero"
+            style="margin-top: 5rem; width: 100vw; height: 100vh; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+            <div style="position: relative; width: 100%; height: 100%;">
+                <img src="asset/immagini/map.png" alt="Global Network Map" class="full-screen-map"
+                    style="width: 100%; height: 100%; object-fit: cover; display: block;">
+
+
+                <!-- Map Markers -->
+                <div class="map-marker" id="marker-milan" style="top: 28%; left: 52%;"
+                    data-tooltip="COORD: 45.46, 9.19&#10;TIME: --:--&#10;CITY: MILAN&#10;SOLDIERS: 420">
+                    <div class="map-marker-icon"></div>
+                </div>
+
+                <div class="map-marker" id="marker-tokyo" style="top: 32%; left: 88%;"
+                    data-tooltip="COORD: 35.68, 139.76&#10;TIME: --:--&#10;CITY: TOKYO&#10;SOLDIERS: 850">
+                    <div class="map-marker-icon"></div>
+                </div>
+
+                <div class="map-marker" id="marker-nairobi" style="top: 50%; left: 60%;"
+                    data-tooltip="COORD: -1.29, 36.82&#10;TIME: --:--&#10;CITY: NAIROBI&#10;SOLDIERS: 315">
+                    <div class="map-marker-icon"></div>
+                </div>
+
+                <div class="map-marker" id="marker-nyc" style="top: 30%; left: 29%;"
+                    data-tooltip="COORD: 40.71, -74.00&#10;TIME: --:--&#10;CITY: NEW YORK&#10;SOLDIERS: 600">
+                    <div class="map-marker-icon"></div>
+                </div>
+
+                <div class="map-marker" id="marker-ba" style="top: 70%; left: 33%;"
+                    data-tooltip="COORD: -34.60, -58.38&#10;TIME: --:--&#10;CITY: BUENOS AIRES&#10;SOLDIERS: 290">
+                    <div class="map-marker-icon"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Footer CTA -->
+        <div class="footer-cta reveal-on-scroll">
+            <a href="kit.html" class="cta-button">Join Reclaim</a>
+        </div>
+    </main>
+
+    <footer>
+        <div>&copy; 2027 RECLAIM. ALL RIGHTS RESERVED.</div>
+        <div class="footer-links">
+            <a href="#">TERMS & CONDITIONS</a>
+            <a href="#">PRIVACY POLICY</a>
+            <a href="#">CONTACT</a>
+        </div>
+    </footer>
+
+    <script src="cursor.js"></script>
+    <script src="info_bar.js"></script>
+    <script src="hacker_text.js"></script>
+    <script src="map_dynamics.js"></script>
+    <script src="scroll_detector.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <link rel="icon" href="asset/loghi/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://use.typekit.net/aol2lxx.css">
+</head>
+
+<body>
+    <nav class="main-navbar">
+        <div class="nav-logo-container">
+            <a href="index.html">
+                <img src="asset/immagini/logo_orange.png" alt="Reclaim Logo" class="nav-logo">
+            </a>
+
+        </div>
+        <div class="hamburger-menu" id="hamburger-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <ul class="nav-links-mobile">
+            <li><a href="index.html">>Manifesto</a></li>
+            <li><a href="kit.html">>Kit</a></li>
+            <li><a href="app.html" class="active">>App</a></li>
+            <li><a href="badges.html">>Badges</a></li>
+            <li><a href="about.html">>About</a></li>
+        </ul>
+    </div>
+    <script src="ui_interactions.js"></script>
+
+    <a href="app.html" class="news-ticker-bar">
+        <div class="news-ticker-content">
+            JOIN RECLAIM -------------------- STOP THE INVASION -------------------- JOIN RECLAIM --------------------
+            STOP THE INVASION -------------------- JOIN RECLAIM -------------------- STOP THE INVASION
+            -------------------- JOIN RECLAIM -------------------- STOP THE INVASION --------------------
+        </div>
+    </a>
+
+    <!-- Info Bar -->
+    <div class="info-bar">
+        <div class="info-item" id="info-ip">LOCATING...</div>
+        <div class="info-item" id="info-counter">10,000</div>
+        <div class="info-item" id="info-time">--:--:--</div>
+    </div>
+
+    <main>
+        <section class="manifesto-container">
+            <div class="manifesto-header">
+                <div class="scrolling-line">
+                    <div class="scrolling-track scroll-left">
+                        <span>RECLAIM&nbsp;-&nbsp;APP&nbsp;-&nbsp;RECLAIM&nbsp;-&nbsp;APP&nbsp;-&nbsp;</span>
+                        <span>RECLAIM&nbsp;-&nbsp;APP&nbsp;-&nbsp;RECLAIM&nbsp;-&nbsp;APP&nbsp;-&nbsp;</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Horizontal Carousel Section -->
+        <!-- App Split Layout Section -->
+        <section class="app-split-section">
+            <div class="app-text-column">
+                <h2>HOME</h2>
+                <p>ACCESS THE RECLAIM NETWORK THROUGH OUR SECURE MOBILE TERMINAL. TRACK YOUR IMPACT, CLAIM TERRITORIES,
+                    AND COORDINATE WITH THE COLLECTIVE. DESIGNED FOR STEALTH, OPTIMIZED FOR ACTION.</p>
+            </div>
+            <div class="app-visual-column">
+                <div class="mockup-container">
+                    <!-- Using home_app.PNG as the showcase mockup -->
+                    <img src="asset/immagini/mockapp_1.png" alt="Reclaim App Interface">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Text Right, Image Left -->
+        <section class="app-split-section reverse-layout hunt-section">
+            <div class="app-text-column">
+                <h2>HUNT<br>SESSION</h2>
+                <p>ACCESS THE RECLAIM NETWORK THROUGH OUR SECURE MOBILE TERMINAL. TRACK YOUR IMPACT, CLAIM TERRITORIES,
+                    AND COORDINATE WITH THE COLLECTIVE. DESIGNED FOR STEALTH, OPTIMIZED FOR ACTION.</p>
+            </div>
+            <div class="app-visual-column">
+                <div class="mockup-container rotated-asset">
+                    <img src="asset/immagini/mockapp_2.png" alt="Reclaim App Interface">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Text Left, Image Right -->
+        <section class="app-split-section">
+            <div class="app-text-column">
+                <h2>ARCHIVE</h2>
+                <p>ACCESS THE RECLAIM NETWORK THROUGH OUR SECURE MOBILE TERMINAL. TRACK YOUR IMPACT, CLAIM TERRITORIES,
+                    AND COORDINATE WITH THE COLLECTIVE. DESIGNED FOR STEALTH, OPTIMIZED FOR ACTION.</p>
+            </div>
+            <div class="app-visual-column">
+                <div class="mockup-container">
+                    <img src="asset/immagini/mockapp_3.png" alt="Reclaim App Interface">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Text Right, Image Left -->
+        <section class="app-split-section reverse-layout">
+            <div class="app-text-column">
+                <h2>GUN & BADGES</h2>
+                <p>ACCESS THE RECLAIM NETWORK THROUGH OUR SECURE MOBILE TERMINAL. TRACK YOUR IMPACT, CLAIM TERRITORIES,
+                    AND COORDINATE WITH THE COLLECTIVE. DESIGNED FOR STEALTH, OPTIMIZED FOR ACTION.</p>
+            </div>
+            <div class="app-visual-column">
+                <div class="mockup-container">
+                    <img src="asset/immagini/mockapp_4.png" alt="Reclaim App Interface">
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Text Left, Image Right -->
+        <section class="app-split-section">
+            <div class="app-text-column">
+                <h2>WALL</h2>
+                <p>ACCESS THE RECLAIM NETWORK THROUGH OUR SECURE MOBILE TERMINAL. TRACK YOUR IMPACT, CLAIM TERRITORIES,
+                    AND COORDINATE WITH THE COLLECTIVE. DESIGNED FOR STEALTH, OPTIMIZED FOR ACTION.</p>
+            </div>
+            <div class="app-visual-column">
+                <div class="mockup-container">
+                    <img src="asset/immagini/mockapp_5.png" alt="Reclaim App Interface">
+                </div>
+            </div>
+        </section>
+
+        <!-- Fixed Checkout Footer -->
+        <div class="checkout-footer">
+            <a href="#" class="stencil-button checkout-button">DOWNLOAD NOW</a>
+        </div>
+    </main>
+
+    <footer>
+        <div>&copy; 2027 RECLAIM. ALL RIGHTS RESERVED.</div>
+        <div class="footer-links">
+            <a href="#">TERMS & CONDITIONS</a>
+            <a href="#">PRIVACY POLICY</a>
+            <a href="#">CONTACT</a>
+        </div>
+    </footer>
+    <script src="cursor.js"></script>
+    <script src="info_bar.js"></script>
+    <script src="scroll_detector.js"></script>
+    <script src="hacker_text.js"></script>
+    <script>
+        // No carousel logic needed
+    </script>
+</body>
+
+</html>

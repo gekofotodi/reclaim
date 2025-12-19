@@ -1,0 +1,1307 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+@import url('catalog.css');
+@import url('kit_layout.css');
+
+@font-face {
+    font-family: 'Codeink';
+    src: url('CODEINK TYPEFACE/CODEINK-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Necto Mono font face removed */
+
+:root {
+    --bg-color: #050505;
+    --text-color: #ffffff;
+    --accent-color: #a0a0a0;
+    --hover-color: #d0d0d0;
+    --border-color: #333;
+    --dot-inactive: #333;
+    --dot-active: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #c5c5c5;
+    /* Main bg as requested */
+    color: #000000;
+    /* Black text on grey background */
+    text-transform: uppercase;
+    /* ALL CAPS */
+    font-family: "cofo-sans-mono-variable", "Necto Mono", monospace;
+    font-weight: 400;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-left: 0;
+    /* Removed padding since sidebar is gone */
+    overflow-x: hidden;
+}
+
+/* Custom Scrollbar Removed for Native appearing behavior */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "neue-haas-unica", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+/* Header & Navigation (Dropdown) */
+/* The header allows space for the dropdown */
+header {
+    display: none;
+    /* Main header remains hidden/unused if structure relies on nav */
+}
+
+/* Header Protection Overlay */
+/* Header Protection Overlay removed */
+.header-gradient-overlay {
+    display: none;
+}
+
+/* was: position fixed... */
+
+.logo {
+    display: none;
+}
+
+
+/* Dropdown Menu Container - Top Left */
+/* Main Navbar - Below Info Bar */
+.main-navbar {
+    position: fixed;
+    top: 72px;
+    /* Ticker (27) + Info (45) */
+    left: 0;
+    width: 100%;
+    height: 60px;
+    /* Logo row height */
+    z-index: 1998;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Ensures vertical centering */
+    padding: 0 2rem;
+    background-color: transparent;
+    /* Or #d0d0d0 if needed to match info bar, but logo is below */
+    /* If the design implies the logo is floating on the page bg, keep transparent.
+       But since it's fixed, it should probably overlap content if scrolled.
+       Let's stick to transparent if the "header" concept ends at info bar,
+       but if this is part of the header, it likely needs a background. */
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    /* placeholder */
+    z-index: 2010;
+    /* Ensure on top of overlay */
+    height: 60px;
+    /* Explicit height */
+    box-sizing: border-box;
+    /* Safe measure */
+}
+
+.nav-logo-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    /* Fill parent to center vertically if needed */
+}
+
+.nav-logo {
+    width: 40px;
+    /* Larger logo */
+    height: auto;
+    display: block;
+    /* Remove baseline aligns */
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-logo-container a:hover {
+    opacity: 1;
+}
+
+
+
+.hamburger-menu {
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 2005;
+    /* Above menu overlay */
+    margin-top: 0;
+    /* Clear any margins */
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #ff3c01;
+    transition: all 0.3s ease;
+}
+
+/* Hamburger Animation State */
+.hamburger-menu.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    /* or partial width e.g., 50% */
+    max-width: 400px;
+    /* Side drawer style */
+    height: 100vh;
+    background-color: #050505;
+    z-index: 2002;
+    /* Above navbar */
+    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 100px 2rem 2rem 2rem;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-menu-overlay.active {
+    right: 0;
+}
+
+.nav-links-mobile {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.nav-links-mobile a {
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-size: 1.5rem;
+    /* Reduced from 2rem */
+    color: #97f106;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.nav-links-mobile a:hover {
+    color: #ffffff;
+}
+
+.nav-links-mobile a.active {
+    background-color: #97f106;
+    color: #000000;
+    padding: 0.25rem 0.5rem;
+    display: inline-block;
+}
+
+/* Clean up old nav styles in range */
+
+
+/* Old Nav Children Clean Up */
+.sidebar-logo {
+    display: none;
+}
+
+.nav-links {
+    display: none;
+}
+
+
+/* Main Content */
+main {
+    flex: 1;
+    /* Removed padding to allow full width hero */
+    width: 100%;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+}
+
+p {
+    color: #000000;
+    font-size: 1.1rem;
+    max-width: 600px;
+}
+
+/* Home Page Redesign Styles */
+
+/* Hero */
+.home-hero {
+    height: 100vh;
+    width: 100%;
+    /* Will be strictly inside the padded body */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-video-placeholder {
+    width: 100%;
+    /* Remove height 100% to let aspect ratio dictate */
+    aspect-ratio: 9/16;
+    object-fit: cover;
+    /* Cover is usually better for filling specific aspect ratio containers */
+    max-height: 100vh;
+    /* Ensure it doesn't overflow screen improperly if needed */
+    background-color: #1a1a1a;
+    background: radial-gradient(circle, #2a2a2a 0%, #050505 100%);
+    /* Visual placeholder for video */
+}
+
+/* Content Blocks */
+.content-section {
+    padding: 0 4rem 10rem 4rem;
+    /* Top padding 0, gap handled by header margin */
+    max-width: 100%;
+    /* Fill horizontal */
+    margin: 0 auto;
+}
+
+.content-block {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 6rem;
+    margin-bottom: 10rem;
+    opacity: 0;
+    /* Initial state for reveal */
+    transform: translateY(50px);
+    transition: all 1s ease-out;
+}
+
+.content-block.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.content-block.reverse {
+    flex-direction: row-reverse;
+}
+
+.text-block {
+    flex: 1;
+}
+
+.media-block {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.media-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+}
+
+.media-placeholder.portrait {
+    aspect-ratio: 9/16;
+    max-width: 350px;
+}
+
+.impact-text-block {
+    text-align: center;
+    margin-bottom: 4rem;
+    /* Reduced from 10rem */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease-out;
+    padding-top: 4rem;
+}
+
+.impact-text-block.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.impact-text {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    background: linear-gradient(to right, #fff, #666);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    /* Standard property for compatibility */
+}
+
+/* Full Width Video */
+.full-width-video-section {
+    margin-bottom: 20rem;
+    /* Give space for scrolling past it */
+    opacity: 1;
+    /* Parallax will handle opacity/transform if needed, or keep reveal */
+    /* Remove reveal transition if conflicting with parallax, or keep it */
+    padding: 0 2rem;
+}
+
+.full-width-placeholder {
+    width: 100%;
+    aspect-ratio: 9/16;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+}
+
+/* Footer CTA - Static Bottom Right */
+.footer-cta {
+    display: flex;
+    justify-content: flex-end;
+    /* Align to right */
+    padding: 2rem 4rem 4rem 2rem;
+    max-width: 100%;
+    margin: 0 auto;
+    width: 100%;
+    /* Remove fixed positioning and transition logic related to floating */
+    opacity: 1;
+    /* Always visible in flow (layout wise), or let reveal animation handle it */
+    transform: none;
+    pointer-events: auto;
+    position: relative;
+    /* Static flow */
+    bottom: auto;
+    left: auto;
+}
+
+.footer-cta.is-visible {
+    /* If keeping reveal animation, handle opacity here, but removing floating logic */
+    display: none;
+    /* User requested removal */
+    opacity: 0;
+    transform: none;
+}
+
+.footer-cta {
+    display: none;
+    /* User requested removal */
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    font-size: 1rem;
+    font-weight: 400;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.cta-button:hover {
+    background-color: #ccc;
+}
+
+/* Parallax enabled elements default state - let JS handle transform */
+.parallax-item {
+    transition: transform 0.1s linear;
+    /* Smooth parallax updates */
+    will-change: transform;
+}
+
+
+/* Footer Specific Override */
+/* Footer Specific Override - Fixed Bottom Right */
+/* Footer Specific Override - Fixed Bottom Bar */
+/* Info Bar (IP, Counter, Time) */
+.info-bar {
+    position: fixed;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    background-color: #d0d0d0;
+    z-index: 1999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-size: 1rem;
+    color: #ff3c01;
+    border: none;
+}
+
+.info-bar:hover {
+    z-index: 3050;
+    /* Ensure tooltips are above navbar (2010) and logo */
+}
+
+
+#info-counter {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: auto;
+}
+
+
+.info-item {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0 0.5rem;
+    /* Padding for hover box */
+    position: relative;
+    /* For tooltip positioning */
+    display: inline-block;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.info-item:hover {
+    background-color: #ff3c01;
+    /* Orange background */
+    color: #000000;
+    /* Black text */
+    text-decoration: none;
+}
+
+/* Tooltip (Info Box "below") */
+.info-item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #000000;
+    color: #97f106;
+    padding: 0.5rem;
+    font-size: 1rem;
+    /* Increased size slightly to match image better */
+    white-space: pre;
+    /* Allows newlines */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-5px);
+    transition: all 0.2s ease;
+    border: none;
+    /* No border */
+    margin-top: 0;
+    /* Attached to element */
+    display: none;
+    z-index: 3000;
+    /* Ensure on top of logo and menu */
+    text-align: left;
+
+    font-family: "cofo-sans-mono-variable",
+        monospace;
+    font-weight: 400;
+    /* Regular */
+    line-height: 1.2;
+    text-transform: uppercase;
+    /* Uppercase as requested */
+}
+
+.info-item:last-child::after {
+    left: auto;
+    right: 0;
+    text-align: right;
+    transform: translateY(-5px);
+    /* Keep Y transform */
+}
+
+.info-item:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+}
+
+footer {
+    position: relative;
+    /* Removing fixed positioning, letting it flow naturally */
+    width: 100%;
+    /* Full width of the content container (body uses padding-left) */
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000000;
+    /* Black bar */
+    color: #97f106;
+    /* Neon green text */
+    color: #97f106;
+    /* Neon green text */
+    font-size: 0.75rem;
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-weight: 400;
+    font-weight: 400;
+    /* Regular */
+    z-index: 9991;
+    /* High enough to be above stamps but below cursor */
+    border-top: none;
+    text-align: left;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: auto;
+    /* Pushes footer to bottom if flex container has space */
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    text-align: right;
+}
+
+.footer-links a {
+    color: #97f106;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* News Ticker Bar */
+.news-ticker-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: #ff3c01;
+    color: #050505;
+    z-index: 2000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-family: "cofo-sans-mono-variable", monospace;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.news-ticker-bar:hover {
+    opacity: 0.9;
+}
+
+
+
+.news-ticker-content {
+    white-space: nowrap;
+    padding-left: 0;
+    /* Seamless loop */
+    display: inline-block;
+    animation: news-ticker-scroll 30s linear infinite;
+}
+
+@keyframes news-ticker-scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+        /* Move half the width (the first copy) */
+    }
+}
+
+/* Map Section */
+.map-section {
+    width: 100%;
+    /* Adaptive width filling the main container (screen) */
+    height: calc(100vh - 132px);
+    /* Full height minus top bars (27 + 45 + 60) */
+    /* Full height minus top bars (27+45) approx? Or just 100vh. */
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    margin-top: 5rem;
+    /* Space from previous content */
+}
+
+.full-screen-map {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(100%) contrast(120%);
+    /* Stylized look */
+}
+
+.map-marker {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+}
+
+.map-marker:hover {
+    transform: scale(1.2);
+}
+
+.map-marker-icon {
+    width: 100%;
+    height: 100%;
+    background: url(asset/immagini/logo_orange.png) no-repeat center / contain;
+}
+
+
+/* Marker Tooltip */
+.map-marker::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    /* Below the marker */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000000;
+    color: #97f106;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    white-space: pre;
+    /* Allows newlines */
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    border: none;
+    /* No border */
+    margin-top: 0;
+    /* Attached */
+    display: none;
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-weight: 400;
+    font-weight: 400;
+    /* Regular */
+    text-align: center;
+    line-height: 1.2;
+    z-index: 2000;
+    text-transform: uppercase;
+    /* Uppercase */
+}
+
+.map-marker:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    display: block;
+}
+
+/* App Showcase Styles (Kept for compatibility) */
+.app-showcase-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6rem;
+    min-height: 70vh;
+    padding: 2rem 0;
+}
+
+.phone-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.phone-frame {
+    width: 320px;
+    /* Aspect ratio 9:19.5 approx */
+    height: 693px;
+    background-color: #1a1a1a;
+    border-radius: 48px;
+    border: 8px solid #333;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+    background-size: cover;
+    background-position: center;
+}
+
+.slide-image.active {
+    opacity: 1;
+}
+
+/* Placeholder styles for visual distinction */
+.slide-placeholder-content {
+    font-size: 5rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.indicators {
+    display: flex;
+    gap: 12px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--dot-inactive);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    background-color: var(--hover-color);
+}
+
+.dot.active {
+    background-color: var(--dot-active);
+    transform: scale(1.2);
+}
+
+.content-column {
+    flex: 1;
+    max-width: 500px;
+    position: relative;
+    height: 300px;
+    /* Fixed height to prevent jumps */
+    display: flex;
+    align-items: center;
+}
+
+.text-slide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease-in-out;
+    width: 100%;
+}
+
+.text-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.text-slide h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.text-slide p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--accent-color);
+}
+
+@media (max-width: 900px) {
+
+    .content-block,
+    .content-block.reverse {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .media-placeholder.portrait {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+
+    .app-showcase-container {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .phone-frame {
+        width: 280px;
+        height: 606px;
+    }
+
+    .content-column {
+        height: auto;
+        min-height: 200px;
+        align-items: flex-start;
+    }
+
+    .text-slide {
+        position: relative;
+        top: 0;
+        transform: none;
+        display: none;
+    }
+
+    .text-slide.active {
+        display: block;
+    }
+}
+
+/* Manifesto Styles */
+.manifesto-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    /* Removed min-height 100vh to allow content to flow closer */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* Changed from center to flex-start to align titles to top consistently */
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    padding-top: 200px;
+    /* Push content down to avoid header overlap (approx 132px header + spacing) */
+}
+
+.manifesto-header {
+    width: 100%;
+    margin-bottom: 0;
+    margin-bottom: 30px;
+    /* Gap of 30px between title and content as requested */
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    /* Ensure it is centered by parent flex */
+    flex: 0 0 auto;
+}
+
+.scrolling-line {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 0.9;
+    background-color: transparent;
+}
+
+.scrolling-track {
+    display: flex;
+    white-space: nowrap;
+    width: max-content;
+    will-change: transform;
+    pointer-events: auto;
+    /* Ensure clickable */
+    cursor: default;
+}
+
+.page-title-hacker {
+    font-family: 'Codeink', monospace;
+    font-size: 8rem;
+    font-weight: 400;
+    color: var(--text-color);
+    text-align: center;
+    width: 100%;
+    margin-bottom: 4rem;
+    padding-top: 6rem;
+    /* Space from top */
+    pointer-events: auto;
+}
+
+.scrolling-track span {
+    font-family: 'Codeink', monospace;
+    font-size: 8rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+}
+
+.hacker-char {
+    display: inline-block;
+    pointer-events: auto;
+    transition: color 0.1s;
+}
+
+.hacker-char:hover {
+    color: #ff3c01;
+    /* Orange highlight on hover for feedback */
+}
+
+.static-char {
+    transition: color 0.1s;
+}
+
+.static-char:hover {
+    color: #ff3c01;
+}
+
+.scrolling-track .phrase-container {
+    font-family: 'Codeink', monospace;
+    font-size: 8rem;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--text-color);
+    /* Padding is inline style from JS, but we can enforce it here if we want cleanly */
+}
+
+/* Fallback for noscript or before JS loads */
+.scrolling-track>span:not(.phrase-container) {
+    font-family: 'Codeink', monospace;
+    font-size: 8rem;
+    font-weight: 400;
+}
+
+.scroll-left {
+    animation: marquee-left 40s linear infinite;
+}
+
+.scroll-right {
+    animation: marquee-left 40s linear infinite;
+    /* Use marquee-left because rotation 180 inverts the direction visually, making it go Right on screen */
+}
+
+.rotated-line {
+    transform: rotate(180deg);
+    opacity: 1;
+    /* Ensure the content flow direction is handled by the animation, not just rotation */
+}
+
+@keyframes marquee-left {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-right {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.manifesto-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #000000;
+    text-align: left;
+    margin: 0 auto 4rem auto;
+    max-width: 800px;
+    padding: 2rem 2rem 0 2rem;
+    /* Reduced top padding */
+}
+
+.manifesto-text p {
+    margin-bottom: 2rem;
+    max-width: 100%;
+}
+
+.manifesto-text img {
+    width: 120%;
+    margin-left: -10%;
+    display: block;
+    height: auto;
+}
+
+.stencil-button-container {
+    display: flex;
+    justify-content: center;
+    /* Centered buttons */
+    gap: 1rem;
+    padding-top: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-left: 0;
+    margin-bottom: 6rem;
+    /* Add space before footer */
+}
+
+/* Duplicate stencil-button-container removed */
+
+.stencil-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: transparent;
+    border: 2px solid #ff3c01;
+    color: #ff3c01;
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.stencil-button:hover {
+    background-color: #ff3c01;
+    color: #000000;
+}
+
+/* Kit Page 3D Styles */
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 150px;
+    width: calc(100% - 150px);
+    height: 100vh;
+    z-index: -1;
+    /* Behind content */
+    opacity: 0;
+    /* Fade in when loaded */
+    transition: opacity 1s ease;
+}
+
+#canvas-container.loaded {
+    opacity: 1;
+}
+
+.kit-content {
+    position: relative;
+    z-index: 1;
+    /* Above canvas */
+    padding-top: 0;
+}
+
+.kit-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Default fallback */
+    padding: 4rem 2rem;
+    pointer-events: none;
+    /* Let clicks pass; needs interaction */
+}
+
+.kit-section.right {
+    justify-content: flex-end;
+}
+
+.kit-section.left {
+    justify-content: flex-start;
+}
+
+.kit-text-card {
+    background: #656565;
+    /* Requested text box bg */
+    backdrop-filter: blur(10px);
+    padding: 3rem;
+    border-radius: 16px;
+    border: none;
+    max-width: 600px;
+    text-align: center;
+    pointer-events: auto;
+    /* Re-enable pointer events for text */
+}
+
+.kit-text-card h2 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.kit-text-card p {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 0;
+    /* Override global p margin if strictly controlling layout */
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+
+    /* General Layout */
+    body {
+        font-size: 14px;
+        /* Adjust base font size */
+    }
+
+    .manifesto-container {
+        padding-top: 80px;
+        /* Slightly reduce top padding */
+    }
+
+    .manifesto-header {
+        margin-bottom: 2rem;
+    }
+
+    /* Scrolling Title Adjustment */
+    .scrolling-track span,
+    .scrolling-track .phrase-container,
+    .scrolling-track>span:not(.phrase-container) {
+        font-size: 4rem;
+        /* Reduce giant title size */
+    }
+
+    /* Content Blocks */
+    .content-section {
+        padding: 4rem 1.5rem;
+        /* Reduce side padding */
+    }
+
+    .content-block {
+        flex-direction: column;
+        gap: 3rem;
+        margin-bottom: 6rem;
+    }
+
+    .content-block.reverse {
+        flex-direction: column;
+    }
+
+    .text-block h1 {
+        font-size: 2rem;
+        /* Smaller headings */
+    }
+
+    .text-block p {
+        font-size: 1rem;
+    }
+
+    /* Map Section */
+    .map-section {
+        height: 60vh;
+        /* Smaller map area */
+        margin-top: 3rem;
+    }
+
+    .full-screen-map {
+        object-fit: cover;
+    }
+
+    /* Footer */
+    footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: center;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .footer-links {
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Stencil Buttons */
+    .stencil-button-container {
+        flex-direction: column;
+        align-items: center;
+        padding-left: 0;
+    }
+
+    .stencil-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Info Bar & Nav */
+    .info-bar {
+        left: 0;
+        width: 100%;
+        padding-left: 60px;
+        /* Space for menu toggle if needed, or just overlapping */
+        font-size: 0.6rem;
+    }
+
+    nav {
+        width: 50px;
+        /* Collapsed */
+    }
+
+    nav:hover {
+        width: 100%;
+        /* Expand on interaction */
+    }
+
+    .sidebar-logo {
+        margin: 3px 13px;
+    }
+
+}
+
+/* Counter Animation Styles */
+.digit-wrapper {
+    display: inline-block;
+    height: 1.2em;
+    line-height: 1.2em;
+    overflow: hidden;
+    position: relative;
+    vertical-align: text-bottom;
+}
+
+.digit-slider {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+}
+
+.digit-char {
+    height: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
