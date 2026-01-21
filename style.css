@@ -38,6 +38,7 @@ body {
     font-family: "cofo-sans-mono-variable", "Necto Mono", monospace;
     font-weight: 400;
     line-height: 1.6;
+    letter-spacing: -0.025em;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -191,7 +192,7 @@ header {
     right: -100%;
     width: 100%;
     /* or partial width e.g., 50% */
-    max-width: 400px;
+    max-width: 224px;
     /* Side drawer style */
     height: 100vh;
     background-color: #050505;
@@ -200,7 +201,7 @@ header {
     transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     display: flex;
     flex-direction: column;
-    padding: 100px 2rem 2rem 2rem;
+    padding: 150px 2rem 2rem 2rem;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -259,7 +260,7 @@ main {
 h1 {
     font-size: 3rem;
     font-weight: 500;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.025em;
     margin-bottom: 1.5rem;
     line-height: 1.1;
 }
@@ -286,15 +287,12 @@ p {
 
 .hero-video-placeholder {
     width: 100%;
-    /* Remove height 100% to let aspect ratio dictate */
     aspect-ratio: 9/16;
     object-fit: cover;
-    /* Cover is usually better for filling specific aspect ratio containers */
     max-height: 100vh;
-    /* Ensure it doesn't overflow screen improperly if needed */
     background-color: #1a1a1a;
     background: radial-gradient(circle, #2a2a2a 0%, #050505 100%);
-    /* Visual placeholder for video */
+    border-radius: 10px;
 }
 
 /* Content Blocks */
@@ -434,7 +432,7 @@ p {
     font-weight: 400;
     border-radius: 4px;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: -0.025em;
     transition: background-color 0.3s ease;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
@@ -585,7 +583,7 @@ footer {
     text-align: left;
 
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: -0.025em;
     margin-top: auto;
     /* Pushes footer to bottom if flex container has space */
 }
@@ -952,8 +950,7 @@ footer {
 .page-title-hacker {
     font-family: 'Codeink', monospace;
     font-size: 8rem;
-    font-weight: 400;
-    color: var(--text-color);
+    letter-spacing: -0.05em;
     text-align: center;
     width: 100%;
     margin-bottom: 4rem;
@@ -966,7 +963,7 @@ footer {
     font-family: 'Codeink', monospace;
     font-size: 8rem;
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.05em;
     color: var(--text-color);
 }
 
@@ -993,7 +990,7 @@ footer {
     font-family: 'Codeink', monospace;
     font-size: 8rem;
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.05em;
     color: var(--text-color);
     /* Padding is inline style from JS, but we can enforce it here if we want cleanly */
 }
@@ -1003,6 +1000,7 @@ footer {
     font-family: 'Codeink', monospace;
     font-size: 8rem;
     font-weight: 400;
+    letter-spacing: -0.05em;
 }
 
 .scroll-left {
@@ -1057,8 +1055,8 @@ footer {
 }
 
 .manifesto-text img {
-    width: 180%;
-    margin-left: -40%;
+    width: 189%;
+    margin-left: -44.5%;
     display: block;
     height: auto;
 }
@@ -1087,7 +1085,7 @@ footer {
     font-size: 1rem;
     font-weight: 400;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: -0.025em;
     border-radius: 4px;
     transition: all 0.3s ease;
     cursor: pointer;

@@ -23,7 +23,7 @@
 .schematic-box-label {
     text-align: center;
     font-size: 0.9rem;
-    letter-spacing: 0.1em;
+    letter-spacing: -0.025em;
     margin-bottom: 2rem;
     text-transform: uppercase;
     color: #333;
@@ -145,44 +145,50 @@
     background-color: #000;
     /* Changed to black */
     /* backdrop-filter: blur(10px); Removed as background is solid */
-    padding: 1.5rem;
+    padding: 0.5rem 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9991;
-    /* Above cursor stamps */
-    border-top: 1px solid #333;
+    transition: none !important;
+    animation: none !important;
+}
 
+.checkout-footer:hover {
+    transform: none !important;
+    opacity: 1 !important;
+    transition: none !important;
 }
 
 .checkout-button {
     background-color: #ff3c01;
     color: #fff;
     border: none;
-    font-size: 1.2rem;
-    padding: 1rem 3rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 2rem;
     font-weight: 400;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    /* Only animate colors */
+    transition: none !important;
+    animation: none !important;
 }
 
 .checkout-button:hover {
     background-color: #e63600;
     color: #fff;
     border: none;
+    transition: none !important;
 }
 
 .checkout-button:active {
-    /* No animation on click */
     background-color: #ff3c01;
     transform: none;
+    transition: none !important;
 }
 
 @media (max-width: 768px) {
     .checkout-footer {
         left: 0;
         width: 100%;
-        padding: 1rem;
+        padding: 0.5rem 1rem;
     }
 
     /* Ensure page has padding at bottom so content isn't covered by fixed footer */

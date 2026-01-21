@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
             position: fixed;
             top: -100px; /* Init off-screen */
             left: -100px; /* Init off-screen */
-            width: 32px; /* Adjustable size */
-            height: 32px;
+            width: 24px; /* Adjustable size */
+            height: 24px;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%); /* Center hotspot */
@@ -31,8 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         .cursor-stamp {
             position: absolute;
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             pointer-events: none;
             z-index: 1; /* Below cursor, above content */
             transform: translate(-50%, -50%) scale(0);

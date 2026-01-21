@@ -26,9 +26,9 @@
     color: #000000;
     margin-bottom: 2rem;
     text-transform: uppercase;
-    text-align: center;
-    letter-spacing: -0.02em;
-
+    text-align: left;
+    padding-left: 4rem;
+    letter-spacing: -0.025em;
 }
 
 /**
@@ -37,8 +37,8 @@
  */
 .catalog-intro {
     max-width: 550px;
-    text-align: center;
-    margin: 2rem auto 3rem auto;
+    text-align: left;
+    margin: 2rem 0 3rem 4rem;
 }
 
 /* Paragraph styling inside the intro block */
@@ -143,11 +143,11 @@
 /* Individual badge image within the placeholder */
 .item-image-placeholder img {
     transition: transform 0.4s ease;
-    width: 35%;
-    /* Scaled down for a elegant look */
-    height: 35%;
-    margin: 32.5%;
-    /* Calculated as (100 - 35) / 2 to center perfectly */
+    width: 54%;
+    /* Scaled up as requested */
+    height: 54%;
+    margin: 23%;
+    /* Calculated as (100 - 54) / 2 to center perfectly */
     object-fit: contain;
 }
 
