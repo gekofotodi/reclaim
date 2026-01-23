@@ -109,27 +109,34 @@
 
 @media (max-width: 768px) {
     .kit-schematic-section {
-        padding: 4rem 1.5rem;
+        padding: 2rem 1rem;
+        margin-top: 0;
+        /* Remove negative margin on mobile */
     }
 
-    /* Stack accessories vertically or wrap tightly */
-    .accessories-row {
-        flex-wrap: wrap;
-        gap: 2rem;
+    .box-closed-image-container {
+        margin-top: 0;
+        margin-bottom: 3rem;
     }
 
-    .weapon-placeholder {
-        width: 90%;
-        height: 150px;
+    .box-open-image-container {
+        margin-bottom: 3rem;
     }
 
-    .box-open {
-        padding: 1.5rem;
+    .box-image-wrapper {
+        width: 100%;
+        /* Take full width on mobile */
     }
 
-    .acc-item {
-        width: 45%;
-        /* Two columns */
+    .schematic-box-label {
+        font-size: 1.5rem;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+
+    /* Hide complex callouts on mobile to match minimal screenshot look */
+    .kit-callout {
+        display: none;
     }
 }
 

@@ -43,37 +43,13 @@
     /* Aligns text to the left */
 }
 
-.app-text-column h2 {
-    font-family: 'neue-haas-unica', sans-serif;
-    /* Sets the font family for headings */
-    font-weight: 700;
-    /* Sets the font weight to bold */
-    font-size: 5rem;
-    /* Sets a large font size */
-    line-height: 0.9;
-    /* Sets a tight line height */
+.app-text-column h1 {
+    /* Inherits global h1 styles (Neue Haas Unica, 3rem, etc) */
+    /* Keeping text-transform just in case, though body has it. */
     margin-bottom: 2rem;
-    /* Adds space below the heading */
-    text-transform: uppercase;
-    /* Transforms text to uppercase */
-    color: #000;
-    /* Sets text color to black */
 }
 
-.app-text-column p {
-    font-family: 'cofo-sans-mono-variable', monospace;
-    /* Sets the font family for body text */
-    font-size: 1.1rem;
-    /* Sets the font size */
-    line-height: 1.4;
-    /* Sets the line height for readability */
-    text-transform: uppercase;
-    /* Transforms text to uppercase */
-    color: #000;
-    /* Sets text color to black */
-    max-width: 500px;
-    /* Limits the width of the paragraph for readability */
-}
+
 
 .app-visual-column {
     flex: 1;
@@ -166,30 +142,66 @@
     /* Match margin */
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     .app-split-section {
         flex-direction: column;
-        /* Stacks items vertically on small screens */
-        padding: 4rem 2rem;
-        /* Adds padding */
-        gap: 2rem;
-        /* Adds gap between items */
-        text-align: center;
-        /* Centers text */
+        padding: 2rem 1rem;
+        gap: 0;
+        text-align: left;
+        /* Align text left as per screenshot */
+        min-height: auto;
+        max-height: none;
     }
 
     .app-split-section.reverse-layout {
         flex-direction: column;
-        /* Stacks items vertically even for reverse layout */
+        padding: 2rem 1rem;
     }
 
     .app-text-column {
-        align-items: center;
-        /* Centers text items horizontally */
+        align-items: flex-start;
+        padding-left: 0 !important;
+        margin-bottom: 2rem;
+        width: 100%;
     }
 
-    .app-text-column h2 {
-        font-size: 3rem;
-        /* Reduces font size for headings */
+    .app-text-column h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
     }
+
+    .app-text-column p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    .app-visual-column {
+        width: 100%;
+        height: 300px;
+        /* Fixed height for mockup area on mobile */
+        overflow: hidden;
+    }
+
+    .mockup-container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .mockup-container img {
+        width: 150% !important;
+        margin-left: -25% !important;
+        margin-top: -10% !important;
+    }
+
+    .rotated-asset img {
+        transform: rotate(-30deg) !important;
+        /* Slightly less rotation for mobile view */
+    }
+
+    .mockup-container::after {
+        display: none;
+        /* Hide bottom gradient overlay on mobile or adjust */
+    }
+
+    /* Ensure download button at bottom of sections if needed */
 }

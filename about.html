@@ -16,12 +16,10 @@
             height: auto;
             min-height: 60vh;
             padding: 6rem 15rem;
-            /* Increased padding to bring everything to center */
             max-width: none;
             display: flex;
             align-items: center;
             gap: 6rem;
-            /* Space between text and image */
         }
 
         .app-split-section.reverse-layout {
@@ -30,17 +28,34 @@
 
         .about-visual img {
             width: 400px !important;
-            /* Fixed width */
             height: 600px !important;
-            /* Fixed height for consistency */
             margin: 0 !important;
             transform: none !important;
             object-fit: cover;
-            /* Ensures image fills the area without distortion */
             display: block;
             border-radius: 10px;
         }
 
+        @media (max-width: 768px) {
+
+            .app-split-section,
+            .app-split-section.reverse-layout {
+                padding: 2rem 1rem !important;
+                flex-direction: column !important;
+                gap: 2rem !important;
+            }
+
+            .about-visual img {
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: 2/3;
+            }
+
+            .map-section,
+            .home-hero {
+                height: 50vh !important;
+            }
+        }
 
         .about-visual::after {
             display: none !important;
@@ -50,13 +65,6 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            /* Center image within its column to bring it inward */
-        }
-
-        /* Standardize text column for About page */
-        .app-text-column p {
-            max-width: none;
-            /* Let the padding control the width */
         }
     </style>
 </head>
@@ -132,7 +140,7 @@
             <!-- Section 1: THE STRUGGLE -->
             <section class="app-split-section">
                 <div class="app-text-column">
-                    <h2>THE<br>STRUGGLE</h2>
+                    <h1>THE<br>STRUGGLE</h1>
                     <p>Streets are suffocated. Neighborhoods are held hostage. Places are slowly stripped from local
                         hands—the exception has become the norm: the city is deafening, and the resident's voice goes
                         unheard. Travelers, investors, visitors—they are not guests, they are the symptoms of an
@@ -153,7 +161,7 @@
             <!-- Section 2: THE SOLUTION (Reverse Layout) -->
             <section class="app-split-section reverse-layout">
                 <div class="app-text-column">
-                    <h2>THE<br>SOLUTION</h2>
+                    <h1>THE<br>SOLUTION</h1>
                     <p>RECLAIM is an immersive, physical gaming experience engineered as a practical solution to the
                         systemic malaise of over-tourism and cultural displacement.<br><br>
                         The game is a literal embodiment of the principle of "taking back what has been taken"—one's
@@ -172,7 +180,7 @@
             <!-- Section 3: THE RECLAMATION -->
             <section class="app-split-section">
                 <div class="app-text-column">
-                    <h2>THE<br>RECLAMATION</h2>
+                    <h1>THE<br>RECLAMATION</h1>
                     <p>RECLAIM is a mechanism for turning invisible grievances—the daily erosion of calm, the weight of
                         being "overlooked"—into visible, strategic engagement. It is a call to move beyond mere critique
                         and to engage in a deliberate, deterministic act of control through action, forging a real-world

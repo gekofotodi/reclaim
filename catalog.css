@@ -20,15 +20,8 @@
  * Uses Neue Haas Unica for a premium, clean look.
  */
 .catalog-title {
-    font-family: "neue-haas-unica", sans-serif;
-    font-size: 3rem;
-    font-weight: 600;
-    color: #000000;
     margin-bottom: 2rem;
-    text-transform: uppercase;
-    text-align: left;
     padding-left: 4rem;
-    letter-spacing: -0.025em;
 }
 
 /**
@@ -41,14 +34,7 @@
     margin: 2rem 0 3rem 4rem;
 }
 
-/* Paragraph styling inside the intro block */
-.catalog-intro p {
-    font-family: "cofo-sans-mono-variable", monospace;
-    font-size: 1.1rem;
-    line-height: 1.5;
-    color: #000000;
-    text-transform: uppercase;
-}
+
 
 /**
  * The main catalog grid.
@@ -73,29 +59,33 @@
 @media (max-width: 768px) {
     .catalog-section {
         margin-left: 0;
-        padding: 4rem 0;
+        padding: 2rem 0;
     }
 
     /* Reduce title size for mobile */
     .catalog-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
+        padding-left: 1rem;
+        margin-bottom: 1rem;
     }
 
     /* Switch to 2 columns on mobile */
     .catalog-grid {
         grid-template-columns: repeat(2, 1fr);
         width: 100%;
+        border-bottom: 1px solid #333;
     }
 
     /* Adjust vertical spacing and padding in the intro section */
     .catalog-intro {
-        margin-bottom: 3rem;
-        padding: 0 1.5rem;
+        margin-bottom: 2rem;
+        padding: 0 1rem;
+        margin-left: 0;
     }
 
     /* Smaller font for mobile intro text */
     .catalog-intro p {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 

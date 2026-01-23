@@ -26,4 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburger.classList.remove('active');
         });
     });
+    // Close menu when clicking outside
+    document.addEventListener('click', (event) => {
+        if (!mobileMenu || !hamburger) return;
+
+        const isClickInsideMenu = mobileMenu.contains(event.target);
+        const isClickOnHamburger = hamburger.contains(event.target);
+
+        if (mobileMenu.classList.contains('active') && !isClickInsideMenu && !isClickOnHamburger) {
+            mobileMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+    });
 });

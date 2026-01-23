@@ -1,49 +1,73 @@
+/**
+ * HACKER TEXT EFFECT
+ * This script creates a "glitch" animation for specified text elements on hover.
+ * It targets scrolling tracks, page titles, and all h1 headers.
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Wait for fonts/layout
-    // Wait for fonts/layout to be fully ready before measuring
+    // Wait for fonts to be ready to ensure accurate character width measurements.
+    // This prevents layout shifts when characters are replaced during the animation.
     document.fonts.ready.then(() => {
         initHackerEffect();
     });
 
+    /**
+     * Initializes the hacker effect on all matching elements.
+     * It breaks down text into individual <span> elements for character-level control.
+     */
     function initHackerEffect() {
-        const tracks = document.querySelectorAll('.scrolling-track, .page-title-hacker');
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        // Select targets: scrolling tracks, specific title classes, and general headers
+        const targets = document.querySelectorAll('.scrolling-track, .page-title-hacker, h1');
+        if (targets.length === 0) return;
 
-        if (tracks.length === 0) return;
+        targets.forEach(target => {
+            // Avoid re-processing if the script runs multiple times
+            if (target.dataset.hackerProcessed) return;
+            target.dataset.hackerProcessed = 'true';
 
-        tracks.forEach(track => {
-            const phraseSpans = Array.from(track.querySelectorAll('span'));
-            if (phraseSpans.length === 0) return;
+            // Use textContent instead of innerText to preserve all whitespace characters
+            let spans = Array.from(target.querySelectorAll('span'));
+            if (spans.length === 0 && target.textContent.trim().length > 0) {
+                const text = target.textContent;
+                target.innerHTML = `<span>${text}</span>`;
+                spans = Array.from(target.querySelectorAll('span'));
+            }
+
+            if (spans.length === 0) return;
 
             const fragment = document.createDocumentFragment();
 
-            phraseSpans.forEach(phraseSpan => {
-                const text = phraseSpan.innerText;
-
+            // Process each phrase/span within the target
+            spans.forEach(span => {
+                const text = span.textContent;
                 const phraseContainer = document.createElement('span');
                 phraseContainer.className = 'phrase-container';
-                // Inline styles for stability
-                phraseContainer.style.paddingRight = '2rem';
                 phraseContainer.style.display = 'inline-block';
-                phraseContainer.style.pointerEvents = 'auto'; // Force
+                phraseContainer.style.whiteSpace = 'pre'; // Preserve spaces within the container
+                phraseContainer.style.pointerEvents = 'auto';
 
+                // Add horizontal spacing for scrolling tracks to prevent clipping
+                if (target.classList.contains('scrolling-track')) {
+                    phraseContainer.style.paddingRight = '2rem';
+                }
+
+                // Split text into individual characters
                 text.split('').forEach(char => {
                     const charSpan = document.createElement('span');
-                    // Use textContent to ensure raw char
-                    charSpan.textContent = char;
+                    // Convert regular spaces to non-breaking spaces for display stability in spans
+                    charSpan.textContent = (char === ' ') ? '\u00A0' : char;
                     charSpan.dataset.char = char;
 
-                    // Only add interaction class if not space/I/i/-
+                    // Exclude specific characters (spaces, 'I', hyphens) from the glitch effect
                     if (char !== ' ' && char !== '\u00A0' && char !== 'I' && char !== 'i' && char !== '-') {
                         charSpan.className = 'hacker-char';
                     } else {
-                        charSpan.className = 'static-char'; // Just for styling if needed
+                        charSpan.className = 'static-char';
                     }
 
-                    // Initial styles
                     charSpan.style.display = 'inline-block';
                     charSpan.style.pointerEvents = 'auto';
-                    charSpan.style.position = 'relative'; // Helps with z-index if needed
+                    charSpan.style.position = 'relative';
 
                     phraseContainer.appendChild(charSpan);
                 });
@@ -51,73 +75,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 fragment.appendChild(phraseContainer);
             });
 
-            // Clean replacement
-            track.innerHTML = '';
-            track.appendChild(fragment);
+            // Replace original content with the atomized spans
+            target.innerHTML = '';
+            target.appendChild(fragment);
 
-            // Force measure loop
-            // We use requestAnimationFrame to ensure render happened
+            /**
+             * BATCHED MEASUREMENT:
+             * Performance optimization to avoid "Layout Thrashing".
+             * We read all widths in one go and then apply min-width styles.
+             * This keeps the layout stable even if a replacement character is narrower.
+             */
             requestAnimationFrame(() => {
-                const allChars = track.querySelectorAll('.hacker-char');
-                allChars.forEach(c => {
-                    const rect = c.getBoundingClientRect();
-                    const w = rect.width;
-                    // Check if reasonable width (space might be small, I narrow chars might be small)
-                    // If w is 0, layout failed. fallback to '0.6em' maybe?
+                const allChars = target.querySelectorAll('.hacker-char');
+                const measurements = Array.from(allChars).map(c => ({
+                    el: c,
+                    rect: c.getBoundingClientRect()
+                }));
+
+                measurements.forEach(m => {
+                    const w = m.rect.width;
                     if (w > 0) {
-                        // Use min-width to preserve original spacing for thinner replacements
-                        // Allow expansion for wider replacements to avoid overlap
-                        c.style.minWidth = `${w}px`;
-                        c.style.width = 'auto';
-                    } else {
-                        c.style.minWidth = 'auto';
-                        c.style.width = 'auto';
+                        m.el.style.width = `${w}px`;
+                        m.el.style.textAlign = 'center';
+                        m.el.style.display = 'inline-block';
                     }
-                    c.style.textAlign = 'center';
                 });
             });
 
-            // Event Delegation on Track for robustness
-            track.addEventListener('mouseover', (e) => {
-                const target = e.target;
-                if (target.classList.contains('hacker-char')) {
-                    triggerGroup(target, track);
+            // Add event listener to trigger the effect on hover
+            target.addEventListener('mouseover', (e) => {
+                const t = e.target;
+                if (t.classList.contains('hacker-char')) {
+                    triggerHackerEffect(t);
                 }
             });
         });
-
-        function triggerGroup(targetSpan, track) {
-            // Trigger target only
-            triggerHackerEffect(targetSpan);
-        }
-
-
     }
 
+    /**
+     * Triggers the random character cycling for a specific element.
+     * @param {HTMLElement} element - The character span to animate.
+     */
     function triggerHackerEffect(element) {
+        // Prevent overlapping animations
         if (element.dataset.interval) return;
 
         const originalChar = element.dataset.char;
-        // Check for space, non-breaking space, I, i
+        // Safety check for excluded characters
         if (originalChar === ' ' || originalChar === '\u00A0' || originalChar === 'I' || originalChar === 'i' || originalChar === '-') return;
 
-        // Determine type for replacement
+        // Choose character pool based on whether the original was a number or letter
         const isDigit = /\d/.test(originalChar);
         const pool = isDigit ? "0123456789" : "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         let lifetime = 0;
+        const speed = 40; // MS between character swaps
+
         const interval = setInterval(() => {
+            // Replace with a random character from the pool
             element.textContent = pool[Math.floor(Math.random() * pool.length)];
 
             lifetime++;
-            if (lifetime > 8) { // run for ~480ms
+            // Stop after ~320ms (8 iterations * 40ms)
+            if (lifetime > 8) {
                 clearInterval(interval);
-                element.textContent = originalChar;
+                element.textContent = originalChar; // Restore original
                 delete element.dataset.interval;
             }
-        }, 60);
+        }, speed);
 
         element.dataset.interval = interval;
     }
-
 });
