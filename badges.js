@@ -8,12 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof VanillaTilt !== 'undefined') {
         VanillaTilt.init(tiltElements, {
             max: 15,            // Inclinazione massima (meno è meglio se l'area è grande)
-            speed: 400,         // Velocità reazione
+            speed: 1000,        // Velocità reazione aumentata per fluidità
+            easing: "cubic-bezier(.03,.98,.52,.99)", // Easing personalizzato organico
             glare: true,        // Effetto luce
             "max-glare": 0.2,   // Luce più sottile
             scale: 1.05,        // Zoom leggero
             perspective: 1000,  // Profondità
-            gyroscope: true,
+            gyroscope: false,   // Disabilitato per alleggerire i calcoli
             reverse: true,
             // Questo parametro è importante: assicura che il calcolo
             // avvenga rispetto al box wrapper, che ora è grande come la cella

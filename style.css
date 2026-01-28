@@ -1523,11 +1523,10 @@ footer {
 
     /* Initial state */
     transform: scale(0.8);
-    border-radius: 60px;
+    border-radius: 30px;
 
     /* Smooth cubic-bezier transitions for high-end feel */
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
-        border-radius 0.6s cubic-bezier(0.25, 1, 0.5, 1),
         box-shadow 0.6s ease;
     box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
     will-change: transform, border-radius;
@@ -1539,6 +1538,7 @@ footer {
     object-fit: cover;
     transition: opacity 0.4s ease;
     display: block;
+    border-radius: 10px;
 }
 
 .video-wrapper iframe {
@@ -1553,32 +1553,36 @@ footer {
 
 .play-label {
     position: fixed;
-    /* Relative to viewport to follow mouse easily */
     top: 0;
     left: 0;
-    width: 110px;
-    height: 110px;
+    width: auto;
+    height: auto;
+    padding: 6px 15px;
     background-color: #ff3c01;
     color: #000;
-    border-radius: 50%;
+    border-radius: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-family: "cofo-sans-mono-variable", monospace;
-    font-size: 0.8rem;
-    font-weight: 700;
-    line-height: 1.1;
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 1;
     pointer-events: none;
     z-index: 2100;
     opacity: 0;
-    transform: scale(0) translate(-50%, -50%);
+    /* Initial state with scale 0 */
+    transform: translate(-50%, -50%) scale(0);
+    /* Transition only for opacity and scale, not for position (top/left) */
     transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: left, top, opacity, transform;
 }
 
-.video-wrapper:hover .play-label {
+.play-label.active {
     opacity: 1;
-    transform: scale(1) translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1);
 }
 
 @media (max-width: 768px) {
@@ -1587,13 +1591,12 @@ footer {
     }
 
     .video-wrapper {
-        border-radius: 30px;
+        border-radius: 10px;
     }
 
     .play-label {
-        width: 80px;
-        height: 80px;
-        font-size: 0.65rem;
+        padding: 4px 10px;
+        font-size: 0.8rem;
     }
 }
 
@@ -1650,4 +1653,14 @@ footer {
     height: 100%;
     border: none;
     box-shadow: 0 0 50px rgba(255, 60, 1, 0.3);
+}
+
+.badge-tilt-wrapper {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* {
+    outline: 1px solid rgba(255, 0, 0, 0.4) !important;
 }

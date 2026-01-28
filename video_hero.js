@@ -16,63 +16,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!videoWrapper || !playLabel) return;
 
-    // We use a global variable to track the maximum progress reached (persistent expansion)
-    window._videoAnimProgress = 0;
+    const togglePlayLabel = (show) => {
+        playLabel.classList.toggle('active', show);
+        if (customCursor) {
+            customCursor.style.opacity = show ? '0' : '1';
+        }
+    };
 
-    // 1. Scroll Zoom & Radius Effect
+    let isMouseInside = false;
+    let lastMouseX = 0;
+    let lastMouseY = 0;
+
+    // Track mouse position globally to handle stationary mouse on scroll
+    window.addEventListener('mousemove', (e) => {
+        lastMouseX = e.clientX;
+        lastMouseY = e.clientY;
+
+        // If mouse moves inside the video, update the label position immediately
+        if (isMouseInside) {
+            playLabel.style.left = `${lastMouseX}px`;
+            playLabel.style.top = `${lastMouseY}px`;
+        }
+    });
+
+    // 1. Scroll Zoom & Radius Effect + Mouse Intersection Check
     const handleScrollAnimation = () => {
         if (!videoOuter || !videoWrapper) return;
 
         const rect = videoOuter.getBoundingClientRect();
+        const wrapperRect = videoWrapper.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
 
-        // Expansion starts when the top of the section enters the bottom 80% of screen
+        // --- EXPANSION LOGIC ---
         const triggerStart = viewportHeight * 0.9;
-        // Expansion ends (full width) when the section is centered in viewport
         const triggerEnd = viewportHeight * 0.1;
 
         let progress = 0;
-
         if (rect.top < triggerStart) {
             progress = (triggerStart - rect.top) / (triggerStart - triggerEnd);
             progress = Math.min(Math.max(progress, 0), 1);
         }
 
-        // Persistent expansion: only apply if new progress is higher than recorded max
-        if (progress > window._videoAnimProgress) {
-            window._videoAnimProgress = progress;
+        const scale = 0.8 + (0.2 * progress);
+        videoWrapper.style.transform = `scale(${scale})`;
 
-            // Animation values based on progress (0 to 1)
-            const scale = 0.8 + (0.2 * window._videoAnimProgress); // from 0.8 to 1.0
-            const radius = 60 - (48 * window._videoAnimProgress); // from 60px to 12px
+        if (progress >= 0.99) {
+            videoWrapper.style.width = '100.2vw';
+            videoWrapper.style.maxWidth = '100vw';
+            videoWrapper.classList.add('is-expanded');
+        } else {
+            videoWrapper.style.width = '';
+            videoWrapper.style.maxWidth = '';
+            videoWrapper.classList.remove('is-expanded');
+        }
 
-            videoWrapper.style.transform = `scale(${scale})`;
-            videoWrapper.style.borderRadius = `${radius}px`;
+        // --- MOUSE INTERSECTION CHECK (FOR STATIONARY MOUSE ON SCROLL) ---
+        const mouseInX = lastMouseX >= wrapperRect.left && lastMouseX <= wrapperRect.right;
+        const mouseInY = lastMouseY >= wrapperRect.top && lastMouseY <= wrapperRect.bottom;
+        isMouseInside = mouseInX && mouseInY;
 
-            // At 100% progress, we ensure it looks like full viewport width
-            if (window._videoAnimProgress >= 1) {
-                videoWrapper.style.width = '100.2vw'; // Slight overlap to ensure no gaps
-                videoWrapper.style.maxWidth = '100vw';
-            }
+        if (isMouseInside) {
+            togglePlayLabel(true);
+            playLabel.style.left = `${lastMouseX}px`;
+            playLabel.style.top = `${lastMouseY}px`;
+        } else {
+            togglePlayLabel(false);
         }
     };
 
-    window.addEventListener('scroll', handleScrollAnimation);
+    // Use requestAnimationFrame for smooth scroll handling
+    let scrollTicking = false;
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            window.requestAnimationFrame(() => {
+                handleScrollAnimation();
+                scrollTicking = false;
+            });
+            scrollTicking = true;
+        }
+    });
 
-    // 2. Mouse Interaction (Cursor Replacement)
+    // 2. Mouse Interaction
     videoWrapper.addEventListener('mousemove', (e) => {
+        isMouseInside = true;
+        togglePlayLabel(true);
         playLabel.style.left = `${e.clientX}px`;
         playLabel.style.top = `${e.clientY}px`;
     });
 
     videoWrapper.addEventListener('mouseenter', () => {
-        playLabel.style.opacity = '1';
-        if (customCursor) customCursor.style.opacity = '0'; // Hide site cursor
+        isMouseInside = true;
+        togglePlayLabel(true);
     });
 
     videoWrapper.addEventListener('mouseleave', () => {
-        playLabel.style.opacity = '0';
-        if (customCursor) customCursor.style.opacity = '1'; // Show site cursor
+        isMouseInside = false;
+        togglePlayLabel(false);
     });
 
     // 3. Modal Play Logic
@@ -88,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             videoModal.classList.add('active');
             document.body.style.overflow = 'hidden'; // Lock scroll
-            playLabel.style.opacity = '0';
+            togglePlayLabel(false);
         }
     });
 
@@ -103,9 +142,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
-    if (videoModal) videoModal.addEventListener('click', (e) => {
-        if (e.target === videoModal) closeModal();
-    });
+
+    if (videoModal) {
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) closeModal();
+        });
+    }
 
     // Initial check on load
     handleScrollAnimation();
