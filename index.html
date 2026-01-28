@@ -59,6 +59,27 @@
     </div>
 
     <main>
+        <!-- Particle Logo Section -->
+        <section class="canvas-logo-section">
+            <canvas id="particle-canvas"></canvas>
+            <div class="canvas-text-overlay">
+                <h1>REDEEM YOUR FREEDOM</h1>
+                <h1>JOIN RECLAIM</h1>
+            </div>
+        </section>
+
+        <!-- Video Hero Section -->
+        <section class="video-hero-outer">
+            <div class="video-hero-container">
+                <div class="video-wrapper" id="video-trigger" data-video-id="771GdGs8Sp8">
+                    <img src="asset/immagini/hero_video_cover.jpg" alt="Video Cover" class="video-cover">
+                    <div class="play-label" id="play-btn">
+                        <span>PLAY<br>VIDEO</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="manifesto-container">
             <div class="manifesto-header">
                 <!-- Top Line: Right to Left -->
@@ -75,9 +96,10 @@
                 <img src="asset/immagini/manifesto.png" alt="Manifesto Text">
             </div>
 
-            <div class="stencil-button-container">
-                <a href="asset/loghi/logo.png" download="logo.png" class="stencil-button">Download Stencil</a>
-                <a href="asset/immagini/manifesto.png" download="manifesto.png" class="stencil-button">Download
+            <!-- Static CTA Container with Download Buttons -->
+            <div class="cta-container cta-static" style="gap: 2rem;">
+                <a href="asset/loghi/logo.png" download="logo.png" class="cta-button">Download Stencil</a>
+                <a href="asset/immagini/manifesto.png" download="manifesto.png" class="cta-button">Download
                     Manifesto</a>
             </div>
         </section>
@@ -91,10 +113,20 @@
             <a href="#">CONTACT</a>
         </div>
     </footer>
+    <!-- Video Modal Preview -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <span class="close-modal" id="close-modal">CLOSE [X]</span>
+            <div id="modal-iframe-container"></div>
+        </div>
+    </div>
+
+    <script src="particle_logo.js"></script>
     <script src="cursor.js"></script>
     <script src="info_bar.js"></script>
     <script src="scroll_detector.js"></script>
     <script src="hacker_text.js"></script>
+    <script src="video_hero.js"></script>
 </body>
 
 </html>

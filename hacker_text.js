@@ -1,31 +1,24 @@
 /**
- * HACKER TEXT EFFECT
- * This script creates a "glitch" animation for specified text elements on hover.
- * It targets scrolling tracks, page titles, and all h1 headers.
+ * HACKER TEXT EFFECT (FONT-AWARE VERSION)
+ * 1. Width-Matching Buckets (Narrow, Wide, Standard).
+ * 2. Excludes 'I', 'i', '-' (Static).
+ * 3. FONT DETECTION: Symbols are used ONLY if the font is "Neue Haas Unica".
+ * If the font is "Codeink", only letters/numbers are used.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Wait for fonts to be ready to ensure accurate character width measurements.
-    // This prevents layout shifts when characters are replaced during the animation.
     document.fonts.ready.then(() => {
         initHackerEffect();
     });
 
-    /**
-     * Initializes the hacker effect on all matching elements.
-     * It breaks down text into individual <span> elements for character-level control.
-     */
     function initHackerEffect() {
-        // Select targets: scrolling tracks, specific title classes, and general headers
         const targets = document.querySelectorAll('.scrolling-track, .page-title-hacker, h1');
         if (targets.length === 0) return;
 
         targets.forEach(target => {
-            // Avoid re-processing if the script runs multiple times
             if (target.dataset.hackerProcessed) return;
             target.dataset.hackerProcessed = 'true';
 
-            // Use textContent instead of innerText to preserve all whitespace characters
             let spans = Array.from(target.querySelectorAll('span'));
             if (spans.length === 0 && target.textContent.trim().length > 0) {
                 const text = target.textContent;
@@ -37,28 +30,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const fragment = document.createDocumentFragment();
 
-            // Process each phrase/span within the target
             spans.forEach(span => {
                 const text = span.textContent;
                 const phraseContainer = document.createElement('span');
                 phraseContainer.className = 'phrase-container';
                 phraseContainer.style.display = 'inline-block';
-                phraseContainer.style.whiteSpace = 'pre'; // Preserve spaces within the container
+                phraseContainer.style.whiteSpace = 'pre';
                 phraseContainer.style.pointerEvents = 'auto';
 
-                // Add horizontal spacing for scrolling tracks to prevent clipping
                 if (target.classList.contains('scrolling-track')) {
                     phraseContainer.style.paddingRight = '2rem';
                 }
 
-                // Split text into individual characters
                 text.split('').forEach(char => {
                     const charSpan = document.createElement('span');
-                    // Convert regular spaces to non-breaking spaces for display stability in spans
                     charSpan.textContent = (char === ' ') ? '\u00A0' : char;
                     charSpan.dataset.char = char;
 
-                    // Exclude specific characters (spaces, 'I', hyphens) from the glitch effect
+                    // SE È UNO SPAZIO, FORZIAMO LA LARGHEZZA
+                    if (char === ' ') {
+                        charSpan.style.width = '0.5em'; // O '10px', decidi tu quanto spazio vuoi
+                        charSpan.style.display = 'inline-block';
+                    }
+
+                    // Esclusione caratteri statici (I, i, -)
                     if (char !== ' ' && char !== '\u00A0' && char !== 'I' && char !== 'i' && char !== '-') {
                         charSpan.className = 'hacker-char';
                     } else {
@@ -75,16 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 fragment.appendChild(phraseContainer);
             });
 
-            // Replace original content with the atomized spans
             target.innerHTML = '';
             target.appendChild(fragment);
 
-            /**
-             * BATCHED MEASUREMENT:
-             * Performance optimization to avoid "Layout Thrashing".
-             * We read all widths in one go and then apply min-width styles.
-             * This keeps the layout stable even if a replacement character is narrower.
-             */
             requestAnimationFrame(() => {
                 const allChars = target.querySelectorAll('.hacker-char');
                 const measurements = Array.from(allChars).map(c => ({
@@ -102,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            // Add event listener to trigger the effect on hover
             target.addEventListener('mouseover', (e) => {
                 const t = e.target;
                 if (t.classList.contains('hacker-char')) {
@@ -113,33 +100,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Triggers the random character cycling for a specific element.
-     * @param {HTMLElement} element - The character span to animate.
+     * Triggers the animation based on Font Family and Character Width.
      */
     function triggerHackerEffect(element) {
-        // Prevent overlapping animations
         if (element.dataset.interval) return;
 
         const originalChar = element.dataset.char;
-        // Safety check for excluded characters
         if (originalChar === ' ' || originalChar === '\u00A0' || originalChar === 'I' || originalChar === 'i' || originalChar === '-') return;
 
-        // Choose character pool based on whether the original was a number or letter
-        const isDigit = /\d/.test(originalChar);
-        const pool = isDigit ? "0123456789" : "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        // --- 1. RILEVAMENTO DEL FONT ---
+        // Otteniamo lo stile calcolato dal browser per questo elemento specifico
+        const computedStyle = window.getComputedStyle(element);
+        const fontFamily = computedStyle.fontFamily.toLowerCase();
+
+        // Variabile booleana: Vero solo se il font contiene "unica" (Neue Haas Unica)
+        // Se è "Codeink" o altro, sarà false.
+        const allowSymbols = fontFamily.includes('unica');
+
+        // --- 2. DEFINIZIONE DEI GRUPPI (Base vs Simboli) ---
+
+        // GRUPPO STRETTO (Narrow)
+        const narrowBase = "1JLT";           // Solo lettere/numeri
+        const narrowSymb = "!|[]():;.,'";    // Solo simboli
+
+        // GRUPPO LARGO (Wide)
+        const wideBase = "WM";               // Solo lettere
+        const wideSymb = "@%#";              // Solo simboli
+
+        // GRUPPO STANDARD
+        const standardBase = "ABCDEFGHKNOPQRSUVXYZ023456789";
+        const standardSymb = "$?+*^&~=";
+
+        // --- 3. COSTRUZIONE DELLA POOL ---
+        let pool = "";
+        const checkChar = originalChar.toUpperCase();
+
+        // Funzione helper per combinare base + simboli (se permessi)
+        const getPool = (base, symb) => {
+            return allowSymbols ? base + symb : base;
+        };
+
+        // Logica di selezione larghezza
+        if ((narrowBase + narrowSymb).includes(checkChar)) {
+            pool = getPool(narrowBase, narrowSymb);
+        } else if ((wideBase + wideSymb).includes(checkChar)) {
+            pool = getPool(wideBase, wideSymb);
+        } else {
+            pool = getPool(standardBase, standardSymb);
+        }
+
+        // Se per qualche motivo la pool è vuota (caso limite), usa un fallback sicuro
+        if (pool === "") pool = standardBase;
 
         let lifetime = 0;
-        const speed = 40; // MS between character swaps
+        const speed = 40;
 
         const interval = setInterval(() => {
-            // Replace with a random character from the pool
             element.textContent = pool[Math.floor(Math.random() * pool.length)];
 
             lifetime++;
-            // Stop after ~320ms (8 iterations * 40ms)
             if (lifetime > 8) {
                 clearInterval(interval);
-                element.textContent = originalChar; // Restore original
+                element.textContent = originalChar;
                 delete element.dataset.interval;
             }
         }, speed);

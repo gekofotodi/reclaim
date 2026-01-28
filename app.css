@@ -62,6 +62,7 @@
     /* Centers content vertically */
     position: relative;
     /* Establishes a positioning context for children */
+    pointer-events: none;
 }
 
 .mockup-container {

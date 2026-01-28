@@ -34,22 +34,27 @@
     margin: 2rem 0 3rem 4rem;
 }
 
-
-
 /**
  * The main catalog grid.
- * Displays badge items in a 4-column layout on desktops.
+ * Logic replaced as per request: Gap-based borders, strict 4 columns.
  */
 .catalog-grid {
     display: grid;
+    /* FORZA ESATTAMENTE 4 COLONNE DI LARGHEZZA UGUALE */
     grid-template-columns: repeat(4, 1fr);
-    width: 90%;
-    margin: 0 0;
-    /* Left aligned by default, can be centered if width is less than 100% */
-    gap: 0;
-    border-top: 1px solid #333;
-    border-left: 1px solid #333;
-    /* Left border of the grid frame */
+    width: 100%;
+
+    /* GESTIONE BORDI PERFETTI */
+    /* Il colore qui sotto sarà il colore delle LINEE della griglia (#333) */
+    background-color: #333;
+    gap: 1px;
+    /* Spessore della linea interna */
+    border: 1px solid #333;
+    /* Bordo esterno */
+
+    /* Evita lo scroll orizzontale */
+    box-sizing: border-box;
+    margin: 0;
 }
 
 /* ==========================================================================
@@ -69,11 +74,9 @@
         margin-bottom: 1rem;
     }
 
-    /* Switch to 2 columns on mobile */
+    /* Su mobile passiamo a 2 colonne per leggibilità */
     .catalog-grid {
         grid-template-columns: repeat(2, 1fr);
-        width: 100%;
-        border-bottom: 1px solid #333;
     }
 
     /* Adjust vertical spacing and padding in the intro section */
@@ -96,62 +99,53 @@
 
 /**
  * Individual badge cell.
- * Maintains a 1:1 square aspect ratio for a clean archival look.
  */
 .catalog-item {
+    /* Manteniamo lo sfondo corrente (tema c5c5c5) */
+    background-color: #c5c5c5;
+    position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    aspect-ratio: 1/1;
-    border-right: 1px solid #333;
-    /* Right border for grid lines */
-    border-bottom: 1px solid #333;
-    /*border-top: 1px solid #333;
-    /* Bottom border for grid lines */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    padding: 1rem;
+    padding: 0;
+
+    /* Aumentato di un ulteriore 30%: 375px * 1.3 = 487.5px */
+    min-height: 488px;
+    cursor: default;
+    border: none;
     transition: background-color 0.2s ease;
 }
 
 /**
- * Visual container for the badge asset.
- * Handles centering and hover transitions.
+ * The container that tilts (matches .badge-tilt-wrapper in HTML).
+ * L'area che si inclina (invisibile ma grande come la cella)
  */
-.item-image-placeholder {
+.badge-tilt-wrapper {
+    /* Occupa tutto lo spazio disponibile spingendo il meta in basso */
     width: 100%;
-    aspect-ratio: 1/1;
-    background-color: transparent;
-    border: none;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-style: preserve-3d;
+    cursor: pointer;
     position: relative;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    margin: 0;
 }
 
-/* Individual badge image within the placeholder */
-.item-image-placeholder img {
-    transition: transform 0.4s ease;
-    width: 54%;
-    /* Scaled up as requested */
-    height: 54%;
-    margin: 23%;
-    /* Calculated as (100 - 54) / 2 to center perfectly */
+/* L'immagine vera e propria */
+.badge-tilt-wrapper img {
+    display: block;
+    max-width: 60%;
+    /* La dimensione del badge */
+    height: auto;
     object-fit: contain;
-}
 
-/**
- * Hover Animations.
- * Subtle 3D rotation and scale for engagement.
- */
-.catalog-item:hover .item-image-placeholder img {
-    transform: rotateY(30deg) rotateX(20deg) scale(1.1);
-}
+    /* TRUCCO 3D: Spinge l'immagine verso l'utente di 50px */
+    transform: translateZ(50px);
 
-.catalog-item:hover .item-image-placeholder {
-    border-color: transparent;
-    box-shadow: none;
+    /* Ombra per realismo */
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 /* Highlight the entire cell on hover */
@@ -180,18 +174,13 @@
     color: #000000;
     width: 100%;
     position: static;
-    /* Flows naturally below the image */
+    margin-bottom: 2rem;
+    /* Add spacing at bottom since padding is removed from cell */
+    pointer-events: none;
+    /* Let clicks pass through if covered by wrapper? No, wrapper is above */
 }
 
 /* Ensure each meta line appears on its own row */
 .item-meta span {
     display: block;
-}
-
-/**
- * Note: Duplicate hover rule from line 125/156 left for consistency with 3D animation scripts
- * that might target this specific rule.
- */
-.catalog-item:hover .item-image-placeholder img {
-    transform: rotateY(30deg) rotateX(20deg) scale(1.1);
 }

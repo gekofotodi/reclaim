@@ -384,56 +384,77 @@ p {
     border-radius: 8px;
 }
 
-/* Footer CTA - Static Bottom Right */
-.footer-cta {
+/* --- Unified Call to Action (CTA) System --- */
+
+.cta-container {
     display: flex;
-    justify-content: flex-end;
-    /* Align to right */
-    padding: 2rem 4rem 4rem 2rem;
-    max-width: 100%;
-    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
     width: 100%;
-    /* Remove fixed positioning and transition logic related to floating */
-    opacity: 1;
-    /* Always visible in flow (layout wise), or let reveal animation handle it */
-    transform: none;
-    pointer-events: auto;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+/* Variant: Sticky to Bottom (for Kit and App) */
+.cta-container.cta-fixed {
+    position: sticky;
+    bottom: 0;
+    /* Ancorato al fondo */
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    background-color: #050505;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    /* Angoli non stondati */
+    width: 100%;
+    /* Largo quanto lo schermo */
+    margin: 0;
+    /* Rimosso margine */
+}
+
+/* Auto-padding rimosso perché lo sticky segue il flusso del documento */
+
+/* Variant: Static flow (for Manifesto) */
+.cta-container.cta-static {
     position: relative;
-    /* Static flow */
-    bottom: auto;
-    left: auto;
+    margin-top: 8rem;
+    /* Generous top margin */
+    background-color: transparent;
 }
 
-.footer-cta.is-visible {
-    /* If keeping reveal animation, handle opacity here, but removing floating logic */
-    display: none;
-    /* User requested removal */
-    opacity: 0;
-    transform: none;
-}
-
-.footer-cta {
-    display: none;
-    /* User requested removal */
-}
-
+/* Unified Button Style */
 .cta-button {
     display: inline-block;
-    padding: 1rem 2rem;
-    background-color: var(--text-color);
-    color: var(--bg-color);
-    font-size: 1rem;
+    padding: 1.2rem 3.5rem;
+    background-color: #ff3c01;
+    /* Brand Orange */
+    color: #ffffff;
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-size: 1.1rem;
     font-weight: 400;
-    border-radius: 4px;
     text-transform: uppercase;
-    letter-spacing: -0.025em;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 15px rgba(255, 60, 1, 0.3);
 }
 
 .cta-button:hover {
-    background-color: #ccc;
+    background-color: #e63600;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 60, 1, 0.5);
+    opacity: 1;
+    /* Override global hover opacity */
 }
+
+.cta-button:active {
+    transform: translateY(-1px);
+}
+
 
 /* Parallax enabled elements default state - let JS handle transform */
 .parallax-item {
@@ -620,6 +641,110 @@ footer {
     text-decoration: none;
     transition: opacity 0.2s ease;
 }
+
+/* Particle Assembly Canvas Section */
+.canvas-logo-section {
+    position: relative;
+    width: 100%;
+    height: 93vh;
+    /* Reduced by 5% as requested (98 * 0.95) */
+    background-color: transparent;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    /* Reduced margin for tighter fit with header */
+}
+
+/* Gradient fade to blend with page context */
+.canvas-logo-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 12.5vh;
+    /* Reduced by 50% as requested (25 * 0.5) */
+    background: linear-gradient(to bottom, transparent, #c5c5c5);
+    pointer-events: none;
+    z-index: 10;
+    /* Above canvas, below text */
+}
+
+.canvas-text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+    z-index: 100;
+    /* Assicura che sia sopra le particelle */
+    width: 100%;
+}
+
+.canvas-text-overlay h1 {
+    font-family: "neue-haas-unica", sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #000000;
+    /* Nero come richiesto */
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+#particle-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    z-index: 1;
+    /* Sotto il testo */
+}
+
+.canvas-overlay {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    text-align: center;
+}
+
+.canvas-hint {
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-size: 0.8rem;
+    color: #97f106;
+    /* Neon green */
+    letter-spacing: 0.2em;
+    opacity: 0.6;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+@media (max-width: 768px) {
+    .canvas-logo-section {
+        height: 50vh;
+        margin-top: 50px;
+    }
+}
+
 
 .news-ticker-bar:hover {
     opacity: 0.9;
@@ -1303,6 +1428,49 @@ footer {
         align-items: center;
         text-align: center;
     }
+
+    /* Mobile Menu - Top Slide Override */
+    .mobile-menu-overlay {
+        top: -100%;
+        /* Start hidden above */
+        left: 0;
+        right: 0;
+        /* Full width */
+        width: 100%;
+        height: 100vh;
+        max-width: none;
+        /* Override generic max-width if any */
+        transition: top 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        /* Shadow downwards */
+    }
+
+    .mobile-menu-overlay.active {
+        top: 0;
+        /* Slide down */
+        right: 0;
+        /* Ensure it stays full width */
+    }
+
+    .nav-links-mobile {
+        align-items: flex-start;
+        /* Left align items */
+        width: 100%;
+    }
+
+    .nav-links-mobile li {
+        width: 100%;
+        text-align: left;
+    }
+
+    .nav-links-mobile a {
+        display: block;
+        width: 100%;
+    }
+
+    .nav-links-mobile a.active {
+        width: auto;
+    }
 }
 
 /* Counter Animation Styles */
@@ -1327,4 +1495,159 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Video Hero Section - High End Scroll Zoom */
+.video-hero-outer {
+    padding: 100px 0;
+    overflow: visible;
+    background-color: transparent;
+    width: 100%;
+}
+
+.video-hero-container {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    aspect-ratio: 16/9;
+    background-color: #1a1a1a;
+    overflow: hidden;
+    cursor: none;
+
+    /* Initial state */
+    transform: scale(0.8);
+    border-radius: 60px;
+
+    /* Smooth cubic-bezier transitions for high-end feel */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        border-radius 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        box-shadow 0.6s ease;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+    will-change: transform, border-radius;
+}
+
+.video-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.4s ease;
+    display: block;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #000;
+}
+
+.play-label {
+    position: fixed;
+    /* Relative to viewport to follow mouse easily */
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 110px;
+    background-color: #ff3c01;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.1;
+    pointer-events: none;
+    z-index: 2100;
+    opacity: 0;
+    transform: scale(0) translate(-50%, -50%);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.video-wrapper:hover .play-label {
+    opacity: 1;
+    transform: scale(1) translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+    .video-hero-outer {
+        padding: 60px 0;
+    }
+
+    .video-wrapper {
+        border-radius: 30px;
+    }
+
+    .play-label {
+        width: 80px;
+        height: 80px;
+        font-size: 0.65rem;
+    }
+}
+
+/* Video Modal Styles */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(15px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.video-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.video-modal-content {
+    width: 90%;
+    max-width: 1200px;
+    aspect-ratio: 16/9;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.video-modal.active .video-modal-content {
+    transform: scale(1);
+}
+
+.close-modal {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    color: #fff;
+    font-family: "cofo-sans-mono-variable", monospace;
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.video-modal iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    box-shadow: 0 0 50px rgba(255, 60, 1, 0.3);
 }
