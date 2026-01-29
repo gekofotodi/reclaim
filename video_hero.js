@@ -17,6 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!videoWrapper || !playLabel) return;
 
     const togglePlayLabel = (show) => {
+        // Se il modale è attivo, non mostrare mai la label PLAY
+        if (videoModal && videoModal.classList.contains('active')) {
+            playLabel.classList.remove('active');
+            if (customCursor) customCursor.style.opacity = '1';
+            return;
+        }
+
         playLabel.classList.toggle('active', show);
         if (customCursor) {
             customCursor.style.opacity = show ? '0' : '1';
@@ -57,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             progress = Math.min(Math.max(progress, 0), 1);
         }
 
-        const scale = 0.8 + (0.2 * progress);
+        const scale = 0.5 + (0.5 * progress);
         videoWrapper.style.transform = `scale(${scale})`;
 
         if (progress >= 0.99) {

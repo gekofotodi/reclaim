@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             width: 24px; /* Adjustable size */
             height: 24px;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 10001;
             transform: translate(-50%, -50%); /* Center hotspot */
             transition: transform 0.05s linear; /* Slight smoothing */
             will-change: transform;

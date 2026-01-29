@@ -66,6 +66,16 @@
             display: flex;
             justify-content: center;
         }
+
+        /* Invert video colors only for about page */
+        .video-cover {
+            filter: invert(1);
+        }
+
+        /* Green video cursor for about page */
+        .play-label {
+            background-color: #97f106 !important;
+        }
     </style>
 </head>
 
@@ -125,13 +135,52 @@
             </div>
         </section>
 
-        <!-- Video Section (Now at the top) -->
-        <section class="map-section"
-            style="width: 100vw; height: 100vh; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
-            <video autoplay muted loop playsinline class="hero-video-placeholder"
-                style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                <source src="asset/video/trailer_reclaim.mp4" type="video/mp4">
-            </video>
+        <!-- Map Section (Now at the top) -->
+        <section class="home-hero"
+            style="margin-bottom: 5rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
+            <div style="position: relative; width: 100%;">
+                <img src="asset/immagini/map.png" alt="Global Network Map" class="full-screen-map"
+                    style="width: 100%; height: auto; display: block;">
+
+
+                <!-- Map Markers (Positioned relative to map image) -->
+                <div class="map-marker" id="marker-milan" style="top: 38%; left: 49%;"
+                    data-tooltip="COORD: 45.46, 9.19&#10;TIME: --:--&#10;CITY: MILAN&#10;SOLDIERS: 420">
+                    <div class="map-marker-icon"></div>
+                </div>
+
+                <div class="map-marker" id="marker-tokyo" style="top: 43%; left: 80%;"
+                    data-tooltip="COORD: 35.68, 139.76&#10;TIME: --:--&#10;CITY: TOKYO&#10;SOLDIERS: 850">
+                    <div class="map-marker-icon"></div>
+                </div>
+
+                <div class="map-marker" id="marker-nairobi" style="top: 62%; left: 56%;"
+                    data-tooltip="COORD: -1.29, 36.82&#10;TIME: --:--&#10;CITY: NAIROBI&#10;SOLDIERS: 315">
+                    <div class="map-marker-icon"></div>
+                </div>
+
+                <div class="map-marker" id="marker-nyc" style="top: 38%; left: 30%;"
+                    data-tooltip="COORD: 40.71, -74.00&#10;TIME: --:--&#10;CITY: NEW YORK&#10;SOLDIERS: 600">
+                    <div class="map-marker-icon"></div>
+                </div>
+
+                <div class="map-marker" id="marker-ba" style="top: 78%; left: 33%;"
+                    data-tooltip="COORD: -34.60, -58.38&#10;TIME: --:--&#10;CITY: BUENOS AIRES&#10;SOLDIERS: 290">
+                    <div class="map-marker-icon"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Hero Section -->
+        <section class="video-hero-outer">
+            <div class="video-hero-container">
+                <div class="video-wrapper" id="video-trigger" data-video-id="9TZdygXTz9I">
+                    <video src="asset/video/introxsito.mp4" class="video-cover" autoplay muted loop playsinline></video>
+                </div>
+            </div>
+            <div class="play-label" id="play-btn">
+                <span>PLAY TEASER</span>
+            </div>
         </section>
 
 
@@ -195,41 +244,7 @@
             </section>
         </div>
 
-        <!-- Map Section (Now at the bottom) -->
-        <section class="home-hero"
-            style="margin-top: 5rem; width: 100vw; height: 100vh; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw;">
-            <div style="position: relative; width: 100%; height: 100%;">
-                <img src="asset/immagini/map.png" alt="Global Network Map" class="full-screen-map"
-                    style="width: 100%; height: 100%; object-fit: cover; display: block;">
 
-
-                <!-- Map Markers -->
-                <div class="map-marker" id="marker-milan" style="top: 28%; left: 52%;"
-                    data-tooltip="COORD: 45.46, 9.19&#10;TIME: --:--&#10;CITY: MILAN&#10;SOLDIERS: 420">
-                    <div class="map-marker-icon"></div>
-                </div>
-
-                <div class="map-marker" id="marker-tokyo" style="top: 32%; left: 88%;"
-                    data-tooltip="COORD: 35.68, 139.76&#10;TIME: --:--&#10;CITY: TOKYO&#10;SOLDIERS: 850">
-                    <div class="map-marker-icon"></div>
-                </div>
-
-                <div class="map-marker" id="marker-nairobi" style="top: 50%; left: 60%;"
-                    data-tooltip="COORD: -1.29, 36.82&#10;TIME: --:--&#10;CITY: NAIROBI&#10;SOLDIERS: 315">
-                    <div class="map-marker-icon"></div>
-                </div>
-
-                <div class="map-marker" id="marker-nyc" style="top: 30%; left: 29%;"
-                    data-tooltip="COORD: 40.71, -74.00&#10;TIME: --:--&#10;CITY: NEW YORK&#10;SOLDIERS: 600">
-                    <div class="map-marker-icon"></div>
-                </div>
-
-                <div class="map-marker" id="marker-ba" style="top: 70%; left: 33%;"
-                    data-tooltip="COORD: -34.60, -58.38&#10;TIME: --:--&#10;CITY: BUENOS AIRES&#10;SOLDIERS: 290">
-                    <div class="map-marker-icon"></div>
-                </div>
-            </div>
-        </section>
 
 
 
@@ -244,11 +259,20 @@
         </div>
     </footer>
 
+    <!-- Video Modal Preview -->
+    <div class="video-modal" id="video-modal">
+        <div class="video-modal-content">
+            <span class="close-modal" id="close-modal">CLOSE [X]</span>
+            <div id="modal-iframe-container"></div>
+        </div>
+    </div>
+
     <script src="cursor.js"></script>
     <script src="info_bar.js"></script>
     <script src="hacker_text.js"></script>
     <script src="map_dynamics.js"></script>
     <script src="scroll_detector.js"></script>
+    <script src="video_hero.js"></script>
     <script src="hover_sync.js"></script>
 </body>
 

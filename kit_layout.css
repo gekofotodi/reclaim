@@ -33,12 +33,12 @@
 
 /* 1. CLOSED BOX (Blue Border) Removed - replaced by Image */
 .box-closed-image-container {
-    width: 100%;
+    width: 80%;
     /* Same width as open box */
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -7rem;
+    margin-top: 2rem;
     pointer-events: none;
 }
 

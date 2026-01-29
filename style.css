@@ -418,8 +418,8 @@ p {
 /* Variant: Static flow (for Manifesto) */
 .cta-container.cta-static {
     position: relative;
-    margin-top: 8rem;
-    /* Generous top margin */
+    margin-top: 2rem;
+    /* Reduced top margin */
     background-color: transparent;
 }
 
@@ -688,7 +688,7 @@ footer {
     font-family: "neue-haas-unica", sans-serif;
     font-size: 3.5rem;
     font-weight: 700;
-    line-height: 1.1;
+    line-height: 1.3;
     color: #000000;
     /* Nero come richiesto */
     text-transform: uppercase;
@@ -796,8 +796,13 @@ footer {
 
 .map-marker {
     position: absolute;
-    width: 24px;
-    height: 24px;
+    width: 1.5vw;
+    /* Grandezza relativa alla larghezza dello schermo */
+    height: 1.5vw;
+    /* Mantiene la proporzione quadrata */
+    min-width: 12px;
+    /* Impedisce che diventino troppo piccoli su mobile */
+    min-height: 12px;
     cursor: pointer;
     z-index: 10;
     transition: transform 0.2s ease;
@@ -1162,7 +1167,7 @@ footer {
     line-height: 1.8;
     color: #000000;
     text-align: left;
-    margin: 0 auto 4rem auto;
+    margin: 0 auto 2rem auto;
     max-width: 800px;
     padding: 2rem 2rem 0 2rem;
     /* Reduced top padding */
@@ -1174,8 +1179,8 @@ footer {
 }
 
 .manifesto-text img {
-    width: 189%;
-    margin-left: -44.5%;
+    width: 100%;
+    margin-left: 0;
     display: block;
     height: auto;
 }
@@ -1500,159 +1505,275 @@ footer {
 /* Video Hero Section - High End Scroll Zoom */
 .video-hero-outer {
     padding: 100px 0;
+    /* Spazio verticale sopra e sotto la sezione video */
     overflow: visible;
+    /* Permette al contenuto (come il cursore) di uscire dai bordi se necessario */
     background-color: transparent;
+    /* Fondo trasparente per non coprire elementi sottostanti */
     width: 100%;
+    /* Occupa l'intera larghezza disponibile */
 }
 
 .video-hero-container {
     width: 100%;
+    /* Larghezza piena del contenitore interno */
     margin: 0 auto;
+    /* Centra il contenitore orizzontalmente */
     display: flex;
+    /* Utilizza flexbox per il posizionamento */
     justify-content: center;
+    /* Centra il contenuto del video orizzontalmente */
 }
 
 .video-wrapper {
     position: relative;
+    /* Riferimento per il posizionamento degli elementi interni */
     width: 100%;
+    /* Larghezza iniziale dinamica */
     max-width: 100vw;
+    /* Non supera mai la larghezza dello schermo */
     aspect-ratio: 16/9;
+    /* Mantiene il formato panoramico standard */
     background-color: #1a1a1a;
+    /* Fondo scuro visibile durante il caricamento */
     overflow: hidden;
+    /* Taglia i contenuti che escono dagli angoli arrotondati */
     cursor: none;
+    /* Nasconde il cursore di sistema sopra il video */
 
     /* Initial state */
-    transform: scale(0.8);
-    border-radius: 30px;
+    transform: scale(0.5);
+    /* Dimensione iniziale ridotta del 50% */
+    border-radius: 40px;
+    /* Angoli arrotondati del contenitore video */
 
     /* Smooth cubic-bezier transitions for high-end feel */
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+        /* Animazione fluida dello zoom */
         box-shadow 0.6s ease;
+    /* Transizione morbida dell'ombra */
     box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+    /* Ombra profonda per dare risalto */
     will-change: transform, border-radius;
+    /* Ottimizza le prestazioni per il cambio scala e bordi */
 }
 
 .video-cover {
     width: 100%;
+    /* Video largo quanto il contenitore */
     height: 100%;
+    /* Video alto quanto il contenitore */
     object-fit: cover;
+    /* Riempie il box ritagliando se necessario senza deformare */
     transition: opacity 0.4s ease;
+    /* Dissolvenza fluida se l'opacità cambia */
     display: block;
+    /* Elimina spazi vuoti sotto il tag video */
     border-radius: 10px;
+    /* Arrotondamento interno del video stesso */
 }
 
 .video-wrapper iframe {
     position: absolute;
+    /* Posizionamento assoluto per coprire l'intero wrapper */
     top: 0;
+    /* Allineato in alto */
     left: 0;
+    /* Allineato a sinistra */
     width: 100%;
+    /* Larghezza piena dell'iframe */
     height: 100%;
+    /* Altezza piena dell'iframe */
     border: none;
+    /* Rimuove bordi di default dell'iframe */
     background-color: #000;
+    /* Fondo nero per i video YouTube */
 }
 
 .play-label {
     position: fixed;
+    /* Rimane fisso rispetto alla finestra durante il movimento */
     top: 0;
+    /* Posizione iniziale gestita via JS */
     left: 0;
+    /* Posizione iniziale gestita via JS */
     width: auto;
+    /* Dimensione adattiva al testo */
     height: auto;
+    /* Altezza adattiva al testo */
     padding: 6px 15px;
+    /* Spazio interno attorno alla scritta PLAY */
     background-color: #ff3c01;
+    /* Colore arancione distintivo */
     color: #000;
+    /* Colore nero per il testo */
     border-radius: 0;
+    /* Forma rettangolare senza arrotondamento */
     display: flex;
+    /* Layout flex per centrare il contenuto */
     justify-content: center;
+    /* Allineamento orizzontale */
     align-items: center;
+    /* Allineamento verticale */
     text-align: center;
+    /* Testo centrato */
     font-family: "cofo-sans-mono-variable", monospace;
+    /* Font monospaziato di sistema */
     font-size: 1rem;
+    /* Dimensione del carattere leggibile */
     font-weight: 400;
+    /* Peso del carattere normale */
     text-transform: uppercase;
+    /* Scritta sempre in maiuscolo */
     line-height: 1;
+    /* Altezza linea minima per compattezza */
+    white-space: nowrap;
+    /* Impedisce al testo di andare a capo vicino ai margini */
     pointer-events: none;
+    /* Non interferisce con i click sul video */
     z-index: 2100;
+    /* Sopra ogni altro elemento della pagina */
     opacity: 0;
+    /* Inizialmente invisibile */
     /* Initial state with scale 0 */
     transform: translate(-50%, -50%) scale(0);
+    /* Nascosto e rimpicciolito al centro */
     /* Transition only for opacity and scale, not for position (top/left) */
     transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Animazione pop-up fluida */
     will-change: left, top, opacity, transform;
+    /* Ottimizza il movimento e la comparsa */
 }
 
 .play-label.active {
     opacity: 1;
+    /* Rende visibile il cursore */
     transform: translate(-50%, -50%) scale(1);
+    /* Riporta il cursore alla dimensione normale */
 }
 
 @media (max-width: 768px) {
     .video-hero-outer {
         padding: 60px 0;
+        /* Riduce il padding verticale sui dispositivi mobili */
     }
 
     .video-wrapper {
         border-radius: 10px;
+        /* Angoli meno arrotondati su schermi piccoli */
     }
 
     .play-label {
         padding: 4px 10px;
+        /* Label più piccola per mobile */
         font-size: 0.8rem;
+        /* Testo ridotto per mobile */
     }
 }
 
 /* Video Modal Styles */
 .video-modal {
     position: fixed;
+    /* Rimane bloccato sullo schermo sopra tutto il contenuto */
     top: 0;
+    /* Allineato al bordo superiore della finestra */
     left: 0;
+    /* Allineato al bordo sinistro della finestra */
     width: 100%;
+    /* Larghezza totale della finestra */
     height: 100%;
+    /* Altezza totale della finestra */
     background: rgba(0, 0, 0, 0.95);
+    /* Sfondo nero quasi totalmente opaco */
     backdrop-filter: blur(15px);
+    /* Sfoca il contenuto della pagina dietro il popup */
     z-index: 10000;
+    /* Priorità altissima per essere sopra ogni altro elemento */
     display: flex;
+    /* Flexbox per centrare il video nel modal */
     justify-content: center;
+    /* Centratura orizzontale del contenuto */
     align-items: center;
+    /* Centratura verticale del contenuto */
     opacity: 0;
+    /* Inizialmente invisibile */
     pointer-events: none;
+    /* Ignora i click quando è invisibile */
     transition: opacity 0.5s ease;
+    /* Transizione morbida per la comparsa */
 }
 
 .video-modal.active {
     opacity: 1;
+    /* Rende visibile il modal quando ha la classe 'active' */
     pointer-events: auto;
+    /* Riattiva l'interazione con il mouse */
 }
 
 .video-modal-content {
-    width: 90%;
+    width: 80%;
+    /* Occupa l'80% della larghezza schermo */
     max-width: 1200px;
+    /* Limite massimo per schermi molto grandi */
     aspect-ratio: 16/9;
+    /* Forza il formato widescreen corretto */
     position: relative;
+    /* Riferimento per il pulsante di chiusura */
     transform: scale(0.9);
+    /* Parte leggermente rimpicciolito (effetto animazione) */
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Animazione pop con 'rimbalzo' */
+    margin: 0;
+    /* Rimuove eventuali margini che spostano dal centro */
+    padding: 0;
+    /* Rimuove eventuali padding */
+}
+
+#modal-iframe-container {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 .video-modal.active .video-modal-content {
     transform: scale(1);
+    /* Torna alla dimensione normale quando il modal è attivo */
 }
 
 .close-modal {
     position: absolute;
+    /* Posizionato rispetto al contenitore del video */
     top: -50px;
+    /* Spostato sopra il box del video */
     right: 0;
+    /* Allineato al bordo destro del video */
     color: #fff;
+    /* Colore bianco per la scritta CLOSE */
     font-family: "cofo-sans-mono-variable", monospace;
+    /* Font monospaziato */
     font-size: 1rem;
+    /* Dimensione del testo */
     cursor: pointer;
+    /* Cambia cursore al passaggio per indicare click */
     text-transform: uppercase;
+    /* Testo sempre in maiuscolo */
     letter-spacing: 2px;
+    /* Aumenta lo spazio tra le lettere per leggibilità */
 }
 
-.video-modal iframe {
+.video-modal iframe,
+.video-modal video {
     width: 100%;
+    /* Copre l'intera larghezza del contenitore */
     height: 100%;
+    /* Copre l'intera altezza del contenitore */
     border: none;
+    /* Rimuove bordi di default */
+    background-color: #000;
+    /* Fondo nero se il video non copre tutto */
     box-shadow: 0 0 50px rgba(255, 60, 1, 0.3);
+    /* Luce soffusa arancione attorno */
+    display: block;
 }
 
 .badge-tilt-wrapper {
