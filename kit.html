@@ -7,9 +7,70 @@
     <title>Kit</title>
     <link rel="icon" href="asset/loghi/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="kit_scrolly.css">
     <link rel="stylesheet" href="https://use.typekit.net/aol2lxx.css">
-    <!-- Three.js and GLTFLoader -->
+    <style>
+        /* Symmetrical split sections for Kit page */
+        .app-split-section {
+            max-height: none;
+            height: auto;
+            min-height: 60vh;
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8rem;
+        }
 
+        .app-split-section.reverse-layout {
+            padding: 8rem 2rem;
+            flex-direction: row-reverse;
+        }
+
+        .app-text-column,
+        .app-visual-column {
+            flex: 1;
+            max-width: 550px;
+            width: 100%;
+        }
+
+        .about-visual {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .about-visual img {
+            width: 100% !important;
+            aspect-ratio: 956 / 1280;
+            height: auto !important;
+            margin: 0 !important;
+            transform: none !important;
+            object-fit: cover;
+            display: block;
+            border-radius: 10px;
+            -webkit-mask-image: none !important;
+            mask-image: none !important;
+        }
+
+        @media (max-width: 768px) {
+
+            .app-split-section,
+            .app-split-section.reverse-layout {
+                padding: 4rem 2rem !important;
+                flex-direction: column !important;
+                gap: 3rem !important;
+            }
+
+            .app-text-column,
+            .app-visual-column {
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -55,8 +116,6 @@
         <div class="info-item" id="info-time">--:--:--</div>
     </div>
 
-    <!-- 3D Canvas Container -->
-
 
     <main class="kit-content">
         <section class="manifesto-container">
@@ -70,58 +129,138 @@
 
             </div>
         </section>
-        <!-- Schematic Layout Section (SCATOLA CHIUSA / APERTA) -->
-        <section class="kit-schematic-section">
 
-            <!-- Box 1: Closed -->
-            <!-- Box 1: Closed -->
-            <div class="box-closed-image-container">
-                <img src="asset/immagini/scatola_chiusa.png" alt="Scatola Chiusa" class="box-image-shadow">
+        <!-- SCROLLYTELLING SECTION -->
+        <div id="kit-scroll-container">
+            <div class="sticky-stage">
+
+                <!-- Layer Base: Open Box -->
+                <div class="kit-layer layer-base">
+                    <img src="asset/immagini/scatola_aperta.png" alt="Open Kit" class="kit-scrolly-img">
+                </div>
+
+                <!-- Layer Overlay: SVG Annotations -->
+                <div class="kit-layer layer-overlay">
+                    <svg id="kit-svg-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
+                        <!-- GUN -->
+                        <g class="kit-label-group" id="label-gun">
+                            <path class="kit-path" d="M 500 350 L 750 300" />
+                            <text class="svg-label-text" x="760" y="305">GUN [PROTOTYPE X-1]</text>
+                        </g>
+
+                        <!-- AMMO -->
+                        <g class="kit-label-group" id="label-ammo">
+                            <path class="kit-path" d="M 420 550 L 200 500" />
+                            <text class="svg-label-text" x="50" y="505">AMMO [9MM PARABELLUM]</text>
+                        </g>
+
+                        <!-- STENCIL -->
+                        <g class="kit-label-group" id="label-stencil">
+                            <path class="kit-path" d="M 450 650 L 220 680" />
+                            <text class="svg-label-text" x="70" y="685">STENCIL [CITY MARKER]</text>
+                        </g>
+
+                        <!-- SPRAY -->
+                        <g class="kit-label-group" id="label-spray">
+                            <path class="kit-path" d="M 550 780 L 800 820" />
+                            <text class="svg-label-text" x="810" y="825">SPRAY CAN [CHROME]</text>
+                        </g>
+
+                        <!-- BROCHURE -->
+                        <g class="kit-label-group" id="label-brochure">
+                            <path class="kit-path" d="M 600 680 L 850 720" />
+                            <text class="svg-label-text" x="860" y="725">USER MANUAL</text>
+                        </g>
+
+                        <!-- BADGE -->
+                        <g class="kit-label-group" id="label-badge">
+                            <path class="kit-path" d="M 580 580 L 820 540" />
+                            <text class="svg-label-text" x="830" y="545">RECLAIM BADGE #001</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Layer Top: Closed Box (Fades out) -->
+                <div class="kit-layer layer-top" id="layer-closed">
+                    <img src="asset/immagini/scatola_chiusa.png" alt="Closed Kit" class="kit-scrolly-img">
+                </div>
+
             </div>
+        </div>
 
-            <!-- Box 2: Open -->
-            <div class="box-open-image-container">
-                <div class="box-image-wrapper">
-                    <img src="asset/immagini/scatola_aperta.png" alt="Scatola Aperta" class="box-image-shadow">
-
-                    <!-- Annotations -->
-                    <div class="kit-callout" style="top: 28%; right: -25%; width: 75%;">
-                        <div class="callout-line"></div>
-                        <span class="callout-label">GUN</span>
-                    </div>
-
-                    <div class="kit-callout" style="top: 59%; left: -25%; width: 83%;">
-                        <span class="callout-label">AMMO</span>
-                        <div class="callout-line"></div>
-                    </div>
-
-                    <div class="kit-callout" style="top: 65%; left: -25%; width: 64%;">
-                        <span class="callout-label">STENCIL</span>
-                        <div class="callout-line"></div>
-                    </div>
-
-                    <div class="kit-callout" style="top: 78%; left: -25%; width: 46%;">
-                        <span class="callout-label">SPRAY CAN</span>
-                        <div class="callout-line"></div>
-                    </div>
-
-                    <div class="kit-callout" style="top: 70%; right: -25%; width: 47%;">
-                        <div class="callout-line"></div>
-                        <span class="callout-label">BROCHURE</span>
-                    </div>
-
-                    <div class="kit-callout" style="top: 78%; right: -25%; width: 68%;">
-                        <div class="callout-line"></div>
-                        <span class="callout-label">WELCOME BADGE</span>
+        <!-- NEW ALTERNATING CONTENT SECTIONS -->
+        <div class="content-section" style="padding: 0; margin-top: 4rem;">
+            <!-- Block 1: THE DEVICE -->
+            <section class="app-split-section">
+                <div class="app-text-column">
+                    <h1>THE DEVICE</h1>
+                    <p>Designed for urban stealth, the X-1 Marker is the core of your kit. Engineered for precision and
+                        rapid deployment, it allows you to mark territory with deterministic finality.</p>
+                </div>
+                <div class="app-visual-column">
+                    <div class="mockup-container about-visual">
+                        <img src="asset/immagini/about1v.jpeg" alt="The Device">
                     </div>
                 </div>
-            </div>
+            </section>
 
+            <!-- Block 2: THE AMMO (Reverse) -->
+            <section class="app-split-section reverse-layout">
+                <div class="app-text-column">
+                    <h1>THE AMMO</h1>
+                    <p>Proprietary ink cartridges optimized for all surfaces. High-vis color profile ensured to remain
+                        visible under tactical conditions while resisting environmental degradation.</p>
+                </div>
+                <div class="app-visual-column">
+                    <div class="mockup-container about-visual">
+                        <img src="asset/immagini/about2v.jpeg" alt="The Ammo">
+                    </div>
+                </div>
+            </section>
 
+            <!-- Block 3: THE ARMOR -->
+            <section class="app-split-section">
+                <div class="app-text-column">
+                    <h1>THE ARMOR</h1>
+                    <p>Multi-layered ballistic nylon provides maximum protection without sacrificing mobility. Built to
+                        withstand the rigors of high-intensity urban reclamation sessions.</p>
+                </div>
+                <div class="app-visual-column">
+                    <div class="mockup-container about-visual">
+                        <img src="asset/immagini/about3v.jpeg" alt="The Armor">
+                    </div>
+                </div>
+            </section>
 
-        </section>
+            <!-- Block 4: THE CODEX (Reverse) -->
+            <section class="app-split-section reverse-layout">
+                <div class="app-text-column">
+                    <h1>THE CODEX</h1>
+                    <p>The operative's field manual. Contains essential tactical data, regional city maps, and the
+                        fundamental principles of the RECLAIM movement.</p>
+                </div>
+                <div class="app-visual-column">
+                    <div class="mockup-container about-visual">
+                        <img src="asset/immagini/about4v.jpeg" alt="The Codex">
+                    </div>
+                </div>
+            </section>
 
-        </section>
+            <!-- Block 5: THE PINS -->
+            <section class="app-split-section">
+                <div class="app-text-column">
+                    <h1>THE PINS</h1>
+                    <p>Unique identification badges awarded for territorial successes. Wear your rank, display your
+                        loyalty, and be recognized within the collective.</p>
+                </div>
+                <div class="app-visual-column">
+                    <div class="mockup-container about-visual">
+                        <img src="asset/immagini/about6v.jpeg" alt="The Pins">
+                    </div>
+                </div>
+            </section>
+        </div>
+
         <!-- Fixed CTA Container -->
         <div class="cta-container cta-fixed">
             <a href="#" class="cta-button">SHOP NOW</a>
@@ -141,8 +280,74 @@
     <script src="info_bar.js"></script>
     <script src="scroll_detector.js"></script>
     <script src="hacker_text.js"></script>
-    <script type="module" src="kit_3d.js"></script>
     <script src="hover_sync.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const scrollContainer = document.getElementById('kit-scroll-container');
+            const layerClosed = document.getElementById('layer-closed');
+            const paths = document.querySelectorAll('.kit-path');
+            const labelGroups = document.querySelectorAll('.kit-label-group');
+
+            // Initialize SVG paths for drawing animation
+            paths.forEach(path => {
+                const length = path.getTotalLength();
+                path.style.strokeDasharray = length;
+                path.style.strokeDashoffset = length;
+            });
+
+            window.addEventListener('scroll', () => {
+                const containerRect = scrollContainer.getBoundingClientRect();
+                const containerHeight = scrollContainer.offsetHeight;
+                const windowHeight = window.innerHeight;
+
+                // Calculate progress within the container (0 to 1)
+                // Offset by windowHeight because it's sticky
+                let progress = -containerRect.top / (containerHeight - windowHeight);
+                progress = Math.max(0, Math.min(1, progress));
+
+                // Phase 1: 0% - 40% (Fade Box Closed)
+                if (progress <= 0.4) {
+                    const phase1Progress = progress / 0.4;
+                    layerClosed.style.opacity = 1 - phase1Progress;
+                    layerClosed.style.visibility = 'visible';
+                } else {
+                    layerClosed.style.opacity = 0;
+                    layerClosed.style.visibility = 'hidden';
+                }
+
+                // Phase 2: 40% - 100% (Animate SVG)
+                if (progress > 0.4) {
+                    const phase2Progress = (progress - 0.4) / 0.6;
+
+                    paths.forEach((path, index) => {
+                        const length = path.getTotalLength();
+                        // Stagger the drawing? Or all at once based on overall progress?
+                        // Let's do all at once but with a slight delay per item based on their share of 40-100%
+                        const itemStart = (index / paths.length) * 0.8; // Spread across 80% of phase 2
+                        const itemEnd = itemStart + 0.2;
+
+                        let itemProgress = (phase2Progress - itemStart) / (itemEnd - itemStart);
+                        itemProgress = Math.max(0, Math.min(1, itemProgress));
+
+                        path.style.strokeDashoffset = length * (1 - itemProgress);
+
+                        // Show labels after path is partially drawn
+                        if (itemProgress > 0.8) {
+                            labelGroups[index].classList.add('visible');
+                        } else {
+                            labelGroups[index].classList.remove('visible');
+                        }
+                    });
+                } else {
+                    // Reset SVG
+                    paths.forEach(path => {
+                        path.style.strokeDashoffset = path.getTotalLength();
+                    });
+                    labelGroups.forEach(group => group.classList.remove('visible'));
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

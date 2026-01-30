@@ -28,9 +28,39 @@
     padding: 0;
 }
 
+html,
 body {
-    background-color: #c5c5c5;
-    /* Main bg as requested */
+    background-color: #000000;
+}
+
+/* Enhanced Clickable Hitboxes (+15%) */
+.cta-button,
+.hamburger-menu,
+.nav-links-mobile li a,
+.footer-links a,
+.map-marker,
+.close-modal,
+.nav-logo {
+    position: relative;
+}
+
+.cta-button::before,
+.hamburger-menu::before,
+.nav-links-mobile li a::before,
+.footer-links a::before,
+.map-marker::before,
+.close-modal::before,
+.nav-logo::before {
+    content: '';
+    position: absolute;
+    top: -15%;
+    left: -15%;
+    right: -15%;
+    bottom: -15%;
+    pointer-events: auto;
+}
+
+body {
     color: #000000;
     /* Black text on grey background */
     text-transform: uppercase;
@@ -245,6 +275,10 @@ main {
     flex: 1;
     /* Removed padding to allow full width hero */
     width: 100%;
+    background-color: #c5c5c5;
+    /* Main bg moved here */
+    min-height: 100vh;
+    /* Ensure it covers the screen */
 }
 
 h1 {
@@ -796,13 +830,12 @@ footer {
 
 .map-marker {
     position: absolute;
-    width: 1.5vw;
-    /* Grandezza relativa alla larghezza dello schermo */
-    height: 1.5vw;
-    /* Mantiene la proporzione quadrata */
-    min-width: 12px;
-    /* Impedisce che diventino troppo piccoli su mobile */
-    min-height: 12px;
+    width: 1.8vw;
+    /* Grandezza aumentata del 20% (da 1.5vw) */
+    height: 1.8vw;
+    min-width: 14px;
+    /* Grandezza minima aumentata proporzionalmente */
+    min-height: 14px;
     cursor: pointer;
     z-index: 10;
     transition: transform 0.2s ease;
@@ -815,7 +848,16 @@ footer {
 .map-marker-icon {
     width: 100%;
     height: 100%;
-    background: url(asset/immagini/logo_orange.png) no-repeat center / contain;
+    background-color: #97f106;
+    /* Verde neon del sito */
+    -webkit-mask-image: url(asset/loghi/logo.svg);
+    mask-image: url(asset/loghi/logo.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 }
 
 
@@ -1782,6 +1824,6 @@ footer {
     backface-visibility: hidden;
 }
 
-/* {
+* {
     outline: 1px solid rgba(255, 0, 0, 0.4) !important;
 }

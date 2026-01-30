@@ -90,6 +90,16 @@
     /* Maintains aspect ratio */
     display: block;
     /* Removes inline spacing */
+
+    /* Soft vertical mask for natural fade */
+    -webkit-mask-image: linear-gradient(to bottom,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 1) 35%,
+            rgba(0, 0, 0, 0) 60%);
+    mask-image: linear-gradient(to bottom,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 1) 35%,
+            rgba(0, 0, 0, 0) 60%);
 }
 
 
@@ -102,26 +112,9 @@
     /* Rotates only the image -45 degrees */
 }
 
-/* Gradient Overlay from Bottom */
+/* Physical gradient removed in favor of mask-image on img */
 .mockup-container::after {
-    content: '';
-    /* Creates a pseudo-element */
-    position: absolute;
-    /* Positions it absolutely relative to container */
-    bottom: -1px;
-    /* Aligns to bottom with slight overlap */
-    left: -50%;
-    /* Aligns to left edge */
-    width: 200%;
-    /* Full width */
-    height: 50%;
-    /* Covers bottom 50% of the container */
-    background: linear-gradient(to top, #c5c5c5 60%, rgba(197, 197, 197, 0) 100%);
-    /* Creates fade effect */
-    pointer-events: none;
-    /* Allows clicks to pass through */
-    z-index: 2;
-    /* Sits on top of the image */
+    display: none;
 }
 
 /* Adjustments for Hunt Session Section */
@@ -130,17 +123,14 @@
     /* Moves text slightly right */
 }
 
+/* No mask for rotated asset as requested */
+.hunt-section .mockup-container img {
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
 .hunt-section .mockup-container::after {
-    display: block;
-    /* Re-enable gradient */
-    background: linear-gradient(to top, #c5c5c5 50%, rgba(197, 197, 197, 0) 80%);
-    /* Specific gradient for rotated asset */
-    height: 90%;
-    /* Full height to cover rotated aspect */
-    bottom: -20%;
-    /* Lower padding */
-    left: -60%;
-    /* Match margin */
+    display: none;
 }
 
 @media (max-width: 768px) {

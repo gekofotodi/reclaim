@@ -15,20 +15,42 @@
             max-height: none;
             height: auto;
             min-height: 60vh;
-            padding: 6rem 15rem;
-            max-width: none;
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
-            gap: 6rem;
+            justify-content: center;
+            gap: 8rem;
         }
 
         .app-split-section.reverse-layout {
-            padding: 6rem 15rem;
+            padding: 8rem 2rem;
+            flex-direction: row-reverse;
+        }
+
+        .app-text-column,
+        .app-visual-column {
+            flex: 1;
+            max-width: 550px;
+            /* Equal width for both columns */
+            width: 100%;
+        }
+
+        .about-visual {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            pointer-events: auto;
+            /* Enable interaction if needed */
         }
 
         .about-visual img {
-            width: 400px !important;
-            height: 600px !important;
+            width: 100% !important;
+            /* Matches text column width */
+            aspect-ratio: 956 / 1280;
+            /* Ratio of about2v.jpeg to uniform heights */
+            height: auto !important;
             margin: 0 !important;
             transform: none !important;
             object-fit: cover;
@@ -36,13 +58,25 @@
             border-radius: 10px;
         }
 
+        @media (max-width: 1024px) {
+            .app-split-section {
+                padding: 6rem 4rem;
+                gap: 4rem;
+            }
+        }
+
         @media (max-width: 768px) {
 
             .app-split-section,
             .app-split-section.reverse-layout {
-                padding: 2rem 1rem !important;
+                padding: 4rem 2rem !important;
                 flex-direction: column !important;
-                gap: 2rem !important;
+                gap: 3rem !important;
+            }
+
+            .app-text-column,
+            .app-visual-column {
+                max-width: 100%;
             }
 
             .about-visual img {
@@ -61,11 +95,6 @@
             display: none !important;
         }
 
-        .about-visual {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
 
         /* Invert video colors only for about page */
         .video-cover {
@@ -119,7 +148,7 @@
     <!-- Info Bar -->
     <div class="info-bar">
         <div class="info-item" id="info-ip">LOCATING...</div>
-        <div id="info-counter">10,000</div>
+        <div class="info-item" id="info-counter">10,000</div>
         <div class="info-item" id="info-time">--:--:--</div>
     </div>
 
@@ -202,7 +231,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/about1v.jpeg" alt="The Struggle">
+                        <img src="asset/immagini/about2v.jpeg" alt="The Struggle">
                     </div>
                 </div>
             </section>
@@ -221,7 +250,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/about2v.jpg" alt="The Solution">
+                        <img src="asset/immagini/about6v.jpeg" alt="The Solution">
                     </div>
                 </div>
             </section>
