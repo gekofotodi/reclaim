@@ -144,38 +144,38 @@
                     <svg id="kit-svg-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
                         <!-- GUN -->
                         <g class="kit-label-group" id="label-gun">
-                            <path class="kit-path" d="M 500 350 L 750 300" />
-                            <text class="svg-label-text" x="760" y="305">GUN [PROTOTYPE X-1]</text>
+                            <path class="kit-path" d="M 500 330 L 750 330" />
+                            <text class="svg-label-text" x="760" y="335">GUN [PROTOTYPE X-1]</text>
                         </g>
 
                         <!-- AMMO -->
                         <g class="kit-label-group" id="label-ammo">
-                            <path class="kit-path" d="M 420 550 L 200 500" />
-                            <text class="svg-label-text" x="50" y="505">AMMO [9MM PARABELLUM]</text>
+                            <path class="kit-path" d="M 420 530 L 200 530" />
+                            <text class="svg-label-text" x="50" y="535">AMMO [9MM PARABELLUM]</text>
                         </g>
 
                         <!-- STENCIL -->
                         <g class="kit-label-group" id="label-stencil">
-                            <path class="kit-path" d="M 450 650 L 220 680" />
-                            <text class="svg-label-text" x="70" y="685">STENCIL [CITY MARKER]</text>
+                            <path class="kit-path" d="M 450 670 L 220 670" />
+                            <text class="svg-label-text" x="70" y="675">STENCIL [CITY MARKER]</text>
                         </g>
 
                         <!-- SPRAY -->
                         <g class="kit-label-group" id="label-spray">
-                            <path class="kit-path" d="M 550 780 L 800 820" />
-                            <text class="svg-label-text" x="810" y="825">SPRAY CAN [CHROME]</text>
+                            <path class="kit-path" d="M 550 810 L 800 810" />
+                            <text class="svg-label-text" x="810" y="815">SPRAY CAN [CHROME]</text>
                         </g>
 
                         <!-- BROCHURE -->
                         <g class="kit-label-group" id="label-brochure">
-                            <path class="kit-path" d="M 600 680 L 850 720" />
-                            <text class="svg-label-text" x="860" y="725">USER MANUAL</text>
+                            <path class="kit-path" d="M 600 710 L 850 710" />
+                            <text class="svg-label-text" x="860" y="715">USER MANUAL</text>
                         </g>
 
                         <!-- BADGE -->
                         <g class="kit-label-group" id="label-badge">
-                            <path class="kit-path" d="M 580 580 L 820 540" />
-                            <text class="svg-label-text" x="830" y="545">RECLAIM BADGE #001</text>
+                            <path class="kit-path" d="M 580 560 L 820 560" />
+                            <text class="svg-label-text" x="830" y="565">RECLAIM BADGE #001</text>
                         </g>
                     </svg>
                 </div>
@@ -301,13 +301,16 @@
                 const windowHeight = window.innerHeight;
 
                 // Calculate progress within the container (0 to 1)
-                // Offset by windowHeight because it's sticky
                 let progress = -containerRect.top / (containerHeight - windowHeight);
                 progress = Math.max(0, Math.min(1, progress));
 
-                // Phase 1: 0% - 40% (Fade Box Closed)
-                if (progress <= 0.4) {
-                    const phase1Progress = progress / 0.4;
+                // 1. PHASE 1: Reveal Box (10% to 40% of scroll)
+                // 0-10% is a "dead zone" for stability
+                if (progress < 0.1) {
+                    layerClosed.style.opacity = 1;
+                    layerClosed.style.visibility = 'visible';
+                } else if (progress >= 0.1 && progress <= 0.4) {
+                    const phase1Progress = (progress - 0.1) / 0.3;
                     layerClosed.style.opacity = 1 - phase1Progress;
                     layerClosed.style.visibility = 'visible';
                 } else {
@@ -315,31 +318,32 @@
                     layerClosed.style.visibility = 'hidden';
                 }
 
-                // Phase 2: 40% - 100% (Animate SVG)
-                if (progress > 0.4) {
-                    const phase2Progress = (progress - 0.4) / 0.6;
+                // 2. PAUSE between Phase 1 and Phase 2 (40% to 55%)
+
+                // 3. PHASE 2: Draw Paths (50% to 95% of scroll)
+                if (progress > 0.50) {
+                    const phase2TotalProgress = Math.min(1, (progress - 0.50) / 0.45);
 
                     paths.forEach((path, index) => {
                         const length = path.getTotalLength();
-                        // Stagger the drawing? Or all at once based on overall progress?
-                        // Let's do all at once but with a slight delay per item based on their share of 40-100%
-                        const itemStart = (index / paths.length) * 0.8; // Spread across 80% of phase 2
-                        const itemEnd = itemStart + 0.2;
+                        // Stagger each line even more for an Ultra-tactical look
+                        const itemStart = (index / paths.length) * 0.75;
+                        const itemEnd = Math.min(1, itemStart + 0.25);
 
-                        let itemProgress = (phase2Progress - itemStart) / (itemEnd - itemStart);
+                        let itemProgress = (phase2TotalProgress - itemStart) / (itemEnd - itemStart);
                         itemProgress = Math.max(0, Math.min(1, itemProgress));
 
                         path.style.strokeDashoffset = length * (1 - itemProgress);
 
-                        // Show labels after path is partially drawn
-                        if (itemProgress > 0.8) {
+                        // 4. Appear labels ONLY when line is finished (itemProgress == 1)
+                        if (itemProgress >= 1.0) {
                             labelGroups[index].classList.add('visible');
                         } else {
                             labelGroups[index].classList.remove('visible');
                         }
                     });
                 } else {
-                    // Reset SVG
+                    // Reset SVG during pre-reveal and pause
                     paths.forEach(path => {
                         path.style.strokeDashoffset = path.getTotalLength();
                     });
