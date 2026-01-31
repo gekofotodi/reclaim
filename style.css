@@ -825,6 +825,7 @@ footer {
     object-fit: cover;
     display: block;
     filter: grayscale(100%) contrast(120%);
+    border-radius: 40px;
     /* Stylized look */
 }
 
@@ -1818,12 +1819,116 @@ footer {
     display: block;
 }
 
-.badge-tilt-wrapper {
-    will-change: transform;
-    transform: translateZ(0);
-    backface-visibility: hidden;
+/* ==========================================================================
+   EXPERT MOBILE UX OPTIMIZATION (< 768px)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. Spacing & Safe Areas */
+    body {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        overflow-x: hidden;
+        width: 100vw;
+        box-sizing: border-box;
+    }
+
+    /* 2. Responsive Typography (clamp) */
+    h1,
+    .catalog-title,
+    .impact-text,
+    .scrolling-track span {
+        font-size: clamp(1.8rem, 10vw, 3rem) !important;
+        line-height: 1.1 !important;
+        word-break: break-word;
+    }
+
+    p,
+    .catalog-intro p {
+        font-size: clamp(0.95rem, 4vw, 1.1rem) !important;
+        line-height: 1.5 !important;
+    }
+
+    /* 3. Layout Adaptation */
+    .catalog-grid {
+        grid-template-columns: 1fr !important;
+        /* Stack badges in one column on small phones */
+        gap: 10px !important;
+    }
+
+    .app-split-section,
+    .app-split-section.reverse-layout {
+        flex-direction: column !important;
+        padding: 3rem 0 !important;
+        gap: 2rem !important;
+        text-align: left;
+    }
+
+    .app-text-column,
+    .app-visual-column {
+        flex: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* 4. Touch Targets & Interaction */
+    .cta-button,
+    .nav-links-mobile a,
+    .footer-links a,
+    .hamburger-menu {
+        min-height: 48px;
+        /* Exceeds 44px for better UX */
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    .cta-button {
+        width: 100% !important;
+        /* Full width buttons on mobile */
+        justify-content: center;
+        padding: 1rem !important;
+    }
+
+    /* 5. Touch-friendly Active States */
+    .cta-button:active {
+        background-color: #d43201 !important;
+        transform: scale(0.98) !important;
+        transition: transform 0.1s ease;
+    }
+
+    .catalog-item:active {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+    }
 }
 
-/* {
-    outline: 1px solid rgba(255, 0, 0, 0.4) !important;
+/* 6. Interaction Isolation (Desktop vs Touch) */
+@media (hover: hover) {
+
+    /* Existing hover effects only for devices with a cursor */
+    .cta-button:hover {
+        background-color: #ff5522;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 60, 1, 0.4);
+    }
+
+    .catalog-item:hover {
+        background-color: #f0f0f0;
+    }
+}
+
+@media (hover: none) {
+
+    /* Ensure hidden info is visible on touch devices */
+    .item-meta {
+        opacity: 1 !important;
+        visibility: visible !important;
+        padding-top: 1rem;
+    }
+
+    /* Disable potentially stuck hover transforms */
+    .badge-tilt-wrapper img {
+        transform: none !important;
+    }
 }

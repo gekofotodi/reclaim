@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Counter
     const counterElement = document.getElementById('info-counter');
     if (counterElement) {
-        counterElement.dataset.tooltip = "NUMBER OF TURIST\nHUNTED SINCE\n01-01-2027 UNTIL\nTODAY";
+        counterElement.dataset.tooltip = "NUMBER OF TURIST\nHUNTED SINCE\n03-02-2026 UNTIL\nTODAY";
 
         // Load persist count or default
         let count = parseInt(localStorage.getItem('reclaim_counter')) || 10000;
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const now = new Date();
             // Future Date (+10 years)
             const futureDate = new Date(now);
-            futureDate.setFullYear(2027);
+            futureDate.setFullYear(2026);
 
             // Format: YYYY-MM-DD HH:MM:SS
             // const timeString = now.toISOString().replace('T', ' ').split('.')[0]; 
