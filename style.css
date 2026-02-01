@@ -720,7 +720,7 @@ footer {
 
 .canvas-text-overlay h1 {
     font-family: "neue-haas-unica", sans-serif;
-    font-size: 3.5rem;
+    font-size: 3.15rem;
     font-weight: 700;
     line-height: 1.3;
     color: #000000;
@@ -728,6 +728,7 @@ footer {
     text-transform: uppercase;
     letter-spacing: -0.02em;
     margin: 0;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.6);
 }
 
 #particle-canvas {
@@ -1288,8 +1289,8 @@ footer {
 
 .kit-content {
     position: relative;
-    z-index: 1;
-    /* Above canvas */
+    z-index: auto;
+    /* Changed from 1 to auto to fix stacking context for fixed CTA vs cursor stamps */
     padding-top: 0;
 }
 

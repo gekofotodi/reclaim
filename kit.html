@@ -11,49 +11,107 @@
     <link rel="stylesheet" href="kit_scrolly.css">
     <link rel="stylesheet" href="https://use.typekit.net/aol2lxx.css">
     <style>
-        /* Symmetrical split sections for Kit page */
+        /* Symmetrical split sections for Kit page - Matched to About Page */
+        /* Full Screen Split Layout (50/50) */
         .app-split-section {
-            max-height: none;
-            height: auto;
-            min-height: 60vh;
-            padding: 8rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8rem;
+            flex-direction: row;
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 0 !important;
+            min-height: 40vh;
+            /* Reduced by 50% from 80vh */
+            gap: 0;
         }
 
         .app-split-section.reverse-layout {
-            padding: 8rem 2rem;
             flex-direction: row-reverse;
+            padding: 0 !important;
         }
 
-        .app-text-column,
+        .app-text-column {
+            flex: 1;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            background: transparent;
+            /* Standard: Text Left -> Align Right (End) to move to center */
+            align-items: flex-end;
+            padding: 2rem 4rem 2rem 2rem;
+            /* R-padding creates center gap */
+        }
+
+        /* Reverse: Text Right -> Align Left (Start) to move to center */
+        .reverse-layout .app-text-column {
+            align-items: flex-start;
+            padding: 2rem 2rem 2rem 4rem;
+            /* L-padding creates center gap */
+        }
+
+        /* The Content: flag text */
+        .app-text-column h1,
+        .app-text-column p {
+            max-width: 400px;
+            /* Slightly tighter width */
+            width: 100%;
+            text-align: left;
+            /* Always Bandiera */
+            margin: 0;
+            /* Reset margins, alignment handled by parent */
+        }
+
         .app-visual-column {
             flex: 1;
-            max-width: 550px;
-            width: 100%;
+            width: 50%;
+            display: flex;
+            align-items: center;
+            overflow: visible;
+            position: relative;
+            /* Standard: Image Right -> Justify Left (Start) to move to center */
+            justify-content: flex-start;
+            padding: 0 0 0 4rem;
+            /* L-padding creates center gap */
+        }
+
+        /* Reverse: Image Left -> Justify Right (End) to move to center */
+        .reverse-layout .app-visual-column {
+            justify-content: flex-end;
+            padding: 0 4rem 0 0;
+            /* R-padding creates center gap */
         }
 
         .about-visual {
             width: 100%;
             display: flex;
             justify-content: center;
+            transform: translateX(-10%);
+            /* Standard: Move Left towards Center */
+        }
+
+        .reverse-layout .about-visual {
+            transform: translateX(10%);
+            /* Reverse: Move Right towards Center */
         }
 
         .about-visual img {
             width: 100% !important;
-            aspect-ratio: 956 / 1280;
             height: auto !important;
             margin: 0 !important;
             transform: none !important;
-            object-fit: cover;
             display: block;
             border-radius: 10px;
             -webkit-mask-image: none !important;
             mask-image: none !important;
+            box-shadow: none !important;
+        }
+
+        @media (max-width: 1024px) {
+            .app-split-section {
+                padding: 6rem 4rem;
+                gap: 4rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -69,6 +127,16 @@
             .app-visual-column {
                 max-width: 100%;
             }
+
+            .about-visual img {
+                width: 100% !important;
+                height: auto !important;
+                aspect-ratio: 2/3;
+            }
+        }
+
+        .about-visual::after {
+            display: none !important;
         }
     </style>
 </head>
@@ -117,7 +185,7 @@
     </div>
 
 
-    <main class="kit-content">
+    <main>
         <section class="manifesto-container">
             <div class="manifesto-header">
                 <div class="scrolling-line">
@@ -144,38 +212,38 @@
                     <svg id="kit-svg-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
                         <!-- GUN -->
                         <g class="kit-label-group" id="label-gun">
-                            <path class="kit-path" d="M 500 330 L 750 330" />
-                            <text class="svg-label-text" x="760" y="335">RECLAIMX GUN</text>
+                            <path class="kit-path" d="M 500 370 L 1050 370" />
+                            <text class="svg-label-text" x="929" y="363">RECLAIMX GUN</text>
                         </g>
 
                         <!-- AMMO -->
                         <g class="kit-label-group" id="label-ammo">
-                            <path class="kit-path" d="M 420 530 L 200 530" />
-                            <text class="svg-label-text" x="50" y="535">SPRAY CAN</text>
+                            <path class="kit-path" d="M -50 620 L 262 620" />
+                            <text class="svg-label-text" x="-51" y="613">SPRAY CAN</text>
                         </g>
 
                         <!-- STENCIL -->
                         <g class="kit-label-group" id="label-stencil">
-                            <path class="kit-path" d="M 450 670 L 220 670" />
-                            <text class="svg-label-text" x="70" y="675">STENCIL</text>
+                            <path class="kit-path" d="M -50 693 L 500 693" />
+                            <text class="svg-label-text" x="-51" y="686">BEGINNER BADGE</text>
                         </g>
 
                         <!-- SPRAY -->
                         <g class="kit-label-group" id="label-spray">
-                            <path class="kit-path" d="M 550 810 L 800 810" />
-                            <text class="svg-label-text" x="810" y="815">AMMONITIONS</text>
+                            <path class="kit-path" d="M 500 580 L 1050 580" />
+                            <text class="svg-label-text" x="939" y="573">AMMONITIONS</text>
                         </g>
 
                         <!-- BROCHURE -->
                         <g class="kit-label-group" id="label-brochure">
-                            <path class="kit-path" d="M 600 710 L 850 710" />
-                            <text class="svg-label-text" x="860" y="715">BEGINNER BADGE</text>
+                            <path class="kit-path" d="M -50 255 L 500 255" />
+                            <text class="svg-label-text" x="-51" y="248">STENCIL</text>
                         </g>
 
                         <!-- BADGE -->
                         <g class="kit-label-group" id="label-badge">
-                            <path class="kit-path" d="M 580 560 L 820 560" />
-                            <text class="svg-label-text" x="830" y="565">BROCHURE</text>
+                            <path class="kit-path" d="M 717 655 L 1050 655" />
+                            <text class="svg-label-text" x="970" y="648">BROCHURE</text>
                         </g>
                     </svg>
                 </div>
@@ -217,7 +285,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/about2v.jpeg" alt="The Ammo">
+                        <img src="asset/immagini/render_spray.png" alt="The Ammo">
                     </div>
                 </div>
             </section>
@@ -231,7 +299,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/about3v.jpeg" alt="The Armor">
+                        <img src="asset/immagini/render_stencil.png" alt="The Armor">
                     </div>
                 </div>
             </section>
@@ -245,7 +313,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/about4v.jpeg" alt="The Codex">
+                        <img src="asset/immagini/render_ammonitions.png" alt="The Codex">
                     </div>
                 </div>
             </section>
@@ -259,7 +327,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/about6v.jpeg" alt="The Pins">
+                        <img src="asset/immagini/render_badge.png" alt="The Pins">
                     </div>
                 </div>
             </section>
@@ -274,7 +342,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/brochure_reclaim_1769960656680.png" alt="The Codex">
+                        <img src="asset/immagini/render_brochure.png" alt="The Codex">
                     </div>
                 </div>
             </section>
@@ -351,24 +419,30 @@
                 if (progress > 0.50) {
                     const phase2TotalProgress = Math.min(1, (progress - 0.50) / 0.45);
 
-                    paths.forEach((path, index) => {
-                        const length = path.getTotalLength();
-                        // Stagger each line even more for an Ultra-tactical look
-                        const itemStart = (index / paths.length) * 0.75;
+                    // Sort elements by Y position for top-to-bottom animation
+                    const elements = Array.from(paths).map((path, index) => {
+                        const group = labelGroups[index];
+                        const text = group.querySelector('text');
+                        const y = parseFloat(text.getAttribute('y'));
+                        return { path, group, y };
+                    }).sort((a, b) => a.y - b.y);
+
+                    elements.forEach((item, index) => {
+                        const length = item.path.getTotalLength();
+                        // Stagger logic based on sorted index
+                        const itemStart = (index / elements.length) * 0.75;
                         const itemEnd = Math.min(1, itemStart + 0.25);
 
                         let itemProgress = (phase2TotalProgress - itemStart) / (itemEnd - itemStart);
                         itemProgress = Math.max(0, Math.min(1, itemProgress));
 
-                        // Apply Easy Ease to each line draw
                         const easedItemProgress = easeInOutCubic(itemProgress);
-                        path.style.strokeDashoffset = length * (1 - easedItemProgress);
+                        item.path.style.strokeDashoffset = length * (1 - easedItemProgress);
 
-                        // 4. Appear labels ONLY when line is finished
                         if (itemProgress >= 1.0) {
-                            labelGroups[index].classList.add('visible');
+                            item.group.classList.add('visible');
                         } else {
-                            labelGroups[index].classList.remove('visible');
+                            item.group.classList.remove('visible');
                         }
                     });
                 } else {

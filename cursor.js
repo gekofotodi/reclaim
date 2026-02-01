@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Stamp Logic
     document.addEventListener('click', (e) => {
         // Prevent stamp on structural/interactive elements and footers
-        // Prevent stamp on structural/interactive elements, footers, or when a modal is open
-        if (document.body.classList.contains('modal-open') || e.target.closest('button, a, input, .hamburger-menu, .nav-links-mobile, footer, .checkout-footer, .info-bar, .news-ticker-bar, .main-navbar, .video-wrapper, .video-modal, .close-modal')) return;
+        // Prevent stamp on structural/interactive elements, footers, or when a modal is open, or scrollytelling container
+        if (document.body.classList.contains('modal-open') || e.target.closest('button, a, input, .hamburger-menu, .nav-links-mobile, footer, .checkout-footer, .info-bar, .news-ticker-bar, .main-navbar, .video-wrapper, .video-modal, .close-modal, #kit-scroll-container, .kit-layer')) return;
 
 
         const stamp = document.createElement('img');

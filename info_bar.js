@@ -105,10 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const futureDate = new Date(now);
             futureDate.setFullYear(2026);
 
-            // Format: YYYY-MM-DD HH:MM:SS
-            // const timeString = now.toISOString().replace('T', ' ').split('.')[0]; 
-            // Better formatted local time
-            const dateStr = futureDate.toLocaleDateString('en-CA'); // YYYY-MM-DD
+            // Format: DD-MM-YYYY HH:MM:SS
+            const day = String(futureDate.getDate()).padStart(2, '0');
+            const month = String(futureDate.getMonth() + 1).padStart(2, '0');
+            const year = futureDate.getFullYear();
+            const dateStr = `${day}-${month}-${year}`;
             const timeStr = futureDate.toLocaleTimeString('en-GB'); // HH:MM:SS
             timeElement.textContent = `${dateStr} ${timeStr}`;
         };
