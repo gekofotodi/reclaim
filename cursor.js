@@ -29,6 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
             mix-blend-mode: difference;
             filter: invert(1); /* Invert black logo to white so 'difference' works correctly (White - Bg = Inverted Bg) */
         }
+
+        /* Hide custom cursor when hovering special interactive zones to avoid overlaps */
+        body:has(.video-wrapper:hover) #custom-cursor,
+        body:has(.manifesto-wrapper:hover) #custom-cursor {
+            opacity: 0 !important;
+        }
         .cursor-stamp {
             position: absolute;
             width: 24px;
@@ -46,6 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
             0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
             100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
         }
+
+        /* Restore default cursor when modal is open */
+        body.modal-open, body.modal-open * {
+            cursor: auto !important;
+        }
+        body.modal-open #custom-cursor {
+            display: none !important;
+        }
     `;
     document.head.appendChild(style);
 
@@ -58,7 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Stamp Logic
     document.addEventListener('click', (e) => {
         // Prevent stamp on structural/interactive elements and footers
-        if (e.target.closest('button, a, input, .hamburger-menu, .nav-links-mobile, footer, .checkout-footer, .info-bar, .news-ticker-bar, .main-navbar')) return;
+        // Prevent stamp on structural/interactive elements, footers, or when a modal is open
+        if (document.body.classList.contains('modal-open') || e.target.closest('button, a, input, .hamburger-menu, .nav-links-mobile, footer, .checkout-footer, .info-bar, .news-ticker-bar, .main-navbar, .video-wrapper, .video-modal, .close-modal')) return;
 
 
         const stamp = document.createElement('img');

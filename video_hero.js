@@ -133,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             videoModal.classList.add('active');
+            document.body.classList.add('modal-open'); // Restore default cursor
             document.body.style.overflow = 'hidden'; // Lock scroll
             togglePlayLabel(false);
         }
@@ -141,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Close Modal
     const closeModal = () => {
         videoModal.classList.remove('active');
+        document.body.classList.remove('modal-open'); // Revert to logo cursor
         document.body.style.overflow = '';
         setTimeout(() => {
             modalContainer.innerHTML = '';

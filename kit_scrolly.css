@@ -14,14 +14,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: visible;
 }
 
 /* Layer System */
 .kit-layer {
     position: absolute;
-    top: calc(50% + 20px);
-    /* Offset to stay centered between fixed top and bottom elements */
+    top: calc(50% - 15px);
+    /* Offset to stay centered between fixed top info bar and thicker bottom shop button */
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
@@ -33,14 +33,13 @@
 
 .layer-top {
     z-index: 3;
-    transition: opacity 0.1s linear;
+    will-change: transform;
 }
 
 .layer-top .kit-scrolly-img {
-    width: 100%;
-    /* 200% of the base 65% width */
+    width: 65%;
+    /* Match the base width of the box layer */
     max-width: none;
-    /* Allow it to exceed container if necessary */
 }
 
 .layer-overlay {
