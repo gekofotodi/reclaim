@@ -31,6 +31,12 @@
         pointer-events: none !important;
     }
 
+    /* Particle Container Adjustment - Negative Margin as requested */
+    .canvas-logo-section {
+        margin-top: -1rem !important;
+    }
+
+
     /* Nota: Nascondiamo l'overlay SVG su mobile per pulizia, 
        lasciando solo l'animazione della scatola */
     #kit-svg-overlay {
@@ -45,8 +51,18 @@
         line-height: 1.1 !important;
         margin-bottom: 1rem !important;
         text-transform: uppercase !important;
-        word-wrap: break-word !important;
+
+        /* NO MARGINS - SIDE TO SIDE */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+
         text-align: center !important;
+        word-break: normal !important;
+        /* Allow natural flow */
     }
 
     /* Titoli Prodotti in Unica FORZATI Neri */
@@ -79,6 +95,12 @@
         text-transform: uppercase !important;
         text-align: center !important;
     }
+
+    /* Force Hacker Animation Orange Color */
+    .hacker-char {
+        color: #ff3c01 !important;
+    }
+
 
     a {
         text-decoration: none !important;

@@ -83,6 +83,9 @@ class Effect {
         };
 
         window.addEventListener('mousemove', (e) => {
+            // Desktop Only: Hover Effect
+            if (window.innerWidth <= 768) return;
+
             const rect = this.canvas.getBoundingClientRect();
             this.mouse.x = e.clientX - rect.left;
             this.mouse.y = e.clientY - rect.top;
@@ -94,6 +97,19 @@ class Effect {
                 this.mouse.active = false;
             }
         });
+
+        // Mobile Only: Click/Touch Effect (Toggle Switch)
+        this.canvas.addEventListener('click', (e) => {
+            if (window.innerWidth > 768) return;
+
+            const rect = this.canvas.getBoundingClientRect();
+            this.mouse.x = e.clientX - rect.left;
+            this.mouse.y = e.clientY - rect.top;
+
+            // Toggle Active State
+            this.mouse.active = !this.mouse.active;
+        });
+
     }
 
     init() {

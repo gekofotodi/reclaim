@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // NEW MOBILE LOGIC: Random letters on scroll
     if (window.matchMedia("(max-width: 768px)").matches) {
         let isScrolling = false;
-        
+
         window.addEventListener('scroll', () => {
             if (!isScrolling) {
                 window.requestAnimationFrame(() => {
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // "Random letters of every word" 
                     // Pick ~30% of characters to glitch
                     chars.forEach(char => {
-                        if (Math.random() < 0.3) { 
+                        if (Math.random() < 0.3) {
                             triggerHackerEffect(char);
                         }
                     });
@@ -201,10 +201,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const interval = setInterval(() => {
             element.textContent = pool[Math.floor(Math.random() * pool.length)];
 
+            // Force Orange Color during animation
+            element.style.color = '#ff3c01';
+
             lifetime++;
             if (lifetime > 8) {
                 clearInterval(interval);
                 element.textContent = originalChar;
+                element.style.color = ''; // Reset color
                 delete element.dataset.interval;
             }
         }, speed);

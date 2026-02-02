@@ -60,7 +60,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let progress = 0;
         if (rect.top < triggerStart) {
-            progress = (triggerStart - rect.top) / (triggerStart - triggerEnd);
+            let relativePos = (triggerStart - rect.top) / (triggerStart - triggerEnd);
+
+            // Mobile: 70% faster expansion
+            if (window.innerWidth <= 768) {
+                progress = relativePos * 1.7; // Multiply by 1.7 to speed up (70% faster)
+            } else {
+                progress = relativePos;
+            }
+
             progress = Math.min(Math.max(progress, 0), 1);
         }
 
