@@ -97,23 +97,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Mobile: Trigger on Scroll (Intersection Observer)
-            if (window.matchMedia("(max-width: 768px)").matches) {
-                const observer = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            // Run the effect on all chars in this block
-                            const chars = entry.target.querySelectorAll('.hacker-char');
-                            chars.forEach(char => triggerHackerEffect(char));
-                        }
-                    });
-                }, {
-                    threshold: 0.1
-                }); // Trigger when 10% visible
-                observer.observe(target);
-            }
+            // Mobile logic moved to global scroll handler
+
         });
     }
+
+    // NEW MOBILE LOGIC: Random letters on scroll
+    if (window.matchMedia("(max-width: 768px)").matches) {
+        let isScrolling = false;
+        
+        window.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                window.requestAnimationFrame(() => {
+                    handleMobileScroll();
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        }, { passive: true });
+
+        function handleMobileScroll() {
+            // Target all phrase containers (words/sentences)
+            const containers = document.querySelectorAll('.phrase-container');
+            const viewportHeight = window.innerHeight;
+
+            containers.forEach(container => {
+                const rect = container.getBoundingClientRect();
+                // Check if container is visible
+                if (rect.top < viewportHeight && rect.bottom > 0) {
+                    // Get all hacker candidates in this phrase
+                    const chars = Array.from(container.querySelectorAll('.hacker-char'));
+                    if (chars.length === 0) return;
+
+                    // "Random letters of every word" 
+                    // Pick ~30% of characters to glitch
+                    chars.forEach(char => {
+                        if (Math.random() < 0.3) { 
+                            triggerHackerEffect(char);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
 
     /**
      * Triggers the animation based on Font Family and Character Width.

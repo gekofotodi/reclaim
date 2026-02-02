@@ -1417,7 +1417,7 @@ footer {
     .scrolling-track>span:not(.phrase-container) {
         font-size: 5rem !important;
         /* Large Codeink title */
-        color: #97f106 !important;
+        color: #ffffff !important;
         /* Neon green */
     }
 
@@ -1932,7 +1932,6 @@ footer {
     }
 
     .cta-button {
-        width: 100% !important;
         /* Full width buttons on mobile */
         justify-content: center;
         padding: 1rem !important;
@@ -1979,4 +1978,3 @@ footer {
         transform: none !important;
     }
 }
-
