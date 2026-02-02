@@ -96,6 +96,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     triggerHackerEffect(t);
                 }
             });
+
+            // Mobile: Trigger on Scroll (Intersection Observer)
+            if (window.matchMedia("(max-width: 768px)").matches) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Run the effect on all chars in this block
+                            const chars = entry.target.querySelectorAll('.hacker-char');
+                            chars.forEach(char => triggerHackerEffect(char));
+                        }
+                    });
+                }, {
+                    threshold: 0.1
+                }); // Trigger when 10% visible
+                observer.observe(target);
+            }
         });
     }
 

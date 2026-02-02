@@ -95,13 +95,3 @@
     text-transform: uppercase;
     font-weight: 400;
 }
-
-@media (max-width: 768px) {
-    .kit-scrolly-img {
-        width: 90%;
-    }
-
-    .svg-label-text {
-        font-size: 10px;
-    }
-}

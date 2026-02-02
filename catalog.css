@@ -61,36 +61,7 @@
    RESPONSIVE ADJUSTMENTS
    Modifications for tablets and mobile devices.
    ========================================================================== */
-@media (max-width: 768px) {
-    .catalog-section {
-        margin-left: 0;
-        padding: 2rem 0;
-    }
 
-    /* Reduce title size for mobile */
-    .catalog-title {
-        font-size: 1.5rem;
-        padding-left: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    /* Su mobile passiamo a 2 colonne per leggibilità */
-    .catalog-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    /* Adjust vertical spacing and padding in the intro section */
-    .catalog-intro {
-        margin-bottom: 2rem;
-        padding: 0 1rem;
-        margin-left: 0;
-    }
-
-    /* Smaller font for mobile intro text */
-    .catalog-intro p {
-        font-size: 0.9rem;
-    }
-}
 
 /* ==========================================================================
    CATALOG ITEM STYLING

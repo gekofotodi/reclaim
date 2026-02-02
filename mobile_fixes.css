@@ -1,0 +1,493 @@
+/* ==========================================================================
+   MOBILE RESET & LAYOUT - DESKTOP FIRST OVERRIDES
+   ========================================================================== */
+
+@media screen and (max-width: 768px) {
+
+    /* --- GLOBAL RESET --- */
+    html,
+    body {
+        /* Force grey background to kill "black frame" effect */
+        background-color: #c5c5c5 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+
+    /* --- TYPOGRAPHY SCALING --- */
+    h1 {
+        font-family: 'Codeink', monospace !important;
+        color: #000000 !important;
+        font-size: 2.2rem !important;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase !important;
+        word-break: break-all !important;
+    }
+
+    /* Text Titles & Index First Title */
+    .app-text-column h1,
+    .text-block h1,
+    .catalog-title,
+    .canvas-text-overlay h1,
+    .impact-text,
+    .kit-schematic-section h1 {
+        font-family: "neue-haas-unica", sans-serif !important;
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+        font-weight: 700 !important;
+        word-break: normal !important;
+    }
+
+    p,
+    .app-text-column p,
+    .text-block p {
+        font-family: "cofo-sans-mono-variable", monospace !important;
+        color: #000000 !important;
+        font-size: 1rem !important;
+        max-width: 100% !important;
+        text-transform: uppercase !important;
+        line-height: 1.4 !important;
+    }
+
+    a:not(.nav-links-mobile a):not(.footer-links a):not(.news-ticker-bar):not(.cta-button) {
+        font-family: "cofo-sans-mono-variable", monospace !important;
+        color: inherit;
+    }
+
+    .canvas-text-overlay h1 {
+        font-size: 1.4rem !important;
+        /* Reduced 20% */
+        text-shadow: none !important;
+        backdrop-filter: none !important;
+        background: transparent !important;
+    }
+
+    /* Index Manifesto: Disable Interaction */
+    .manifesto-wrapper,
+    #manifesto-label {
+        pointer-events: none !important;
+        cursor: default !important;
+    }
+
+    #manifesto-label {
+        display: none !important;
+        /* Hide label if interaction is gone */
+    }
+
+    /* --- GENERAL LAYOUT: FORCE VERTICAL STACK --- */
+    .content-section,
+    .app-split-section,
+    .app-split-section.reverse-layout,
+    .kit-schematic-section,
+    .catalog-grid,
+    .full-width-video-section,
+    footer,
+    .home-hero,
+    .content-block,
+    .content-block.reverse,
+    .manifesto-container,
+    .manifesto-header {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+        margin: 0 !important;
+        gap: 2rem !important;
+        align-items: flex-start !important;
+        height: auto !important;
+        min-height: auto !important;
+        grid-template-columns: 1fr !important;
+        background-color: #c5c5c5 !important;
+        /* Force grey background to eliminate black bars */
+    }
+
+    .manifesto-container {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* Override for specific centered sections if needed */
+    .impact-text-block {
+        padding: 0 20px !important;
+    }
+
+    .impact-text {
+        font-size: 2.5rem !important;
+    }
+
+    /* Text Containers need 20px padding */
+    .app-text-column,
+    .text-block,
+    .kit-schematic-section {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    /* --- HIDE CUSTOM CURSOR & STAMP --- */
+    #custom-cursor,
+    .cursor-stamp {
+        display: none !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+
+    * {
+        cursor: auto !important;
+        /* Restore native touch handling */
+    }
+
+    /* --- IMAGES SAFEGUARDS --- */
+    img,
+    video,
+    .mockup-container,
+    .app-visual-column img,
+    .about-visual img,
+    .kit-scrolly-img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        transform: none !important;
+        /* Reset any fancy shifts/rotations */
+        margin: 0 !important;
+        padding: 0 !important;
+        position: relative !important;
+        left: auto !important;
+        top: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+    }
+
+    .app-visual-column,
+    .media-block {
+        width: 100% !important;
+        flex: auto !important;
+        max-width: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+        text-align: left !important;
+    }
+
+    .app-text-column,
+    .text-block {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 20px !important;
+        /* Restore safe padding */
+        text-align: left !important;
+    }
+
+    /* --- KIT PAGE SPECIAL HANDLING (STATIC FALLBACK) --- */
+    /* Kill the sticky scroll */
+    #kit-scroll-container {
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding-bottom: 4rem !important;
+    }
+
+    .sticky-stage {
+        position: relative !important;
+        height: auto !important;
+        top: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 3rem !important;
+        padding: 2rem 0 !important;
+    }
+
+    /* Force layers to be static blocks stacked vertically */
+    .kit-layer {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        transform: translate(0, 0) !important;
+        width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        margin-bottom: 2rem !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Ensure SVG overlay doesn't block interactions or look weird */
+    .layer-overlay {
+        display: none !important;
+        /* Hide complex SVG lines on mobile, too messy */
+    }
+
+    /* Instead of SVG lines, we could show a simple list, but user asked for "labels... stacked below" */
+    /* Since SVG is hidden, we rely on the Content Sections (Gun, Ammo, etc.) which are already below the scroll container in the HTML flow. */
+    /* The user asked: "Prima la scatola chiusa, poi la scatola aperta, poi la lista degli oggetti" */
+
+    /* Reorder logic for Kit Layer: */
+    /* kit.html structure is: Layer Base (Open), Layer Overlay (SVG), Layer Top (Closed) inside Sticky Stage */
+    /* We want Closed first, then Open. Flex order can do this. */
+    .layer-top {
+        order: -1;
+        /* Show closed box first */
+        margin-bottom: 1rem !important;
+    }
+
+    .layer-base {
+        order: 1;
+        /* Show open box second */
+    }
+
+    /* Hide the SVG drawing interactions completely as requested for simplicity */
+    #kit-svg-overlay {
+        display: none !important;
+    }
+
+    /* --- VIDEO FIXES --- */
+    .video-hero-outer,
+    .full-width-video-section,
+    .video-hero-container,
+    .video-wrapper,
+    .video-cover,
+    video {
+        padding-top: 15vh !important;
+        padding-bottom: 15vh !important;
+        margin: 0 !important;
+        position: relative !important;
+        /* Static Reset */
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+        /* Anchor for absolute labels */
+    }
+
+    #play-btn,
+    .play-label {
+        position: absolute !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        left: auto !important;
+        top: auto !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: none !important;
+        /* Visual label only */
+        mix-blend-mode: normal !important;
+        /* Ensure visibility */
+        z-index: 100 !important;
+    }
+
+
+
+    /* --- HACKER TITLE / CODEINK STYLING --- */
+    .manifesto-header,
+    .scrolling-line,
+    .scrolling-track,
+    .page-title-hacker,
+    .page-title-hacker span,
+    .phrase-container,
+    .hacker-char,
+    .static-char,
+    .scrolling-track span,
+    .scrolling-track .phrase-container,
+    .scrolling-track>span:not(.phrase-container) {
+        color: #ffffff !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        -webkit-text-fill-color: #ffffff !important;
+        text-transform: uppercase !important;
+    }
+
+    /* --- GRADIENT REMOVAL --- */
+    .canvas-logo-section::after {
+        display: none !important;
+    }
+
+    /* --- NAVIGATION ADJUSTMENTS --- */
+    .info-bar {
+        display: none !important;
+    }
+
+    .news-ticker-bar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 2020 !important;
+        height: 30px !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .main-navbar {
+        position: fixed !important;
+        top: 30px !important;
+        /* Directly below ticker */
+        left: 0 !important;
+        width: 100% !important;
+        height: 60px !important;
+        background-color: transparent !important;
+        padding: 0 20px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        z-index: 60000 !important;
+        /* Higher than menu overlay */
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .nav-logo-container {
+        height: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .nav-logo {
+        height: 40px !important;
+        /* Ensure visible size */
+        width: auto !important;
+        filter: none !important;
+        /* Make sure it's not black */
+    }
+
+    .hamburger-menu {
+        margin-top: 0 !important;
+        height: 24px !important;
+        /* Total height for 3 bars (18px) + gaps (6px total) */
+        width: 40px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        position: relative !important;
+        z-index: 60001 !important;
+    }
+
+    .hamburger-menu span {
+        display: block !important;
+        width: 100% !important;
+        height: 6px !important;
+        background-color: #ff3c01 !important;
+        transition: transform 0.3s ease, opacity 0.3s ease !important;
+        border-radius: 0 !important;
+    }
+
+    /* Fixed X animation for 24px container / 6px bars */
+    .hamburger-menu.active span:nth-child(1) {
+        transform: translateY(21px) rotate(45deg);
+    }
+
+    .hamburger-menu.active span:nth-child(2) {
+        opacity: 0 !important;
+    }
+
+    .hamburger-menu.active span:nth-child(3) {
+        transform: translateY(-21px) rotate(-45deg);
+    }
+
+    /* Adjust page top to not be hidden by fixed header */
+    .canvas-logo-section,
+    body>main {
+        margin-top: 90px !important;
+    }
+
+    .mobile-menu-overlay {
+        width: 100% !important;
+        max-width: none !important;
+        padding-top: 100px !important;
+        background-color: #050505 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: opacity 0.4s ease, visibility 0.4s ease, right 0.4s ease !important;
+        z-index: 50000 !important;
+    }
+
+    .mobile-menu-overlay.active {
+        opacity: 1 !important;
+        visibility: visible !important;
+        right: 0 !important;
+        z-index: 50000 !important;
+    }
+
+    .nav-links-mobile {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 0 !important;
+        transform: translateX(60px) !important;
+        /* Shifted 60px to the right */
+    }
+
+    .nav-links-mobile a {
+        font-size: 2rem !important;
+        color: #97f106 !important;
+        text-align: center !important;
+    }
+
+    .nav-links-mobile a.active {
+        background-color: #97f106 !important;
+        color: #000 !important;
+    }
+
+    /* --- FOOTER ADJUSTMENTS (COMPACT) --- */
+    footer {
+        background-color: #000000 !important;
+        color: #97f106 !important;
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+
+    .footer-links {
+        justify-content: center !important;
+        text-align: center !important;
+        width: 100% !important;
+        gap: 0.2rem !important;
+    }
+
+    /* --- CTA BUTTONS (FIXED BOTTOM) --- */
+    .cta-container.cta-fixed {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        background-color: #000000 !important;
+        padding: 1rem 20px !important;
+        z-index: 9999 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    /* Ensure content doesn't get hidden behind absolute bottom CTA */
+    /* Add padding to last section of kit/app pages handled by standard padding rules, 
+       but maybe need extra bottom padding equal to CTA height (~80px) */
+    .kit-schematic-section,
+    .app-split-section:last-of-type {
+        padding-bottom: 100px !important;
+    }
+
+    /* --- CATALOG GRID (2x4) --- */
+    .catalog-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 1px !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .catalog-item {
+        width: 100% !important;
+        min-height: 250px !important;
+        /* Smaller height for mobile */
+    }
+
+}

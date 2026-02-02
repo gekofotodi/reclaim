@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 @import url('catalog.css');
 @import url('kit_layout.css');
+@import url('mobile_fixes.css');
 
 @font-face {
     font-family: 'Codeink';
@@ -773,12 +774,7 @@ footer {
     }
 }
 
-@media (max-width: 768px) {
-    .canvas-logo-section {
-        height: 50vh;
-        margin-top: 50px;
-    }
-}
+
 
 
 .news-ticker-bar:hover {
@@ -1983,3 +1979,4 @@ footer {
         transform: none !important;
     }
 }
+
