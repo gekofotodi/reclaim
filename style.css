@@ -822,7 +822,7 @@ footer {
     object-fit: cover;
     display: block;
     filter: grayscale(100%) contrast(120%);
-    border-radius: 40px;
+    border-radius: 20px;
     box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
     /* matches video container shadow */
 }
@@ -849,8 +849,8 @@ footer {
     height: 100%;
     background-color: #97f106;
     /* Verde neon del sito */
-    -webkit-mask-image: url(asset/loghi/logo.svg);
-    mask-image: url(asset/loghi/logo.svg);
+    -webkit-mask-image: url(asset/loghi/logo_shape.svg);
+    mask-image: url(asset/loghi/logo_shape.svg);
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;

@@ -50,4 +50,31 @@ SOLDIERS: ${currentSoldiers}`;
 
     setInterval(updateMarkers, 2000); // Update every 2 seconds
     updateMarkers();
+
+    // Mobile Click Toggle Interaction
+    const markerEls = document.querySelectorAll('.map-marker');
+    const isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        markerEls.forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+                const wasActive = el.classList.contains('active');
+
+                // Close all
+                markerEls.forEach(m => m.classList.remove('active'));
+
+                // Toggle current: if it wasn't active, make it active
+                if (!wasActive) {
+                    el.classList.add('active');
+                }
+            });
+        });
+
+        // Close on click outside
+        document.addEventListener('click', () => {
+            markerEls.forEach(m => m.classList.remove('active'));
+        });
+    }
 });

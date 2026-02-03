@@ -201,6 +201,8 @@
         padding-top: 50px !important;
         /* Spazio per header */
         padding-bottom: 0 !important;
+        position: relative !important;
+        z-index: 10 !important;
     }
 
     /* Fix Scrolling Title Width (Full Bleed) */
@@ -237,6 +239,7 @@
     .video-hero-outer {
         padding: 120px 0 !important;
         position: relative !important;
+        z-index: 10 !important;
     }
 
     /* Fixed Play Label on Mobile (Inside Video Wrapper) */
@@ -303,6 +306,17 @@
 
         margin-top: 0 !important;
         margin-bottom: 2rem !important;
+    }
+
+    /* Reset for About Page Visuals (Standard Photos) - Should fill container */
+    .about-visual img {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 956 / 1280 !important;
+        object-fit: cover !important;
+        transform: none !important;
+        margin: 0 !important;
+        border-radius: 10px !important;
     }
 
     /* --- 5. NAVIGATION & MENU --- */
@@ -678,53 +692,73 @@
         visibility: visible !important;
         transform: none !important;
     }
-}
 
-/* --- 9. ABOUT PAGE MAP --- */
-#about-map-section {
-    padding: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    /* Prevent horizontal scroll triggers */
-}
+    /* --- 9. ABOUT PAGE MAP --- */
+    #about-map-section {
+        padding: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100vw !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        /* Prevent horizontal scroll triggers */
+        margin-top: -13rem !important;
+        margin-bottom: -15rem !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
 
-/* Green Markers (Orange -> Green shift) */
-.map-marker .map-marker-icon {
-    filter: hue-rotate(70deg) brightness(1.2) saturate(1.2) !important;
-}
+    /* Green Markers (Uniform Green from logo) */
+    .map-marker .map-marker-icon {
+        background-color: #97f106 !important;
+        -webkit-mask-image: url(asset/loghi/logo_shape.svg) !important;
+        mask-image: url(asset/loghi/logo_shape.svg) !important;
+        -webkit-mask-size: contain !important;
+        mask-size: contain !important;
+        -webkit-mask-repeat: no-repeat !important;
+        mask-repeat: no-repeat !important;
+        -webkit-mask-position: center !important;
+        mask-position: center !important;
+        filter: none !important;
+    }
 
-/* Marker Interaction - Click Toggle Logic */
-/* Hide default hover on mobile if possible, rely on .active */
-.map-marker::after,
-.map-marker::before {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    transition: opacity 0.2s ease !important;
-}
+    /* Marker Interaction - Click Toggle Logic */
+    /* Hide default hover on mobile if possible, rely on .active */
+    .map-marker::after,
+    .map-marker::before {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        transition: opacity 0.2s ease !important;
+    }
 
-.map-marker.active::after,
-.map-marker.active::before {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    z-index: 1000 !important;
-}
+    .map-marker.active {
+        z-index: 100 !important;
+    }
 
-/* Adjust tooltip position/style for mobile */
-.map-marker::after {
-    font-size: 0.75rem !important;
-    width: 160px !important;
-    padding: 0.5rem !important;
-    background: rgba(0, 0, 0, 0.9) !important;
-    border: 1px solid #97f106 !important;
-    color: #97f106 !important;
-    bottom: 150% !important;
-    /* Push up */
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+    .map-marker.active::after,
+    .map-marker.active::before {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        z-index: 1001 !important;
+    }
+
+    /* Adjust tooltip position/style for mobile */
+    .map-marker::after {
+        font-size: 0.75rem !important;
+        width: 160px !important;
+        height: 58px !important;
+        padding: 0.5rem !important;
+        background: rgba(0, 0, 0, 0.9) !important;
+        border: 1px solid #97f106 !important;
+        color: #97f106 !important;
+        bottom: 150% !important;
+        /* Push up */
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
 }
