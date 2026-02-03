@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalContainer = document.getElementById('modal-iframe-container');
     const closeBtn = document.getElementById('close-modal');
 
+    // Mobile: Move Label into Video Wrapper to "accompany" it during scaling
+    if (window.innerWidth <= 768 && videoWrapper && playLabel) {
+        videoWrapper.appendChild(playLabel);
+    }
+
+
     if (!videoWrapper || !playLabel) return;
 
     const togglePlayLabel = (show) => {
@@ -36,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Track mouse position globally to handle stationary mouse on scroll
     window.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 768) return; // Disable on Mobile
+
         lastMouseX = e.clientX;
         lastMouseY = e.clientY;
 
@@ -45,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             playLabel.style.top = `${lastMouseY}px`;
         }
     });
+
 
     // 1. Scroll Zoom & Radius Effect + Mouse Intersection Check
     const handleScrollAnimation = () => {
@@ -86,17 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // --- MOUSE INTERSECTION CHECK (FOR STATIONARY MOUSE ON SCROLL) ---
-        const mouseInX = lastMouseX >= wrapperRect.left && lastMouseX <= wrapperRect.right;
-        const mouseInY = lastMouseY >= wrapperRect.top && lastMouseY <= wrapperRect.bottom;
-        isMouseInside = mouseInX && mouseInY;
+        if (window.innerWidth > 768) {
+            const mouseInX = lastMouseX >= wrapperRect.left && lastMouseX <= wrapperRect.right;
+            const mouseInY = lastMouseY >= wrapperRect.top && lastMouseY <= wrapperRect.bottom;
+            isMouseInside = mouseInX && mouseInY;
 
-        if (isMouseInside) {
-            togglePlayLabel(true);
-            playLabel.style.left = `${lastMouseX}px`;
-            playLabel.style.top = `${lastMouseY}px`;
-        } else {
-            togglePlayLabel(false);
+            if (isMouseInside) {
+                togglePlayLabel(true);
+                playLabel.style.left = `${lastMouseX}px`;
+                playLabel.style.top = `${lastMouseY}px`;
+            } else {
+                togglePlayLabel(false);
+            }
         }
+
     };
 
     // Use requestAnimationFrame for smooth scroll handling
@@ -113,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. Mouse Interaction
     videoWrapper.addEventListener('mousemove', (e) => {
+        if (window.innerWidth <= 768) return;
         isMouseInside = true;
         togglePlayLabel(true);
         playLabel.style.left = `${e.clientX}px`;
@@ -120,14 +133,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     videoWrapper.addEventListener('mouseenter', () => {
+        if (window.innerWidth <= 768) return;
         isMouseInside = true;
         togglePlayLabel(true);
     });
 
     videoWrapper.addEventListener('mouseleave', () => {
+        if (window.innerWidth <= 768) return;
         isMouseInside = false;
         togglePlayLabel(false);
     });
+
 
     // 3. Modal Play Logic
     videoWrapper.addEventListener('click', () => {

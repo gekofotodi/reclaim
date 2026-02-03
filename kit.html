@@ -115,27 +115,6 @@
             }
         }
 
-        @media (max-width: 768px) {
-
-            .app-split-section,
-            .app-split-section.reverse-layout {
-                padding: 4rem 2rem !important;
-                flex-direction: column !important;
-                gap: 3rem !important;
-            }
-
-            .app-text-column,
-            .app-visual-column {
-                max-width: 100%;
-            }
-
-            .about-visual img {
-                width: 100% !important;
-                height: auto !important;
-                aspect-ratio: 2/3;
-            }
-        }
-
         .about-visual::after {
             display: none !important;
         }
@@ -360,6 +339,7 @@
     <script src="scroll_detector.js"></script>
     <script src="hacker_text.js"></script>
     <script src="hover_sync.js"></script>
+    <script src="cta_sticky.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const scrollContainer = document.getElementById('kit-scroll-container');

@@ -103,14 +103,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // NEW MOBILE LOGIC: Random letters on scroll
+    // NEW MOBILE LOGIC: Random letters on scroll (Optimized)
     if (window.matchMedia("(max-width: 768px)").matches) {
         let isScrolling = false;
+        let lastScrollTime = 0;
 
         window.addEventListener('scroll', () => {
+            const now = Date.now();
+            if (now - lastScrollTime < 100) return; // Throttle to 100ms
+
             if (!isScrolling) {
                 window.requestAnimationFrame(() => {
                     handleMobileScroll();
                     isScrolling = false;
+                    lastScrollTime = Date.now();
                 });
                 isScrolling = true;
             }
@@ -130,9 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (chars.length === 0) return;
 
                     // "Random letters of every word" 
-                    // Pick ~30% of characters to glitch
+                    // Pick ~15% of characters to glitch (Reduced from 30%)
                     chars.forEach(char => {
-                        if (Math.random() < 0.3) {
+                        if (Math.random() < 0.15) {
                             triggerHackerEffect(char);
                         }
                     });

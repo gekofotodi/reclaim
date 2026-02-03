@@ -37,10 +37,19 @@
     }
 
 
-    /* Nota: Nascondiamo l'overlay SVG su mobile per pulizia, 
-       lasciando solo l'animazione della scatola */
+    /* SVG Overlay Visible on Mobile */
     #kit-svg-overlay {
-        display: none !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow: visible !important;
+    }
+
+    /* Resize SVG Labels for Mobile */
+    .svg-label-text {
+        font-size: 24px !important;
+        /* Larger text for mobile readability? Or standard */
+        font-weight: 700 !important;
     }
 
     /* --- 2. TYPOGRAPHY --- */
@@ -59,10 +68,15 @@
         padding-right: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
+        box-sizing: border-box !important;
 
         text-align: center !important;
-        word-break: normal !important;
-        /* Allow natural flow */
+
+        /* FORCE WRAPPING - GLOBAL FAILSAFE */
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-wrap: break-word !important;
+        word-break: break-word !important;
     }
 
     /* Titoli Prodotti in Unica FORZATI Neri */
@@ -80,8 +94,15 @@
         color: #000000 !important;
         -webkit-text-fill-color: #000000 !important;
         background: transparent !important;
-        margin-top: 1rem !important;
-        /* Spazio tra immagine e titolo */
+        margin-top: 0.5rem !important;
+
+        /* Ensure wrapping inherits/applies here too */
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        word-wrap: break-word !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
 
     p,
@@ -144,7 +165,8 @@
         width: 100% !important;
         padding: 4rem 1.5rem !important;
         /* Spazio verticale aumentato */
-        gap: 1rem !important;
+        gap: 0 !important;
+        /* Tightened gap */
         align-items: center !important;
         background-color: #c5c5c5 !important;
     }
@@ -181,6 +203,15 @@
         padding-bottom: 0 !important;
     }
 
+    /* Fix Scrolling Title Width (Full Bleed) */
+    .manifesto-header {
+        width: calc(100% + 2.5rem) !important;
+        margin-left: -1.25rem !important;
+        margin-right: -1.25rem !important;
+        max-width: none !important;
+    }
+
+
     /* Disable Manifesto Interactions */
     #manifesto-trigger,
     .manifesto-wrapper {
@@ -205,14 +236,43 @@
     /* Video Hero Padding - Doubled for Mobile */
     .video-hero-outer {
         padding: 120px 0 !important;
+        position: relative !important;
+    }
+
+    /* Fixed Play Label on Mobile (Inside Video Wrapper) */
+    .play-label {
+        position: absolute !important;
+        top: auto !important;
+        left: auto !important;
+        bottom: 20px !important;
+        /* Sit inside the wrapper */
+        right: 20px !important;
+        transform: none !important;
+        opacity: 1 !important;
+        pointer-events: none !important;
+        z-index: 2005 !important;
     }
 
 
 
+
     /* --- 4. MEDIA & IMAGES --- */
+
+    /* Reset About/Kit Visuals for Mobile Center */
+    .about-visual,
+    .reverse-layout .about-visual {
+        transform: none !important;
+        /* Remove the alternating offset */
+        margin: 0 auto !important;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        padding-top: 2rem !important;
+    }
+
     img,
-    video,
-    .mockup-container img {
+    video {
         width: 100% !important;
         height: auto !important;
         max-width: 100% !important;
@@ -220,6 +280,29 @@
         transform: none !important;
         margin: 0 auto !important;
         display: block !important;
+    }
+
+    /* Specific Override for App Mockups to Zoom 100% (2x) per user request */
+    .mockup-container img {
+        width: 100% !important;
+        height: auto !important;
+        max-width: none !important;
+        object-fit: contain !important;
+
+        /* Use Transform for Zoom & Centering - Solves alignment and gap issues */
+        transform: scale(1.8) !important;
+        transform-origin: center center !important;
+        margin: 0 auto !important;
+
+        display: block !important;
+
+        -webkit-mask-image: none !important;
+        /* Remove gradient */
+        mask-image: none !important;
+        /* Remove gradient */
+
+        margin-top: 0 !important;
+        margin-bottom: 2rem !important;
     }
 
     /* --- 5. NAVIGATION & MENU --- */
@@ -347,6 +430,13 @@
 
     body>main {
         margin-top: 30px !important;
+        padding-bottom: 100px !important;
+        /* Increased significantly to avoid CTA coverage */
+        /* Space for Fixed/Docked CTA so text isn't covered */
+        overflow: visible !important;
+        /* Critical for Sticky */
+        display: block !important;
+        /* Avoid Flexbox stretching interfering with Sticky height */
     }
 
     /* --- 6. FOOTER & CTA --- */
@@ -372,58 +462,270 @@
         justify-content: center !important;
     }
 
-    /* --- 7. KIT SCROLLYTELLING FIXES --- */
+    /* --- 7. KIT SCROLLYTELLING REMOVAL ON MOBILE --- */
+    /* User request: "cancella l'animazione scrolly telling... sostituiscila con un immagine della scatola chiusa e un immagine della scatola aperta" */
 
-    /* Ripristina altezza per permettere lo scroll, ma ridotta rispetto al desktop */
     #kit-scroll-container {
-        height: 400vh !important;
-        /* Abbastanza lungo per l'animazione */
-        display: block !important;
-        position: relative !important;
-        margin-bottom: 0 !important;
-    }
-
-    /* Ripristina la natura "Sticky" per bloccare la scatola mentre si scrolla */
-    .sticky-stage {
-        height: 100vh !important;
-        position: sticky !important;
-        top: 0 !important;
-        width: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        overflow: hidden !important;
-    }
-
-    /* Layers sovrapposti al centro (essenziale per l'effetto scatola) */
-    .kit-layer {
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%);
-        /* Il JS gestirà il transform, non usiamo !important qui */
-        width: 100% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-    }
-
-    /* Gestione Immagini Kit */
-    .kit-scrolly-img {
-        width: 85% !important;
-        /* Un po' più grande su mobile */
-        max-width: 400px !important;
         height: auto !important;
-        object-fit: contain !important;
-        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2)) !important;
+        /* No massive scroll height */
+        min-height: auto !important;
+        margin-bottom: 2rem !important;
+        padding-top: 2rem !important;
+        background: transparent !important;
+        overflow: visible !important;
     }
 
-    /* Assicura che la parte superiore (tappo) sia sopra */
-    .layer-top {
-        z-index: 10 !important;
+    .sticky-stage {
+        position: static !important;
+        /* No sticky */
+        height: auto !important;
+        /* Fit content */
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column-reverse !important;
+        /* Show Closed (Top layer) first, then Open (Base layer) */
+        gap: 2rem !important;
+        transform: none !important;
+        overflow: visible !important;
     }
 
-    .layer-base {
-        z-index: 5 !important;
+    /* Disable absolute positioning layers */
+    .kit-layer {
+        position: relative !important;
+        /* Stack naturally */
+        top: auto !important;
+        left: auto !important;
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        opacity: 1 !important;
+        /* Force visible against JS */
+        visibility: visible !important;
+        /* Force visible against JS */
     }
+
+    /* Hide the animated SVG overlay */
+    .layer-overlay,
+    #kit-svg-overlay {
+        display: none !important;
+    }
+
+    /* --- 8. BADGES / CATALOG PAGE --- */
+    /* --- 8. BADGES / CATALOG PAGE --- */
+    .catalog-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 2rem 0 !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        margin: 0 !important;
+    }
+
+    /* Titles and Intro RESET */
+    .catalog-intro,
+    .item-meta {
+        /* Reset containers */
+        width: 100% !important;
+        max-width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        /* Managed by children */
+        padding-right: 0 !important;
+    }
+
+    .catalog-title {
+        /* HIDE ORIGINAL TEXT "MAGNETIC MILESTONE BADGES" */
+        font-size: 0 !important;
+        line-height: 0 !important;
+        color: transparent !important;
+
+        /* Reset layout for replacement */
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 1rem 0 2rem 0 !important;
+        text-align: center !important;
+        display: block !important;
+    }
+
+    .catalog-title::after {
+        /* INSERT NEW MOBILE TEXT */
+        content: "BADGES" !important;
+
+        /* RESTORE STYLING */
+        font-size: 1.8rem !important;
+        line-height: 1.2 !important;
+        font-family: "neue-haas-unica", sans-serif !important;
+        font-weight: 700 !important;
+        color: #000000 !important;
+        text-transform: uppercase !important;
+
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .catalog-intro p {
+        font-family: "cofo-sans-mono-variable", monospace !important;
+        font-size: 1rem !important;
+        /* Match App P */
+        line-height: 1.4 !important;
+        color: #000000 !important;
+        text-transform: uppercase !important;
+
+        white-space: normal !important;
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+
+        margin: 0 !important;
+        margin-bottom: 2rem !important;
+        padding: 0 1rem !important;
+    }
+
+    /* 2x4 GRID SYSTEM */
+    .catalog-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        /* 2 Columns */
+        gap: 1px !important;
+        /* Border thickness */
+
+        background-color: #000000 !important;
+        /* BLACK BORDER COLOR */
+        border: 1px solid #000000 !important;
+        /* Outer border */
+
+        width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        padding: 0 !important;
+    }
+
+    .catalog-item {
+        background-color: #c5c5c5 !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        aspect-ratio: 1 / 1.4 !important;
+        /* Portrait cell ratio */
+
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+
+        padding: 1rem 0.25rem !important;
+        border: none !important;
+    }
+
+    /* DISABLE VANILLA TILT EFFECT */
+    .badge-tilt-wrapper,
+    .badge-tilt-wrapper img {
+        transform: none !important;
+        /* Kill JS tilt */
+        will-change: auto !important;
+    }
+
+    .badge-tilt-wrapper {
+        margin: 0 auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        flex: 1 !important;
+        align-items: center !important;
+    }
+
+    .badge-tilt-wrapper img {
+        width: 85% !important;
+        max-width: none !important;
+        height: auto !important;
+        filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3)) !important;
+    }
+
+    /* METADATA */
+    .item-meta span {
+        white-space: normal !important;
+        /* WRAP TEXT */
+        word-wrap: break-word !important;
+        text-align: center !important;
+        display: block !important;
+        width: 100% !important;
+        font-size: 0.7rem !important;
+        /* Smaller font for mobile grid */
+        line-height: 1.1 !important;
+        margin-bottom: 2px !important;
+    }
+
+    /* Images */
+    .kit-scrolly-img {
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+        display: block !important;
+        margin: 0 auto !important;
+        padding: 0 !important;
+    }
+
+    /* Ensure Closed Box (id layer-closed) is visible */
+    #layer-closed {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+    }
+}
+
+/* --- 9. ABOUT PAGE MAP --- */
+#about-map-section {
+    padding: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    /* Prevent horizontal scroll triggers */
+}
+
+/* Green Markers (Orange -> Green shift) */
+.map-marker .map-marker-icon {
+    filter: hue-rotate(70deg) brightness(1.2) saturate(1.2) !important;
+}
+
+/* Marker Interaction - Click Toggle Logic */
+/* Hide default hover on mobile if possible, rely on .active */
+.map-marker::after,
+.map-marker::before {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.2s ease !important;
+}
+
+.map-marker.active::after,
+.map-marker.active::before {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    z-index: 1000 !important;
+}
+
+/* Adjust tooltip position/style for mobile */
+.map-marker::after {
+    font-size: 0.75rem !important;
+    width: 160px !important;
+    padding: 0.5rem !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    border: 1px solid #97f106 !important;
+    color: #97f106 !important;
+    bottom: 150% !important;
+    /* Push up */
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+}
 }
