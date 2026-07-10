@@ -1,0 +1,189 @@
+================================================================================
+                    REPORT DETTAGLIATO SULLA STRUTTURA DEL SITO
+                                 PROGETTO: RECLAIM
+================================================================================
+
+1. INTRODUZIONE ED ESTETICA DEL PROGETTO
+--------------------------------------------------------------------------------
+RECLAIM è un progetto web ad altissimo impatto visivo con un'estetica ispirata al 
+cyberpunk, al futurismo distopico e alla speculative fiction. Rappresenta il portale 
+di un movimento di resistenza immaginario/speculativo volto a combattere il 
+turismo di massa e la gentrificazione culturale ("Stop the Invasion - Redeem your 
+Freedom"). 
+
+Il sito fa uso intensivo di animazioni sofisticate, canvas interattivi, effetti 
+di testo retro-hacker, micro-interazioni dinamiche, cursore personalizzato con 
+sistema di stampa a schermo e scrollytelling complesso. Il design è rigorosamente 
+orientato al contrasto cromatico forte (nero di sfondo, arancione #ff3c01 e verde acido), 
+con font di stampo industriale e layout rigorosamente strutturati.
+
+--------------------------------------------------------------------------------
+2. ARCHITETTURA DELL'INFORMAZIONE E FLUSSO DI NAVIGAZIONE
+--------------------------------------------------------------------------------
+Il sito è strutturato come una Single Page Application concettuale ma implementato 
+con pagine HTML multiple collegate tramite una barra di navigazione globale 
+(e menu hamburger responsive). Ciascuna sezione ha uno scopo specifico ed espone 
+un aspetto dell'universo narrativo e tecnologico di RECLAIM:
+
+A. /Manifesto (index.html) [HOME PAGE]
+   - Canvas Eroe: Sistema di particelle Canvas 2D che assembla/disperde il logo 
+     in base al movimento del mouse.
+   - Video Trailer: Sezione video-cover con trigger modale per riprodurre il 
+     video trailer su YouTube.
+   - Manifesto Visivo: Immagine del manifesto di RECLAIM con effetto lente e cursore 
+     hacker dedicato, con pulsanti di download diretto dello Stencil e del Manifesto.
+   - News Ticker: Banner di testo scorrevole infinito in testa che avvisa l'utente 
+     del messaggio della resistenza ("JOIN RECLAIM - STOP THE INVASION").
+
+B. /Kit (kit.html)
+   - Scrollytelling Suite: Sezione centrale basata su scroll. Mostra una scatola 
+     del kit (Kit Reclaim) che si apre scorrendo la pagina verso il basso.
+   - Tracciati SVG Annotati: Quando la scatola si apre, tracciati SVG autodisegnati 
+     connette le parti fisiche del kit (ReclaimX Gun, Spray Can, Stencil, Ammo, 
+     Badge, Brochure) a etichette testuali che si attivano sequenzialmente.
+   - Griglia di Approfondimento: Sezioni a scorrimento alternato a due colonne 
+     che illustrano nel dettaglio ciascun dispositivo del kit con render isolati.
+
+C. /App (app.html)
+   - Vetrina dell'App Mobile: Presenta le interfacce della "Reclaim App" destinate 
+     alla resistenza sul territorio.
+   - Layout Sdoppiati Alternati (Immagine/Testo): Dettaglia le sezioni chiave:
+     * HOME: Hub di monitoraggio in tempo reale.
+     * HUNT SESSION: Mappatura tattica delle densità turistiche in campo.
+     * ARCHIVE: Registro decentralizzato degli atti di riconquazione.
+     * GUN & BADGES: Sincronizzazione dell'arsenale e tracciamento dei badge.
+     * WALL: Feed globale con le segnalazioni dei successi della resistenza.
+   - Mockup a Schermo Intero: Utilizza immagini a forte impatto geometrico, 
+     ruotate o mascherate verticalmente tramite sfumature CSS (linear-gradient).
+
+D. /Badges (badges.html)
+   - Catalogo delle Pietre Miliari ("Magnetic Milestone Badges"): Mostra gli 8 badge 
+     magnetici guadagnati in base al numero e alla tipologia di turisti individuati 
+     (Welcome, Enlisted, Sergeant, Captain, Sunglasses, Camera, Bottle, Cap).
+   - Griglia a 4 Colonne Perfetta: Una griglia geometrica definita da linee di 
+     1px (#333) su sfondo grigio (#c5c5c5).
+   - Effetto Tilt 3D Glare: Al passaggio del mouse, ciascun badge risponde 
+     inclinandosi nello spazio tridimensionale con riflessi di luce dinamici.
+
+E. /About (about.html)
+   - Global Network Map: In testa alla pagina, una mappa geografica mondiale con 
+     indicatori pulsanti (Milano, Tokyo, Nairobi, New York, Buenos Aires).
+   - Dettaglio dei Nodi: Ciascun marker mostra un tooltip CSS personalizzato con 
+     coordinate esatte, fuso orario locale calcolato dinamicamente e numero di 
+     combattenti/soldati attivi fluttuante in tempo reale.
+   - Sezioni Narrative: Blocchi a layout sdoppiato simmetrico che spiegano la 
+     filosofia del movimento ("The Struggle", "The Solution", "The Reclamation").
+
+--------------------------------------------------------------------------------
+3. TECNOLOGIE E TIPI DI FILE PRESENTI
+--------------------------------------------------------------------------------
+Il progetto è interamente sviluppato utilizzando tecnologie web standard (Vanilla Stack) 
+senza l'ausilio di framework pesanti (come React o Vue), garantendo caricamenti 
+istantanei ed esecuzione fluida degli effetti grafici avanzati.
+
+Tipi di file presenti:
+- Documenti HTML5 (.html): 5 file (index, about, app, badges, kit) che compongono 
+  la struttura semantica del sito.
+- Fogli di Stile CSS3 (.css):
+  * style.css: File principale (44KB) contenente reset, variabili cromatiche, layout 
+    di base, tipografia, effetti di contrasto e transizioni.
+  * mobile_fixes.css: (22KB) Foglio di stile interamente dedicato alla responsività, 
+    alla correzione dei layout a due colonne per tablet/smartphone e alla gestione 
+    delle gesture mobile.
+  * app.css: Gestione dei layout sdoppiati e delle maschere sfumate sui mockup dell'app.
+  * kit_layout.css & kit_scrolly.css: Styling specifico del sistema di scrollytelling 
+    (stage appiccicoso, livelli assoluti, posizionamento delle annotazioni SVG).
+  * catalog.css: Layout specifico per la griglia dei badge ad alta precisione.
+- Script JavaScript (.js): 12 file JS modulari scritti in ES6 Vanilla, responsabili 
+  di tutta l'interattività e la logica algoritmica.
+- Asset Grafici (.ai, .svg, .png, .jpeg, .mp4):
+  * Vettori (.ai, .svg): loghi del sito ad alta definizione.
+  * Immagini (.png, .jpeg): sfondi delle mappe, grafiche dei badge, mockup dei 
+    telefoni e fotografie evocative di sfondo.
+  * Video (.mp4): video di introduzione ambientali eseguiti in loop silenziato.
+
+--------------------------------------------------------------------------------
+4. LIBRERIE UTILIZZATE (ESTERNE ED INTERNE)
+--------------------------------------------------------------------------------
+Per ottimizzare le prestazioni, il sito riduce al minimo le dipendenze esterne, 
+facendo affidamento su CDN veloci per funzionalità grafiche specifiche:
+
+1. Adobe Fonts / Typekit (https://use.typekit.net/aol2lxx.css)
+   - Utilizzato per caricare i font premium del sito: "Neue Haas Unica" (il carattere 
+     chiave e pulito del progetto) e i suoi pesi variabili.
+2. Vanilla-Tilt.js (https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js)
+   - Utilizzato in badges.html per gestire gli effetti di inclinazione 3D interattiva 
+     dei badge al passaggio del cursore, sfruttando la GPU per la massima fluidità.
+3. Codeink Typeface (Interna / Locale)
+   - Famiglia di font proprietaria memorizzata all'interno della cartella CODEINK TYPEFACE 
+     e caricata tramite @font-face nel CSS, utilizzata per titoli speciali a tema hacker.
+
+--------------------------------------------------------------------------------
+5. LOGICA INTERATTIVA E DETTAGLIO DEGLI SCRIPT JAVASCRIPT
+--------------------------------------------------------------------------------
+Il vero valore tecnologico e artistico del sito risiede nei suoi script JavaScript, 
+ciascuno deputato a una micro-interazione mirata:
+
+- particle_logo.js [Effetto Particelle Canvas]
+  * Converte il logo vettoriale (memorizzato come stringa Base64 incorporata) in un 
+    sistema di pixel su un elemento <canvas> HTML5.
+  * Genera una nuvola di particelle fisiche che oscillano in modo fluttuante a riposo.
+  * Rileva la presenza del mouse (desktop) o il tocco (mobile) disperdendo le particelle 
+    e riaggregandole con accelerazione rallentata ed effetti di attrito cinetico.
+
+- hacker_text.js [Glitch di Testo "Font-Aware" e Width-Safe]
+  * Rileva le intestazioni (H1, scrolling-track) e trasforma ogni carattere in uno 
+    span isolato, calcolandone in anticipo la larghezza in pixel per prevenire fastidiosi 
+    layout shift.
+  * Al passaggio del mouse (o allo scrolling su dispositivi mobili), esegue un glitch 
+    sostituendo temporaneamente le lettere con caratteri casuali color arancione.
+  * Intelligenza del Font: Legge le proprietà CSS calcolate dall'elemento. Se il font 
+    attivo è "Neue Haas Unica", la pool di caratteri casuali include simboli avanzati 
+    (!|[]$*^); se il font attivo è "Codeink", limita la pool a sole lettere e cifre, 
+    preservando l'integrità geometrica del carattere.
+
+- cursor.js [Cursore Personalizzato e Stencil Stamping]
+  * Disabilita il puntatore di sistema standard e lo sostituisce con un'immagine 
+    del logo RECLAIM.
+  * Utilizza le proprietà CSS "mix-blend-mode: difference" e "filter: invert(1)" per 
+    far sì che il cursore cambi dinamicamente colore a contrasto invertendo i toni dello 
+    sfondo sottostante (diventa bianco su nero e nero su bianco).
+  * Stamping: Rileva i click sul corpo della pagina (escludendo barre di navigazione, 
+    link e bottoni) e deposita a schermo immagini permanenti (stencil) del logo 
+    arancione di RECLAIM nella posizione esatta del puntatore.
+
+- info_bar.js [Widget Informativi della Resistenza]
+  * IP & Coordinate: Interroga un'API di geolocalizzazione gratuita (ipapi.co) per 
+    mostrare a schermo le coordinate esatte (Latitudine e Longitudine) del visitatore, 
+    con un fallback predefinito su Milano in caso di blocco della connessione.
+  * Counter: Un contatore persistente (salvato in localStorage) che parte da 10.000 
+    e incrementa in modo casuale di 1-3 unità ogni 500-2500ms. I numeri cambiano 
+    tramite una sofisticata animazione a scorrimento verticale (effetto slot-machine).
+  * Time: Orologio che calcola in tempo reale la data corrente proiettandola 10 anni 
+    nel futuro (2026), sincronizzandola con il ciclo dei secondi.
+
+- map_dynamics.js [Mappa Geografica Dinamica]
+  * Gestisce i nodi sulla mappa mondiale. Ogni due secondi aggiorna il fuso orario locale 
+    di ogni nodo (Milano, Tokyo, Nairobi, NYC, Buenos Aires).
+  * Calcola una fluttuazione casuale del numero di soldati attivi di ogni nodo (+/- 5).
+  * Modifica dinamicamente l'attributo data-tooltip, aggiornando le informazioni 
+    visualizzate nei fumetti interattivi. Include il supporto touch su mobile.
+
+- scrollytelling & kit (in kit.html script inline)
+  * Rileva la percentuale di scorrimento dell'utente all'interno della sezione sticky 
+    dedicata.
+  * Nella prima metà dello scroll (10%-40%), sposta verso l'alto il coperchio del kit 
+    (kit_close.png) facendolo sfumare e svelando la scatola aperta (kit_open.png).
+  * Nella seconda metà dello scroll (50%-95%), calcola la lunghezza totale dei tracciati 
+    SVG e ne riduce dinamicamente il "strokeDashoffset" per animare il disegno delle linee 
+    e mostrare gradualmente le descrizioni.
+
+- Altri Script di Supporto:
+  * ui_interactions.js: Gestisce i comportamenti del menu hamburger responsive su mobile.
+  * video_hero.js: Rileva il click sui bottoni trailer aprendo un iframe di YouTube 
+    all'interno di un overlay modale animato.
+  * cta_sticky.js: Mantiene i pulsanti di chiamata all'azione (CTA) agganciati al fondo 
+    dello schermo orizzontalmente, migliorando l'accessibilità della navigazione.
+  * hover_sync.js & scroll_detector.js: Sincronizzano gli stati di hover e di scorrimento 
+    per attivare classi CSS coordinate.
+================================================================================

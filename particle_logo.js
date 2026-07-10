@@ -14,13 +14,12 @@ class Particle {
         this.originY = y;
         this.color = '#ff3c01';
         this.size = this.effect.gap;
-        this.vx = (Math.random() - 0.5) * 5.8; // Increased for faster dispersion
-        this.vy = (Math.random() - 0.5) * 5.8; // Increased for faster dispersion
-        this.ease = 0.035; // Slower aggregation (-15% from 0.042)
+        this.vx = (Math.random() - 0.5) * 5.8;
+        this.vy = (Math.random() - 0.5) * 5.8;
+        this.ease = 0.035;
         this.friction = 0.8;
         this.isStatic = isStatic;
 
-        // Jitter per contorni meno definiti (+30%: da 6 a 7.8)
         this.jitterX = (Math.random() - 0.5) * 7.8;
         this.jitterY = (Math.random() - 0.5) * 7.8;
 
@@ -35,8 +34,6 @@ class Particle {
 
     update() {
         if (this.effect.mouse.active && !this.isStatic) {
-            // Rimosso l'ondeggiatura (wave) - mantenuta solo la dispersione leggera (jitter + float)
-            // Movimenti aumentati del 30% (da 2.5 a 3.25)
             const hoverFloatX = Math.sin(Date.now() * 0.0015 + this.originX) * 3.25 + this.jitterX;
             const hoverFloatY = Math.cos(Date.now() * 0.0015 + this.originY) * 3.25 + this.jitterY;
 
@@ -45,7 +42,6 @@ class Particle {
             this.x += dx * this.ease;
             this.y += dy * this.ease;
         } else {
-            // Moto delle singole particelle a riposo aumentato del 30%
             this.x += Math.sin(Date.now() * 0.00195 + this.originX) * 0.78 + this.randomX * 0.52;
             this.y += Math.cos(Date.now() * 0.00195 + this.originY) * 0.78 + this.randomY * 0.52;
 
