@@ -16,7 +16,9 @@
         background-color: #c5c5c5 !important;
         margin: 0 !important;
         padding: 0 !important;
-        overflow-x: hidden !important;
+        /* clip invece di hidden: hidden su html+body trasforma il body in un contenitore
+           di scroll e rompe position: sticky (scrollytelling del kit, CTA) */
+        overflow-x: clip !important;
         width: 100% !important;
         min-height: 100vh !important;
         position: relative !important;
@@ -36,21 +38,6 @@
         margin-top: -1rem !important;
     }
 
-
-    /* SVG Overlay Visible on Mobile */
-    #kit-svg-overlay {
-        display: block !important;
-        width: 100% !important;
-        height: 100% !important;
-        overflow: visible !important;
-    }
-
-    /* Resize SVG Labels for Mobile */
-    .svg-label-text {
-        font-size: 24px !important;
-        /* Larger text for mobile readability? Or standard */
-        font-weight: 700 !important;
-    }
 
     /* --- 2. TYPOGRAPHY --- */
     h1 {
@@ -476,54 +463,39 @@
         justify-content: center !important;
     }
 
-    /* --- 7. KIT SCROLLYTELLING REMOVAL ON MOBILE --- */
-    /* User request: "cancella l'animazione scrolly telling... sostituiscila con un immagine della scatola chiusa e un immagine della scatola aperta" */
-
+    /* --- 7. KIT SCROLLYTELLING SU MOBILE --- */
+    /* Prima era disattivato perché lo sticky non funzionava (overflow-x: hidden su html+body).
+       Ora con overflow-x: clip lo sticky funziona: stessa animazione del desktop, più corta. */
     #kit-scroll-container {
-        height: auto !important;
-        /* No massive scroll height */
-        min-height: auto !important;
-        margin-bottom: 2rem !important;
-        padding-top: 2rem !important;
-        background: transparent !important;
+        height: 450vh !important;
+        margin-bottom: 0 !important;
         overflow: visible !important;
     }
 
     .sticky-stage {
-        position: static !important;
-        /* No sticky */
-        height: auto !important;
-        /* Fit content */
-        width: 100% !important;
-        display: flex !important;
-        flex-direction: column-reverse !important;
-        /* Show Closed (Top layer) first, then Open (Base layer) */
-        gap: 2rem !important;
-        transform: none !important;
-        overflow: visible !important;
+        position: sticky !important;
+        top: 0 !important;
+        height: 100vh !important;
+        height: 100svh !important;
+        overflow: hidden !important;
     }
 
-    /* Disable absolute positioning layers */
-    .kit-layer {
-        position: relative !important;
-        /* Stack naturally */
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-        width: 100% !important;
+    /* Scatola al 54% = 650/1200, lo stesso rapporto del viewBox mobile impostato in kit.html */
+    .kit-scrolly-img,
+    .layer-top .kit-scrolly-img {
+        width: 54% !important;
+        max-width: none !important;
         height: auto !important;
-        display: flex !important;
-        justify-content: center !important;
-        opacity: 1 !important;
-        /* Force visible against JS */
-        visibility: visible !important;
-        /* Force visible against JS */
+        filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3)) !important;
     }
 
-    /* Hide the animated SVG overlay */
-    .layer-overlay,
-    #kit-svg-overlay {
-        display: none !important;
+    .svg-label-text {
+        font-size: 34px !important;
+        font-weight: 400 !important;
+    }
+
+    .kit-path {
+        stroke-width: 3 !important;
     }
 
     /* --- 8. BADGES / CATALOG PAGE --- */
@@ -676,23 +648,6 @@
         margin-bottom: 2px !important;
     }
 
-    /* Images */
-    .kit-scrolly-img {
-        width: 100% !important;
-        max-width: none !important;
-        height: auto !important;
-        display: block !important;
-        margin: 0 auto !important;
-        padding: 0 !important;
-    }
-
-    /* Ensure Closed Box (id layer-closed) is visible */
-    #layer-closed {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-    }
-
     /* --- 9. ABOUT PAGE MAP --- */
     #about-map-section {
         padding: 0 !important;
@@ -760,5 +715,70 @@
         /* Push up */
         left: 50% !important;
         transform: translateX(-50%) !important;
+    }
+
+    /* --- 10. HEADER MOBILE: INFO BAR COMPATTA + NAVBAR CON SFONDO --- */
+    /* Info bar (coordinate / contatore / data) visibile anche su mobile, su una riga sotto il ticker */
+    .info-bar {
+        display: flex !important;
+        position: fixed !important;
+        top: 30px !important;
+        height: 24px !important;
+        padding: 0 12px !important;
+        font-size: 0.68rem !important;
+        letter-spacing: 0 !important;
+        z-index: 10003 !important;
+    }
+
+    .info-item {
+        padding: 0 !important;
+        white-space: nowrap !important;
+    }
+
+    /* niente tooltip/hover sulle voci dell'info bar su touch */
+    .info-item::after {
+        display: none !important;
+    }
+
+    /* Navbar: sfondo pieno così logo e hamburger non finiscono sopra il testo durante lo scroll */
+    .main-navbar {
+        top: 54px !important;
+        height: 52px !important;
+        background: #c5c5c5 !important;
+        pointer-events: auto !important;
+    }
+
+    /* area di tocco 48px, linee centrate in verticale rispetto al logo */
+    .hamburger-menu {
+        margin-top: 0 !important;
+        height: 48px !important;
+        justify-content: center !important;
+    }
+
+    body>main {
+        margin-top: 54px !important;
+    }
+
+    .mobile-menu-overlay {
+        padding-top: 106px !important;
+    }
+
+    /* --- 11. CTA FISSA PIÙ SOTTILE --- */
+    /* Prima: fascia nera piena di ~90px che copriva i contenuti. Ora solo il bottone, con area sicura iPhone */
+    .cta-container.cta-fixed {
+        background: linear-gradient(to top, rgba(197, 197, 197, 0.95) 40%, rgba(197, 197, 197, 0)) !important;
+        border-top: none !important;
+        padding: 18px 15px calc(12px + env(safe-area-inset-bottom)) !important;
+        pointer-events: none !important;
+    }
+
+    .cta-container.cta-fixed .cta-button {
+        pointer-events: auto !important;
+        padding: 0.8rem 2.2rem !important;
+        font-size: 0.95rem !important;
+    }
+
+    body>main {
+        padding-bottom: 80px !important;
     }
 }

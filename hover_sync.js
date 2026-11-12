@@ -17,7 +17,7 @@
         '.hamburger-menu',
         '.hacker-char',
         '.map-marker',
-        '. news-ticker-bar',
+        '.news-ticker-bar',
         '.cta-button',
         '.close-modal'
     ];

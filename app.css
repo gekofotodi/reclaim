@@ -132,3 +132,8 @@
 .hunt-section .mockup-container::after {
     display: none;
 }
+/* I mockup ruotati sbordano a destra/sinistra: li tagliamo al bordo della pagina
+   (clip non crea un contenitore di scroll, quindi la CTA sticky continua a funzionare) */
+main {
+    overflow-x: clip;
+}

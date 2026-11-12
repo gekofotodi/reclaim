@@ -76,6 +76,8 @@ body {
     padding-left: 0;
     /* Removed padding since sidebar is gone */
     overflow-x: hidden;
+    /* clip: taglia lo sbordo senza creare un contenitore di scroll (non rompe position: sticky) */
+    overflow-x: clip;
 }
 
 /* Custom Scrollbar Removed for Native appearing behavior */
@@ -1876,7 +1878,7 @@ footer {
     body {
         padding-left: 20px !important;
         padding-right: 20px !important;
-        overflow-x: hidden;
+        overflow-x: clip;
         width: 100vw;
         box-sizing: border-box;
     }

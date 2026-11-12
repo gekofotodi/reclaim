@@ -194,7 +194,12 @@ window.addEventListener('load', function () {
     }
     animate();
 
+    // Su mobile la barra del browser che si nasconde scatena "resize" solo in altezza:
+    // ricostruiamo le particelle solo se cambia la larghezza (es. rotazione).
+    let lastWidth = container.offsetWidth;
     window.addEventListener('resize', () => {
+        if (container.offsetWidth === lastWidth) return;
+        lastWidth = container.offsetWidth;
         setupCanvas();
         effect.resize(canvas.width, canvas.height);
     });

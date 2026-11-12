@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Kit</title>
     <link rel="icon" href="asset/loghi/logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="style.css">
@@ -193,37 +193,37 @@
                         <!-- GUN -->
                         <g class="kit-label-group" id="label-gun">
                             <path class="kit-path" d="M 500 370 L 1050 370" />
-                            <text class="svg-label-text" x="929" y="363">RECLAIMX GUN</text>
+                            <text class="svg-label-text" x="1050" y="363" text-anchor="end">RECLAIMX GUN</text>
                         </g>
 
-                        <!-- AMMO -->
-                        <g class="kit-label-group" id="label-ammo">
+                        <!-- SPRAY CAN -->
+                        <g class="kit-label-group" id="label-spray">
                             <path class="kit-path" d="M -50 620 L 262 620" />
                             <text class="svg-label-text" x="-51" y="613">SPRAY CAN</text>
                         </g>
 
-                        <!-- STENCIL -->
-                        <g class="kit-label-group" id="label-stencil">
+                        <!-- BEGINNER BADGE -->
+                        <g class="kit-label-group" id="label-badge">
                             <path class="kit-path" d="M -50 693 L 500 693" />
                             <text class="svg-label-text" x="-51" y="686">BEGINNER BADGE</text>
                         </g>
 
-                        <!-- SPRAY -->
-                        <g class="kit-label-group" id="label-spray">
+                        <!-- AMMUNITIONS -->
+                        <g class="kit-label-group" id="label-ammo">
                             <path class="kit-path" d="M 500 580 L 1050 580" />
-                            <text class="svg-label-text" x="939" y="573">AMMONITIONS</text>
+                            <text class="svg-label-text" x="1050" y="573" text-anchor="end">AMMONITIONS</text>
                         </g>
 
-                        <!-- BROCHURE -->
-                        <g class="kit-label-group" id="label-brochure">
+                        <!-- STENCIL -->
+                        <g class="kit-label-group" id="label-stencil">
                             <path class="kit-path" d="M -50 255 L 500 255" />
                             <text class="svg-label-text" x="-51" y="248">STENCIL</text>
                         </g>
 
-                        <!-- BADGE -->
-                        <g class="kit-label-group" id="label-badge">
+                        <!-- BROCHURE -->
+                        <g class="kit-label-group" id="label-brochure">
                             <path class="kit-path" d="M 717 655 L 1050 655" />
-                            <text class="svg-label-text" x="970" y="648">BROCHURE</text>
+                            <text class="svg-label-text" x="1050" y="648" text-anchor="end">BROCHURE</text>
                         </g>
                     </svg>
                 </div>
@@ -247,7 +247,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_arma.png" alt="The Device">
+                        <img src="asset/immagini/render_arma.png" alt="ReclaimX Gun">
                     </div>
                 </div>
             </section>
@@ -261,7 +261,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_spray.png" alt="The Ammo">
+                        <img src="asset/immagini/render_spray.png" alt="Spray can">
                     </div>
                 </div>
             </section>
@@ -274,7 +274,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_stencil.png" alt="The Armor">
+                        <img src="asset/immagini/render_stencil.png" alt="Stencil">
                     </div>
                 </div>
             </section>
@@ -287,7 +287,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_ammonitions.png" alt="The Codex">
+                        <img src="asset/immagini/render_ammonitions.png" alt="Ammunitions">
                     </div>
                 </div>
             </section>
@@ -300,7 +300,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_badge.png" alt="The Pins">
+                        <img src="asset/immagini/render_badge.png" alt="Beginner badge">
                     </div>
                 </div>
             </section>
@@ -313,7 +313,7 @@
                 </div>
                 <div class="app-visual-column">
                     <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_brochure.png" alt="The Codex">
+                        <img src="asset/immagini/render_brochure.png" alt="Brochure">
                     </div>
                 </div>
             </section>
@@ -346,6 +346,21 @@
             const layerClosed = document.getElementById('layer-closed');
             const paths = document.querySelectorAll('.kit-path');
             const labelGroups = document.querySelectorAll('.kit-label-group');
+
+            // Mobile: allarga il viewBox così etichette e linee restano dentro lo schermo
+            // (la larghezza della scatola in mobile_fixes.css usa lo stesso rapporto: 650/1200 = 54%)
+            if (window.matchMedia('(max-width: 768px)').matches) {
+                document.getElementById('kit-svg-overlay').setAttribute('viewBox', '-100 0 1200 1000');
+                paths.forEach(path => {
+                    path.setAttribute('d', path.getAttribute('d')
+                        .replace('M -50 ', 'M -95 ')
+                        .replace(/L 1050 (\d+)$/, 'L 1095 $1'));
+                });
+                labelGroups.forEach(group => {
+                    const text = group.querySelector('text');
+                    text.setAttribute('x', text.getAttribute('text-anchor') === 'end' ? 1095 : -95);
+                });
+            }
 
             // Easy Ease Helper Function (Cubic)
             const easeInOutCubic = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
