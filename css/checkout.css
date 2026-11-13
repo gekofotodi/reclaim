@@ -18,6 +18,15 @@
     opacity: 1;
 }
 
+/* chiuso: non deve restare sopra la pagina né prendere i clic */
+.checkout[hidden] {
+    display: none;
+}
+
+.checkout:not(.open) {
+    pointer-events: none;
+}
+
 body.checkout-open {
     overflow: hidden;
 }

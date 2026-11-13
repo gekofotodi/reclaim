@@ -13,7 +13,7 @@
 
     let qty = 1;
     let step = 0;
-    let root, lastFocus, receiptBlob;
+    let root, lastFocus, receiptBlob, hideTimer;
 
     const html = () => `
 <div class="checkout" id="checkout" role="dialog" aria-modal="true" aria-labelledby="co-title" hidden>
@@ -122,6 +122,7 @@
             root.addEventListener('click', onClick);
             root.addEventListener('keydown', trap);
         }
+        clearTimeout(hideTimer);
         lastFocus = document.activeElement;
         qty = 1;
         totals();
@@ -136,7 +137,8 @@
     function close() {
         root.classList.remove('open');
         document.body.classList.remove('modal-open', 'checkout-open');
-        setTimeout(() => { root.hidden = true; }, 300);
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => { root.hidden = true; }, 300);
         if (lastFocus) lastFocus.focus({ preventScroll: true });
     }
 
