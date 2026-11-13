@@ -27,12 +27,13 @@
     --font-mono: "cofo-sans-mono-variable", "Necto Mono", monospace; /* tutto il resto */
 
     /* Scala tipografica: il massimo è il valore desktop, su mobile scende */
-    --fs-display: clamp(5rem, 8.9vw, 8rem);
-    --fs-h1: 3rem;
-    --fs-h2: 2rem;
-    --fs-body: 1.1rem;
-    --fs-small: 1rem;
+    --fs-display: clamp(3rem, 1rem + 8vw, 8rem);      /* numeri e titoli Codeink */
+    --fs-h1: clamp(1.8rem, 1rem + 2.6vw, 3rem);       /* titoli dei contenuti */
+    --fs-h2: clamp(1.4rem, 1rem + 1.2vw, 2rem);
+    --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.1rem);  /* testi lunghi, max ~60 caratteri per riga */
+    --fs-small: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
     --fs-micro: 0.75rem;
+    --measure: 60ch;
 
     /* Angoli (V3): squadrato per tasti e controlli, tondo per i contenuti */
     --radius-control: 0;

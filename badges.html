@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
 <head>
+    <script>document.documentElement.classList.replace('no-js','js')</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Badges</title>
+    <title>Reclaim — Badges</title>
+    <meta name="description" content="Eight magnetic milestone badges for Reclaim citizens.">
+    <meta name="theme-color" content="#c5c5c5">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RECLAIM">
+    <meta property="og:title" content="Reclaim — Badges">
+    <meta property="og:description" content="Eight magnetic milestone badges for Reclaim citizens.">
+    <meta property="og:url" content="https://gekofotodi.github.io/reclaim/badges.html">
+    <meta property="og:image" content="https://gekofotodi.github.io/reclaim/asset/og/preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="asset/loghi/logo.svg" type="image/svg+xml">
+    <link rel="icon" href="asset/og/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="asset/og/apple-touch-icon.png">
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/badges.css">
@@ -16,11 +30,11 @@
     <nav class="main-navbar">
         <div class="nav-logo-container">
             <a href="index.html">
-                <img src="asset/immagini/logo_orange.png" alt="Reclaim Logo" class="nav-logo">
+                <img src="asset/immagini/logo_orange.png" alt="Reclaim — home" class="nav-logo">
             </a>
 
         </div>
-        <div class="hamburger-menu" id="hamburger-btn">
+        <div class="hamburger-menu" id="hamburger-btn" role="button" tabindex="0" aria-label="Menu" aria-controls="mobile-menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -30,15 +44,15 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobile-menu">
         <ul class="nav-links-mobile">
-            <li><a href="index.html">/Manifesto</a></li>
-            <li><a href="kit.html">/Kit</a></li>
-            <li><a href="app.html">/App</a></li>
-            <li><a href="badges.html" class="active">/Badges</a></li>
-            <li><a href="about.html">/About</a></li>
+            <li><a href="index.html"><span class="nav-name">/Manifesto</span><span class="nav-desc">The principles. Stencil and manifesto to download</span></a></li>
+            <li><a href="kit.html"><span class="nav-name">/Kit</span><span class="nav-desc">The ReclaimX box, piece by piece</span></a></li>
+            <li><a href="app.html"><span class="nav-name">/App</span><span class="nav-desc">Hunt targets, mark territory, rank up</span></a></li>
+            <li><a href="badges.html" class="active" aria-current="page"><span class="nav-name">/Badges</span><span class="nav-desc">The eight magnetic milestones</span></a></li>
+            <li><a href="scenario.html"><span class="nav-name">/Scenario</span><span class="nav-desc">Why Reclaim exists: cities, numbers, the DAO</span></a></li>
         </ul>
     </div>
     <script src="ui_interactions.js"></script> <!-- News Ticker -->
-    <a href="app.html" class="news-ticker-bar">
+    <a href="app.html" class="news-ticker-bar" aria-label="Join Reclaim: get the app">
         <div class="news-ticker-content">
             JOIN RECLAIM -------------------- STOP THE INVASION -------------------- JOIN RECLAIM --------------------
             STOP THE INVASION -------------------- JOIN RECLAIM -------------------- STOP THE INVASION
@@ -71,18 +85,19 @@
             <h1 class="catalog-title">MAGNETIC MILESTONE BADGES</h1>
             <div class="catalog-intro">
                 <p>
-                    Every time you hit a mark with your Reclaim X rifle, you’re not just scoring points; you’re earning
+                    Every time you hit a mark with your ReclaimX gun, you’re not just scoring points; you’re earning
                     your
                     reputation. Our Magnetic Milestone Badges are the physical proof of your dedication to the
                     resistance; now show the world your stats.
                 </p>
+                <p class="flip-hint">TAP A BADGE TO SEE ITS MISSION</p>
             </div>
 
             <div class="catalog-grid">
                 <!-- Item 1 -->
                 <div class="catalog-item">
                     <div class="badge-tilt-wrapper">
-                        <img src="asset/immagini/badge1.png" alt="Badge 1">
+                        <img src="asset/web/badge1-800.webp" srcset="asset/web/badge1-400.webp 400w, asset/web/badge1-800.webp 800w" sizes="(max-width: 768px) 45vw, 22vw" loading="lazy" decoding="async" alt="Badge 1: welcome">
                     </div>
                     <div class="item-meta">
                         <span>BADGE 1: WELCOME</span>
@@ -93,77 +108,77 @@
                 <!-- Item 2 -->
                 <div class="catalog-item">
                     <div class="badge-tilt-wrapper">
-                        <img src="asset/immagini/badge2.png" alt="Badge 2">
+                        <img src="asset/web/badge2-800.webp" srcset="asset/web/badge2-400.webp 400w, asset/web/badge2-800.webp 800w" sizes="(max-width: 768px) 45vw, 22vw" loading="lazy" decoding="async" alt="Badge 2: enlisted">
                     </div>
                     <div class="item-meta">
                         <span>BADGE 2: enlisted</span>
-                        <span>MISSION: shoot 10 tourists</span>
+                        <span>MISSION: shoot 10 targets</span>
                     </div>
                 </div>
 
                 <!-- Item 3 -->
                 <div class="catalog-item">
                     <div class="badge-tilt-wrapper">
-                        <img src="asset/immagini/badge3.png" alt="Badge 3">
+                        <img src="asset/web/badge3-800.webp" srcset="asset/web/badge3-400.webp 400w, asset/web/badge3-800.webp 800w" sizes="(max-width: 768px) 45vw, 22vw" loading="lazy" decoding="async" alt="Badge 3: sergeant">
                     </div>
                     <div class="item-meta">
                         <span>BADGE 3: sergeant</span>
-                        <span>MISSION: shoot 20 tourists</span>
+                        <span>MISSION: shoot 20 targets</span>
                     </div>
                 </div>
 
                 <!-- Item 4 -->
                 <div class="catalog-item">
                     <div class="badge-tilt-wrapper">
-                        <img src="asset/immagini/badge4.png" alt="Badge 4">
+                        <img src="asset/web/badge4-800.webp" srcset="asset/web/badge4-400.webp 400w, asset/web/badge4-800.webp 800w" sizes="(max-width: 768px) 45vw, 22vw" loading="lazy" decoding="async" alt="Badge 4: captain">
                     </div>
                     <div class="item-meta">
                         <span>BADGE 4: captain</span>
-                        <span>MISSION: shoot 50 tourists</span>
+                        <span>MISSION: shoot 50 targets</span>
                     </div>
                 </div>
 
                 <!-- Item 5 -->
                 <div class="catalog-item">
                     <div class="badge-tilt-wrapper">
-                        <img src="asset/immagini/badge5.png" alt="Badge 5">
+                        <img src="asset/web/badge5-800.webp" srcset="asset/web/badge5-400.webp 400w, asset/web/badge5-800.webp 800w" sizes="(max-width: 768px) 45vw, 22vw" loading="lazy" decoding="async" alt="Badge 5: sunglasses">
                     </div>
                     <div class="item-meta">
                         <span>BADGE 5: sunglasses</span>
-                        <span>MISSION: shoot 10 tourists wearing sunglasses</span>
+                        <span>MISSION: shoot 10 targets wearing sunglasses</span>
                     </div>
                 </div>
 
                 <!-- Item 6 -->
                 <div class="catalog-item">
                     <div class="badge-tilt-wrapper">
-                        <img src="asset/immagini/badge6.png" alt="Badge 6">
+                        <img src="asset/web/badge6-800.webp" srcset="asset/web/badge6-400.webp 400w, asset/web/badge6-800.webp 800w" sizes="(max-width: 768px) 45vw, 22vw" loading="lazy" decoding="async" alt="Badge 6: camera">
                     </div>
                     <div class="item-meta">
                         <span>BADGE 6: camera</span>
-                        <span>MISSION:shoot 10 tourists carrying a camera</span>
+                        <span>MISSION: shoot 10 targets carrying a camera</span>
                     </div>
                 </div>
 
                 <!-- Item 7 -->
                 <div class="catalog-item">
                     <div class="badge-tilt-wrapper">
-                        <img src="asset/immagini/badge7.png" alt="Badge 7">
+                        <img src="asset/web/badge7-800.webp" srcset="asset/web/badge7-400.webp 400w, asset/web/badge7-800.webp 800w" sizes="(max-width: 768px) 45vw, 22vw" loading="lazy" decoding="async" alt="Badge 7: bottle">
                     </div>
                     <div class="item-meta">
                         <span>BADGE 7: bottle</span>
-                        <span>MISSION: shoot 10 tourists carrying a bottle</span>
+                        <span>MISSION: shoot 10 targets carrying a bottle</span>
                     </div>
                 </div>
 
                 <!-- Item 8 -->
                 <div class="catalog-item">
                     <div class="badge-tilt-wrapper">
-                        <img src="asset/immagini/badge8.png" alt="Badge 8">
+                        <img src="asset/web/badge8-800.webp" srcset="asset/web/badge8-400.webp 400w, asset/web/badge8-800.webp 800w" sizes="(max-width: 768px) 45vw, 22vw" loading="lazy" decoding="async" alt="Badge 8: cap">
                     </div>
                     <div class="item-meta">
                         <span>BADGE 8: cap</span>
-                        <span>MISSION: shoot 10 tourists wearing a cap</span>
+                        <span>MISSION: shoot 10 targets wearing a cap</span>
                     </div>
                 </div>
             </div>
@@ -186,6 +201,7 @@
     <script src="badges.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
     <script src="hover_sync.js"></script>
+    <script src="site.js"></script>
 </body>
 
 </html>

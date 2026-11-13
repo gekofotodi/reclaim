@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Helper to ensure caps if needed dynamically, but hardcoded strings are fine.
 // The user requested "tutte le scritte in cofo in caps lock". Assuming 'cofo' means 'info' (typo).
 // The CSS text-transform: uppercase might handle visual representation, but let's check styles.
-// .info-item is uppercase. .info-item::after (tooltip) had text-transform: none in style.css.
+// .info-item is uppercase. .info-item::after (tooltip) had text-transform: none in the old style.css (now css/base.css).
 window.addEventListener('load', () => {
     // Force uppercase via JS just in case for dynamic content if CSS doesn't cover it
     const tips = document.querySelectorAll('[data-tooltip]');

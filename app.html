@@ -1,11 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
 <head>
+    <script>document.documentElement.classList.replace('no-js','js')</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>App</title>
+    <title>Reclaim — App</title>
+    <meta name="description" content="The Reclaim app: hunt targets, mark your territory, climb the ranks.">
+    <meta name="theme-color" content="#c5c5c5">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RECLAIM">
+    <meta property="og:title" content="Reclaim — App">
+    <meta property="og:description" content="The Reclaim app: hunt targets, mark your territory, climb the ranks.">
+    <meta property="og:url" content="https://gekofotodi.github.io/reclaim/app.html">
+    <meta property="og:image" content="https://gekofotodi.github.io/reclaim/asset/og/preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="asset/loghi/logo.svg" type="image/svg+xml">
+    <link rel="icon" href="asset/og/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="asset/og/apple-touch-icon.png">
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/split.css">
@@ -17,11 +31,11 @@
     <nav class="main-navbar">
         <div class="nav-logo-container">
             <a href="index.html">
-                <img src="asset/immagini/logo_orange.png" alt="Reclaim Logo" class="nav-logo">
+                <img src="asset/immagini/logo_orange.png" alt="Reclaim — home" class="nav-logo">
             </a>
 
         </div>
-        <div class="hamburger-menu" id="hamburger-btn">
+        <div class="hamburger-menu" id="hamburger-btn" role="button" tabindex="0" aria-label="Menu" aria-controls="mobile-menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -31,16 +45,16 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobile-menu">
         <ul class="nav-links-mobile">
-            <li><a href="index.html">/Manifesto</a></li>
-            <li><a href="kit.html">/Kit</a></li>
-            <li><a href="app.html" class="active">/App</a></li>
-            <li><a href="badges.html">/Badges</a></li>
-            <li><a href="about.html">/About</a></li>
+            <li><a href="index.html"><span class="nav-name">/Manifesto</span><span class="nav-desc">The principles. Stencil and manifesto to download</span></a></li>
+            <li><a href="kit.html"><span class="nav-name">/Kit</span><span class="nav-desc">The ReclaimX box, piece by piece</span></a></li>
+            <li><a href="app.html" class="active" aria-current="page"><span class="nav-name">/App</span><span class="nav-desc">Hunt targets, mark territory, rank up</span></a></li>
+            <li><a href="badges.html"><span class="nav-name">/Badges</span><span class="nav-desc">The eight magnetic milestones</span></a></li>
+            <li><a href="scenario.html"><span class="nav-name">/Scenario</span><span class="nav-desc">Why Reclaim exists: cities, numbers, the DAO</span></a></li>
         </ul>
     </div>
     <script src="ui_interactions.js"></script>
 
-    <a href="app.html" class="news-ticker-bar">
+    <a href="app.html" class="news-ticker-bar" aria-label="Join Reclaim: get the app">
         <div class="news-ticker-content">
             JOIN RECLAIM -------------------- STOP THE INVASION -------------------- JOIN RECLAIM --------------------
             STOP THE INVASION -------------------- JOIN RECLAIM -------------------- STOP THE INVASION
@@ -80,8 +94,8 @@
             <div class="app-visual-column">
                 <div class="mockup-container">
                     <picture>
-                        <source media="(max-width: 768px)" srcset="asset/immagini/phone_1.png">
-                        <img src="asset/immagini/mockapp_1.png" alt="Reclaim App Interface">
+                        <source media="(max-width: 768px)" srcset="asset/web/phone_1-1200.webp 1200w, asset/web/phone_1-2400.webp 2400w" sizes="100vw">
+                        <img src="asset/web/mockapp_1-2400.webp" srcset="asset/web/mockapp_1-1200.webp 1200w, asset/web/mockapp_1-2400.webp 2400w" sizes="(max-width: 1400px) 100vw, 1400px" alt="Reclaim app: dashboard with live status" decoding="async">
                     </picture>
                 </div>
             </div>
@@ -97,8 +111,8 @@
             <div class="app-visual-column">
                 <div class="mockup-container rotated-asset">
                     <picture>
-                        <source media="(max-width: 768px)" srcset="asset/immagini/phone_2.png">
-                        <img src="asset/immagini/mockapp_2.png" alt="Reclaim App Interface">
+                        <source media="(max-width: 768px)" srcset="asset/web/phone_2-1200.webp 1200w, asset/web/phone_2-2400.webp 2400w" sizes="100vw">
+                        <img src="asset/web/mockapp_2-2400.webp" srcset="asset/web/mockapp_2-1200.webp 1200w, asset/web/mockapp_2-2400.webp 2400w" sizes="(max-width: 1400px) 100vw, 1400px" alt="Reclaim app: hunt session with tactical overlay" loading="lazy" decoding="async">
                     </picture>
                 </div>
             </div>
@@ -114,8 +128,8 @@
             <div class="app-visual-column">
                 <div class="mockup-container">
                     <picture>
-                        <source media="(max-width: 768px)" srcset="asset/immagini/phone_3.png">
-                        <img src="asset/immagini/mockapp_3.png" alt="Reclaim App Interface">
+                        <source media="(max-width: 768px)" srcset="asset/web/phone_3-1200.webp 1200w, asset/web/phone_3-2400.webp 2400w" sizes="100vw">
+                        <img src="asset/web/mockapp_3-2400.webp" srcset="asset/web/mockapp_3-1200.webp 1200w, asset/web/mockapp_3-2400.webp 2400w" sizes="(max-width: 1400px) 100vw, 1400px" alt="Reclaim app: archive of past sessions" loading="lazy" decoding="async">
                     </picture>
                 </div>
             </div>
@@ -125,14 +139,14 @@
         <section class="app-split-section reverse-layout">
             <div class="app-text-column">
                 <h1>GUN & BADGES</h1>
-                <p>MANAGE YOUR PHYSICAL ARSENAL AND TRACK YOUR EVOLUTION WITHIN THE COLLECTIVE. SYNC YOUR RECLAIM X GEAR
+                <p>MANAGE YOUR PHYSICAL ARSENAL AND TRACK YOUR EVOLUTION WITHIN THE COLLECTIVE. SYNC YOUR RECLAIMX GEAR
                     AND DISPLAY THE MILESTONE BADGES EARNED THROUGH TACTICAL EXCELLENCE.</p>
             </div>
             <div class="app-visual-column">
                 <div class="mockup-container">
                     <picture>
-                        <source media="(max-width: 768px)" srcset="asset/immagini/phone_4.png">
-                        <img src="asset/immagini/mockapp_4.png" alt="Reclaim App Interface">
+                        <source media="(max-width: 768px)" srcset="asset/web/phone_4-1200.webp 1200w, asset/web/phone_4-2400.webp 2400w" sizes="100vw">
+                        <img src="asset/web/mockapp_4-2400.webp" srcset="asset/web/mockapp_4-1200.webp 1200w, asset/web/mockapp_4-2400.webp 2400w" sizes="(max-width: 1400px) 100vw, 1400px" alt="Reclaim app: gun and badges" loading="lazy" decoding="async">
                     </picture>
                 </div>
             </div>
@@ -148,8 +162,8 @@
             <div class="app-visual-column">
                 <div class="mockup-container">
                     <picture>
-                        <source media="(max-width: 768px)" srcset="asset/immagini/phone_5.png">
-                        <img src="asset/immagini/mockapp_5.png" alt="Reclaim App Interface">
+                        <source media="(max-width: 768px)" srcset="asset/web/phone_5-1200.webp 1200w, asset/web/phone_5-2400.webp 2400w" sizes="100vw">
+                        <img src="asset/web/mockapp_5-2400.webp" srcset="asset/web/mockapp_5-1200.webp 1200w, asset/web/mockapp_5-2400.webp 2400w" sizes="(max-width: 1400px) 100vw, 1400px" alt="Reclaim app: the wall of markings" loading="lazy" decoding="async">
                     </picture>
                 </div>
             </div>
@@ -175,6 +189,7 @@
     <script src="hacker_text.js"></script>
     <script src="hover_sync.js"></script>
     <script src="cta_sticky.js"></script>
+    <script src="site.js"></script>
 </body>
 
 </html>
