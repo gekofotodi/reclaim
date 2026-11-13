@@ -1,34 +1,63 @@
 /* ==========================================================================
-   SCENARIO — numeri, Barcellona, la domanda, la DAO, i tre testi, la mappa
+   SCENARIO — numeri, Barcellona, la domanda, la DAO, i tre testi, video, mappa
+   F5: una griglia sola. Tutti i blocchi hanno la stessa larghezza massima,
+   gli stessi margini laterali e la stessa distanza tra una sezione e l'altra.
    ========================================================================== */
 
-/* --- Numeri (S5) --------------------------------------------------------------- */
+.scenario {
+    --scn-max: 1200px;
+    --scn-pad: 2rem;
+    --scn-space: clamp(4rem, 3rem + 4vw, 7rem);
+}
+
+@media (max-width: 768px) {
+    .scenario {
+        --scn-pad: 1.25rem;
+    }
+}
+
+.scn-stats,
+.scn-bcn,
+.scn-dao,
+.scenario-texts .app-split-section,
+.scenario .video-hero-outer,
+#about-map-section {
+    width: 100%;
+    max-width: calc(var(--scn-max) + 2 * var(--scn-pad));
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--scn-space) var(--scn-pad) 0;
+    box-sizing: border-box;
+}
+
+/* --- Numeri -------------------------------------------------------------------- */
 .scn-stats {
-    padding: 4rem 2rem 6rem;
-    max-width: 1300px;
-    margin: 0 auto;
+    padding-top: calc(var(--scn-space) * 0.5);
 }
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1px;
     background: var(--ink);
     border: 1px solid var(--ink);
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 }
 
 .stat {
     background: var(--grey);
-    padding: 2rem 1.25rem;
+    padding: 1.75rem 1.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    min-width: 0;
+    /* il numero si misura sulla cella, così non esce mai */
+    container-type: inline-size;
 }
 
 .stat-num {
     font-family: var(--font-display);
-    font-size: clamp(2.6rem, 1rem + 3.6vw, 5rem);
+    font-size: min(4.5rem, 22cqi);
     line-height: 1;
     color: var(--orange);
     font-variant-numeric: tabular-nums;
@@ -48,12 +77,9 @@
 /* --- Barcellona ---------------------------------------------------------------- */
 .scn-bcn {
     display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 4rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 4rem);
     align-items: center;
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 4rem 2rem 6rem;
 }
 
 .bcn-figure {
@@ -97,63 +123,74 @@
     font-size: var(--fs-h1);
     font-weight: 700;
     line-height: 1.05;
-    margin-bottom: 1.5rem;
+    margin: 0 0 1.25rem;
+    overflow-wrap: break-word;
 }
 
 .bcn-text p,
 .dao-text p {
-    margin-bottom: 1rem;
+    margin: 0 0 1rem;
     max-width: var(--measure);
 }
 
 /* --- La domanda a tutto schermo ------------------------------------------------ */
 .scn-question {
+    margin-top: var(--scn-space);
     min-height: 100vh;
     min-height: 100svh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4rem 2rem;
+    padding: 6rem var(--scn-pad);
     background: var(--black);
+    box-sizing: border-box;
 }
 
 .scn-question h2 {
     font-family: var(--font-display);
     font-weight: 400;
-    font-size: clamp(2.4rem, 1rem + 5.5vw, 7rem);
+    font-size: clamp(2.2rem, 0.8rem + 5vw, 6.5rem);
     line-height: 1.05;
     color: var(--paper);
     text-align: center;
-    max-width: 14ch;
+    max-width: 16ch;
     margin: 0;
     letter-spacing: 0;
 }
 
 /* --- DAO: piramide → rete ------------------------------------------------------ */
+/* desktop: disegno e testo restano fermi insieme mentre la piramide diventa rete */
 .scn-dao {
     position: relative;
-    height: 260vh;
+    height: 220vh;
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 3rem;
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 4rem);
+    align-items: start;
+    padding-top: 0;
 }
 
-.dao-sticky {
+.dao-sticky,
+.dao-text {
     position: sticky;
     top: 0;
     height: 100vh;
+    height: 100svh;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    /* sotto l'header fisso */
+    padding-top: 100px;
+    box-sizing: border-box;
+}
+
+.dao-sticky {
+    align-items: center;
 }
 
 .dao-svg {
     width: 100%;
-    max-width: 640px;
+    max-width: 600px;
     height: auto;
     overflow: visible;
 }
@@ -182,6 +219,7 @@
     width: 100%;
     margin-top: 1.5rem;
     text-align: center;
+    font-size: var(--fs-small);
 }
 
 .dao-caption span {
@@ -200,24 +238,143 @@
     opacity: 1;
 }
 
-.dao-text {
-    align-self: center;
-    position: sticky;
-    top: 30vh;
+/* mobile: niente blocchi fermi; il disegno cambia mentre attraversa lo schermo */
+@media (max-width: 768px) {
+    .scn-dao {
+        display: block;
+        height: auto;
+        padding-top: var(--scn-space);
+    }
+
+    .dao-sticky,
+    .dao-text {
+        position: static;
+        height: auto;
+        padding-top: 0;
+    }
+
+    .dao-text {
+        margin-top: 2rem;
+    }
+}
+
+/* --- Tre testi ---------------------------------------------------------------- */
+.scenario .scenario-texts {
+    display: block;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+.scenario-texts .app-split-section,
+.scenario-texts .app-split-section.reverse-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(2rem, 6vw, 6rem);
+    min-height: 0;
+    max-height: none;
+    height: auto;
+}
+
+.scenario-texts .app-split-section.reverse-layout {
+    flex-direction: row-reverse;
+}
+
+.scenario-texts .app-text-column {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 560px;
+}
+
+.scenario-texts .app-text-column h1 {
+    font-size: var(--fs-h1);
+    margin: 0 0 1.25rem;
+}
+
+.scenario-texts .app-text-column p {
+    max-width: var(--measure);
+}
+
+.scenario-texts .app-visual-column {
+    flex: 0 1 420px;
+    min-width: 0;
+}
+
+.scenario-texts .about-visual {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.scenario-texts .about-visual img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    height: auto;
+    margin: 0;
+    transform: none;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius-media);
+    -webkit-mask-image: none;
+    mask-image: none;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 768px) {
+    .scenario-texts .app-split-section,
+    .scenario-texts .app-split-section.reverse-layout {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+        text-align: left;
+    }
+
+    .scenario-texts .app-visual-column {
+        order: -1;
+        flex: none;
+        width: 100%;
+    }
+
+    .scenario-texts .app-text-column {
+        max-width: none;
+        align-items: flex-start;
+    }
+
+    .scenario-texts .about-visual {
+        padding: 0;
+        margin: 0;
+    }
+
+    /* più basse su telefono: meno schermate occupate da una sola foto */
+    .scenario-texts .about-visual img {
+        aspect-ratio: 4 / 3;
+        max-width: none;
+    }
+}
+
+/* --- Video del teaser ------------------------------------------------------- */
+.scenario .video-cover {
+    filter: invert(1);
+}
+
+/* qui il video sta nella griglia: niente ingrandimento allo scroll */
+.scenario .video-wrapper {
+    transform: none !important;
+    border-radius: var(--radius-media);
 }
 
 /* --- Mappa delle città attive (I7) --------------------------------------------- */
 #about-map-section {
-    padding: 4rem 0 6rem;
     position: relative;
+    padding-bottom: var(--scn-space);
 }
 
 .map-frame {
     position: relative;
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
 }
 
 .map-inner {
@@ -307,12 +464,10 @@
 }
 
 @media (max-width: 768px) {
+    /* su mobile la mappa va da bordo a bordo */
     #about-map-section {
-        padding: 3rem 0 4rem;
-    }
-
-    .map-frame {
-        padding: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     /* ritaglio sull'Europa: la mappa è 6.67 volte più larga del riquadro */
@@ -355,7 +510,7 @@
     .city-list {
         display: block;
         list-style: none;
-        margin: 1.5rem 1.25rem 0;
+        margin: 1.5rem var(--scn-pad) 0;
         border-top: 1px solid var(--ink);
     }
 
@@ -413,29 +568,19 @@
     }
 }
 
-/* --- Video del teaser ------------------------------------------------------- */
-.scenario .video-cover {
-    filter: invert(1);
-}
 
-/* --- Numeri, Barcellona, DAO su mobile ----------------------------------------- */
+/* --- Numeri, Barcellona su schermi stretti ------------------------------------- */
 @media (max-width: 900px) {
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .scn-bcn {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        grid-template-columns: minmax(0, 1fr);
     }
 }
 
 @media (max-width: 768px) {
-    .scn-stats,
-    .scn-bcn {
-        padding: 2rem 1.25rem 3rem;
-    }
-
     .stat {
         padding: 1.25rem 0.75rem;
         align-items: center;
@@ -446,120 +591,17 @@
         font-size: 0.7rem;
     }
 
-    .bcn-text,
-    .bcn-text p,
-    .dao-text p {
-        text-align: left;
-    }
-
     .bcn-title {
-        text-align: left;
-        font-family: var(--font-title);
         font-size: 1.8rem;
     }
 
-    .scn-dao {
-        display: block;
-        height: auto;
-        padding: 0 1.25rem;
-    }
-
-    .dao-sticky {
-        position: sticky;
-        top: 54px;
-        height: auto;
-        min-height: 70vh;
-        padding: 2rem 0;
-        background: var(--grey);
-        z-index: 1;
-    }
-
-    /* il testo scorre sotto il disegno: dà tempo all'animazione */
-    .dao-text {
-        position: relative;
-        top: auto;
-        z-index: 2;
-        background: var(--grey);
-        padding: 2rem 0 4rem;
-        margin-top: 60vh;
-    }
-}
-
-
-/* --- Tre testi ---------------------------------------------------------------- */
-.scenario-texts .app-split-section {
-    max-height: none;
-    height: auto;
-    min-height: 60vh;
-    padding: 8rem 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    align-items: center;
-    justify-content: center;
-    gap: 8rem;
-}
-
-.scenario-texts .app-split-section.reverse-layout {
-    padding: 8rem 2rem;
-}
-
-.scenario-texts .app-text-column,
-.scenario-texts .app-visual-column {
-    flex: 1;
-    max-width: 550px;
-    width: 100%;
-}
-
-.scenario-texts .about-visual {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    pointer-events: auto;
-}
-
-.scenario-texts .about-visual img {
-    width: 100%;
-    aspect-ratio: 956 / 1280;
-    height: auto;
-    margin: 0;
-    transform: none;
-    object-fit: cover;
-    display: block;
-    border-radius: var(--radius-media);
-    -webkit-mask-image: none;
-    mask-image: none;
-    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
-}
-
-@media (max-width: 1024px) {
-    .scenario-texts .app-split-section,
-    .scenario-texts .app-split-section.reverse-layout {
-        padding: 6rem 4rem;
-        gap: 4rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .scenario-texts .app-split-section,
-    .scenario-texts .app-split-section.reverse-layout {
-        padding: 4rem 1.5rem;
-        gap: 0;
-    }
-
-    .scenario-texts .app-text-column,
-    .scenario-texts .app-visual-column {
-        flex: none;
-        max-width: 100%;
-    }
-
-    .scenario-texts .about-visual {
-        transform: none;
-        margin: 0 auto;
-        padding: 2rem 0 0 0;
-    }
-
-    .scenario-texts .about-visual img {
-        max-width: none;
-        transform: none;
+    /* testi lunghi a sinistra, come i titoli */
+    .bcn-text,
+    .bcn-text p,
+    .dao-text,
+    .dao-text p,
+    .scenario-texts .app-text-column h1,
+    .scenario-texts .app-text-column p {
+        text-align: left;
     }
 }

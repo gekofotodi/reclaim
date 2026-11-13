@@ -94,13 +94,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (reduce) { draw(1); return; }
 
+    // desktop: la sezione è alta e il disegno resta fermo (sticky) → progresso sulla sezione
+    // mobile: niente sticky → progresso mentre il disegno attraversa lo schermo
+    const mq = window.matchMedia('(max-width: 768px)');
+    const clamp01 = v => Math.max(0, Math.min(1, v));
     const onScroll = () => {
-        const r = dao.getBoundingClientRect();
-        const total = dao.offsetHeight - window.innerHeight;
-        const p = total > 0 ? Math.max(0, Math.min(1, (-r.top + window.innerHeight * 0.15) / total)) : 1;
+        const vh = window.innerHeight;
+        let p;
+        if (mq.matches) {
+            const r = svg.getBoundingClientRect();
+            p = clamp01((vh * 0.85 - r.top) / (vh * 0.55));
+        } else {
+            const r = dao.getBoundingClientRect();
+            const total = dao.offsetHeight - vh;
+            p = total > 0 ? clamp01((-r.top) / (total * 0.8)) : 1;
+        }
         draw(p);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
+    window.addEventListener('load', onScroll);
     onScroll();
 });

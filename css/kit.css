@@ -217,17 +217,6 @@
 }
 
 /* --- La ReclaimX pezzo per pezzo ----------------------------------------------- */
-.section-title {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2.6rem, 1rem + 6vw, 6rem);
-    line-height: 1;
-    color: var(--ink);
-    text-align: center;
-    letter-spacing: 0;
-    margin: 0 0 2rem 0;
-}
-
 .gun-section {
     padding: 6rem 2rem 4rem;
     max-width: 1200px;
