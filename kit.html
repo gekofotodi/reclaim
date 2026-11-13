@@ -1,15 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
 <head>
+    <script>document.documentElement.classList.replace('no-js','js')</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Kit</title>
+    <title>Reclaim — Kit</title>
+    <meta name="description" content="The ReclaimX kit: gun, spray can, stencil, ammunitions, badge and brochure.">
+    <meta name="theme-color" content="#c5c5c5">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RECLAIM">
+    <meta property="og:title" content="Reclaim — Kit">
+    <meta property="og:description" content="The ReclaimX kit: gun, spray can, stencil, ammunitions, badge and brochure.">
+    <meta property="og:url" content="https://gekofotodi.github.io/reclaim/kit.html">
+    <meta property="og:image" content="https://gekofotodi.github.io/reclaim/asset/og/preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" href="asset/loghi/logo.svg" type="image/svg+xml">
+    <link rel="icon" href="asset/og/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="asset/og/apple-touch-icon.png">
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/split.css">
     <link rel="stylesheet" href="css/kit.css">
+    <link rel="stylesheet" href="css/checkout.css">
     <link rel="stylesheet" href="https://use.typekit.net/aol2lxx.css">
 </head>
 
@@ -17,11 +32,11 @@
     <nav class="main-navbar">
         <div class="nav-logo-container">
             <a href="index.html">
-                <img src="asset/immagini/logo_orange.png" alt="Reclaim Logo" class="nav-logo">
+                <img src="asset/immagini/logo_orange.png" alt="Reclaim — home" class="nav-logo">
             </a>
 
         </div>
-        <div class="hamburger-menu" id="hamburger-btn">
+        <div class="hamburger-menu" id="hamburger-btn" role="button" tabindex="0" aria-label="Menu" aria-controls="mobile-menu" aria-expanded="false">
             <span></span>
             <span></span>
             <span></span>
@@ -31,17 +46,17 @@
     <!-- Mobile Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobile-menu">
         <ul class="nav-links-mobile">
-            <li><a href="index.html">/Manifesto</a></li>
-            <li><a href="kit.html" class="active">/Kit</a></li>
-            <li><a href="app.html">/App</a></li>
-            <li><a href="badges.html">/Badges</a></li>
-            <li><a href="about.html">/About</a></li>
+            <li><a href="index.html"><span class="nav-name">/Manifesto</span><span class="nav-desc">The principles. Stencil and manifesto to download</span></a></li>
+            <li><a href="kit.html" class="active" aria-current="page"><span class="nav-name">/Kit</span><span class="nav-desc">The ReclaimX box, piece by piece</span></a></li>
+            <li><a href="app.html"><span class="nav-name">/App</span><span class="nav-desc">Hunt targets, mark territory, rank up</span></a></li>
+            <li><a href="badges.html"><span class="nav-name">/Badges</span><span class="nav-desc">The eight magnetic milestones</span></a></li>
+            <li><a href="scenario.html"><span class="nav-name">/Scenario</span><span class="nav-desc">Why Reclaim exists: cities, numbers, the DAO</span></a></li>
         </ul>
     </div>
     <script src="ui_interactions.js"></script>
 
     <!-- News Ticker -->
-    <a href="app.html" class="news-ticker-bar">
+    <a href="app.html" class="news-ticker-bar" aria-label="Join Reclaim: get the app">
         <div class="news-ticker-content">
             JOIN RECLAIM -------------------- STOP THE INVASION -------------------- JOIN RECLAIM --------------------
             STOP THE INVASION -------------------- JOIN RECLAIM -------------------- STOP THE INVASION
@@ -70,49 +85,48 @@
             </div>
         </section>
 
-        <!-- SCROLLYTELLING SECTION -->
+        <!-- Scatola che si apre allo scroll -->
         <div id="kit-scroll-container">
             <div class="sticky-stage">
 
-                <!-- Layer Base: Open Box -->
+                <!-- Scatola aperta, con i cerchi numerati (mobile) -->
                 <div class="kit-layer layer-base">
-                    <img src="asset/immagini/kit_open.png" alt="Open Kit" class="kit-scrolly-img">
+                    <div class="kit-figure">
+                        <img src="asset/web/kit_open-2000.webp" srcset="asset/web/kit_open-1000.webp 1000w, asset/web/kit_open-2000.webp 2000w" sizes="(max-width: 768px) 92vw, 780px" alt="The open Reclaim kit: ReclaimX, spray can, ammunitions, beginner badge, stencil and brochure in the foam case" class="kit-scrolly-img" decoding="async">
+                        <div class="hotspots" data-group="box">
+                            <button class="hotspot" type="button" style="left:50%;top:12%;--i:0" data-item="stencil" aria-label="1. STENCIL"><span class="hs-num">1</span></button>
+                            <button class="hotspot" type="button" style="left:66%;top:30%;--i:1" data-item="reclaimx" aria-label="2. RECLAIMX"><span class="hs-num">2</span></button>
+                            <button class="hotspot" type="button" style="left:50%;top:63%;--i:2" data-item="ammunitions" aria-label="3. AMMUNITIONS"><span class="hs-num">3</span></button>
+                            <button class="hotspot" type="button" style="left:24%;top:70%;--i:3" data-item="spray" aria-label="4. SPRAY CAN"><span class="hs-num">4</span></button>
+                            <button class="hotspot" type="button" style="left:74%;top:74%;--i:4" data-item="brochure" aria-label="5. BROCHURE"><span class="hs-num">5</span></button>
+                            <button class="hotspot" type="button" style="left:50%;top:84%;--i:5" data-item="badge" aria-label="6. BEGINNER BADGE"><span class="hs-num">6</span></button>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Layer Overlay: SVG Annotations -->
+                <!-- Etichette con le linee (desktop) -->
                 <div class="kit-layer layer-overlay">
-                    <svg id="kit-svg-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet">
-                        <!-- GUN -->
+                    <svg id="kit-svg-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
                         <g class="kit-label-group" id="label-gun">
                             <path class="kit-path" d="M 500 370 L 1050 370" />
-                            <text class="svg-label-text" x="1050" y="363" text-anchor="end">RECLAIMX GUN</text>
+                            <text class="svg-label-text" x="1050" y="363" text-anchor="end">RECLAIMX</text>
                         </g>
-
-                        <!-- SPRAY CAN -->
                         <g class="kit-label-group" id="label-spray">
                             <path class="kit-path" d="M -50 620 L 262 620" />
                             <text class="svg-label-text" x="-51" y="613">SPRAY CAN</text>
                         </g>
-
-                        <!-- BEGINNER BADGE -->
                         <g class="kit-label-group" id="label-badge">
                             <path class="kit-path" d="M -50 693 L 500 693" />
                             <text class="svg-label-text" x="-51" y="686">BEGINNER BADGE</text>
                         </g>
-
-                        <!-- AMMUNITIONS -->
                         <g class="kit-label-group" id="label-ammo">
                             <path class="kit-path" d="M 500 580 L 1050 580" />
-                            <text class="svg-label-text" x="1050" y="573" text-anchor="end">AMMONITIONS</text>
+                            <text class="svg-label-text" x="1050" y="573" text-anchor="end">AMMUNITIONS</text>
                         </g>
-
-                        <!-- STENCIL -->
                         <g class="kit-label-group" id="label-stencil">
                             <path class="kit-path" d="M -50 255 L 500 255" />
                             <text class="svg-label-text" x="-51" y="248">STENCIL</text>
                         </g>
-
-                        <!-- BROCHURE -->
                         <g class="kit-label-group" id="label-brochure">
                             <path class="kit-path" d="M 717 655 L 1050 655" />
                             <text class="svg-label-text" x="1050" y="648" text-anchor="end">BROCHURE</text>
@@ -120,100 +134,80 @@
                     </svg>
                 </div>
 
-                <!-- Layer Top: Closed Box (Fades out) -->
+                <!-- Scatola chiusa: sale e scopre il contenuto -->
                 <div class="kit-layer layer-top" id="layer-closed">
-                    <img src="asset/immagini/kit_close.png" alt="Closed Kit" class="kit-scrolly-img">
+                    <img src="asset/web/kit_close-2000.webp" srcset="asset/web/kit_close-1000.webp 1000w, asset/web/kit_close-2000.webp 2000w" sizes="(max-width: 768px) 92vw, 780px" alt="The closed Reclaim kit box" class="kit-scrolly-img" decoding="async">
                 </div>
 
             </div>
         </div>
 
-        <!-- NEW ALTERNATING CONTENT SECTIONS -->
-        <div class="content-section kit-products">
-            <!-- Block 1: THE DEVICE -->
-            <section class="app-split-section">
-                <div class="app-text-column">
-                    <h1>RECLAIMX GUN</h1>
-                    <p>YOUR OWN PAINTBALL GUN TO STOP
-                        TOURIST INVASION AND RECLAIM YOUR CITY.</p>
+        <!-- S6: la ReclaimX pezzo per pezzo -->
+        <section class="gun-section" aria-labelledby="gun-title">
+            <h2 class="section-title hk" id="gun-title">RECLAIMX</h2>
+            <figure class="gun-figure">
+                <img src="asset/web/reclaimx_parts-1700.webp" srcset="asset/web/reclaimx_parts-900.webp 900w, asset/web/reclaimx_parts-1700.webp 1700w" sizes="(max-width: 768px) 100vw, 1100px" alt="ReclaimX: phone mount, ammunitions, welcome badge, trigger, grip and handles" loading="lazy" decoding="async">
+                <div class="hotspots" data-group="gun">
+                    <button class="hotspot hs-left" type="button" style="left:85.3%;top:49.6%;--i:0" data-item="mount" aria-label="01. MAGNETIC PHONE MOUNT"><span class="hs-num">1</span><span class="hs-label">01 MAGNETIC PHONE MOUNT</span></button>
+                    <button class="hotspot hs-right" type="button" style="left:45.9%;top:34.4%;--i:1" data-item="ammo" aria-label="02. AMMUNITIONS"><span class="hs-num">2</span><span class="hs-label">02 AMMUNITIONS</span></button>
+                    <button class="hotspot hs-left" type="button" style="left:31.2%;top:46.6%;--i:2" data-item="wbadge" aria-label="03. WELCOME BADGE"><span class="hs-num">3</span><span class="hs-label">03 WELCOME BADGE</span></button>
+                    <button class="hotspot hs-right" type="button" style="left:37.1%;top:70.6%;--i:3" data-item="trigger" aria-label="04. TRIGGER"><span class="hs-num">4</span><span class="hs-label">04 TRIGGER</span></button>
+                    <button class="hotspot hs-right" type="button" style="left:47.1%;top:82.4%;--i:4" data-item="grip" aria-label="05. GRIP"><span class="hs-num">5</span><span class="hs-label">05 GRIP</span></button>
+                    <button class="hotspot hs-left" type="button" style="left:14.7%;top:68.7%;--i:5" data-item="handles" aria-label="06. HANDLES"><span class="hs-num">6</span><span class="hs-label">06 HANDLES</span></button>
                 </div>
-                <div class="app-visual-column">
-                    <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_arma.png" alt="ReclaimX Gun">
-                    </div>
-                </div>
-            </section>
+            </figure>
+            <p class="gun-note">PULL THE TRIGGER: THE APP TAKES A PHOTO OF THE TARGET AND THE RECLAIMX VIBRATES FOR 2 SECONDS. THE HIT IS LOGGED.</p>
+        </section>
 
-            <!-- Block 2: THE AMMO (Reverse) -->
-            <section class="app-split-section reverse-layout">
-                <div class="app-text-column">
-                    <h1>SPRAY CAN</h1>
-                    <p>HIGH-PRESSURE MARKING TOOL FOR FAST
-                        and PRECISE DEPLOYMENT.</p>
-                </div>
-                <div class="app-visual-column">
-                    <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_spray.png" alt="Spray can">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Block 3: THE ARMOR -->
-            <section class="app-split-section">
-                <div class="app-text-column">
-                    <h1>STENCIL</h1>
+        <!-- I sei oggetti: schede compatte -->
+        <section class="kit-cards-section" aria-labelledby="box-title">
+            <h2 class="section-title hk" id="box-title">IN THE BOX</h2>
+            <div class="kit-grid">
+                <article class="kit-card" id="item-reclaimx">
+                    <div class="kit-card-img"><img src="asset/web/card_arma-1000.webp" srcset="asset/web/card_arma-500.webp 500w, asset/web/card_arma-1000.webp 1000w" sizes="(max-width: 768px) 45vw, 30vw" alt="Reclaimx" loading="lazy" decoding="async"></div>
+                    <h3>RECLAIMX</h3>
+                    <p>YOUR OWN PAINTBALL GUN TO STOP TOURIST INVASION AND RECLAIM YOUR CITY.</p>
+                </article>
+                <article class="kit-card" id="item-spray">
+                    <div class="kit-card-img"><img src="asset/web/card_spray-1000.webp" srcset="asset/web/card_spray-500.webp 500w, asset/web/card_spray-1000.webp 1000w" sizes="(max-width: 768px) 45vw, 30vw" alt="Spray Can" loading="lazy" decoding="async"></div>
+                    <h3>SPRAY CAN</h3>
+                    <p>HIGH-PRESSURE MARKING TOOL FOR FAST AND PRECISE DEPLOYMENT.</p>
+                </article>
+                <article class="kit-card" id="item-stencil">
+                    <div class="kit-card-img"><img src="asset/web/card_stencil-1000.webp" srcset="asset/web/card_stencil-500.webp 500w, asset/web/card_stencil-1000.webp 1000w" sizes="(max-width: 768px) 45vw, 30vw" alt="Stencil" loading="lazy" decoding="async"></div>
+                    <h3>STENCIL</h3>
                     <p>DURABLE, LASER-CUT STENCIL FOR RAPID RECLAIM IDENTIFICATION.</p>
-                </div>
-                <div class="app-visual-column">
-                    <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_stencil.png" alt="Stencil">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Block 4: THE CODEX (Reverse) -->
-            <section class="app-split-section reverse-layout">
-                <div class="app-text-column">
-                    <h1>AMMONITIONS</h1>
+                </article>
+                <article class="kit-card" id="item-ammunitions">
+                    <div class="kit-card-img"><img src="asset/web/card_ammonitions-1000.webp" srcset="asset/web/card_ammonitions-500.webp 500w, asset/web/card_ammonitions-1000.webp 1000w" sizes="(max-width: 768px) 45vw, 30vw" alt="Ammunitions" loading="lazy" decoding="async"></div>
+                    <h3>AMMUNITIONS</h3>
                     <p>PREMIUM PAINTBALL AMMUNITIONS FOR MAXIMUM PERFORMANCE.</p>
-                </div>
-                <div class="app-visual-column">
-                    <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_ammonitions.png" alt="Ammunitions">
-                    </div>
-                </div>
-            </section>
-
-            <!-- Block 5: THE PINS -->
-            <section class="app-split-section">
-                <div class="app-text-column">
-                    <h1>BEGINNER BADGE</h1>
+                </article>
+                <article class="kit-card" id="item-badge">
+                    <div class="kit-card-img"><img src="asset/web/card_badge-1000.webp" srcset="asset/web/card_badge-500.webp 500w, asset/web/card_badge-1000.webp 1000w" sizes="(max-width: 768px) 45vw, 30vw" alt="Beginner Badge" loading="lazy" decoding="async"></div>
+                    <h3>BEGINNER BADGE</h3>
                     <p>MAGNETIC BADGE TO BE PLACED ON THE SIDE OF YOUR GUN USING MAGNETIC MOUNT.</p>
-                </div>
-                <div class="app-visual-column">
-                    <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_badge.png" alt="Beginner badge">
-                    </div>
-                </div>
-            </section>
+                </article>
+                <article class="kit-card" id="item-brochure">
+                    <div class="kit-card-img"><img src="asset/web/card_brochure-1000.webp" srcset="asset/web/card_brochure-500.webp 500w, asset/web/card_brochure-1000.webp 1000w" sizes="(max-width: 768px) 45vw, 30vw" alt="Brochure" loading="lazy" decoding="async"></div>
+                    <h3>BROCHURE</h3>
+                    <p>A GUIDE TO THE TECHNICAL OPERATION OF OUR GUN.</p>
+                </article>
+            </div>
+        </section>
 
-            <!-- Block 6: THE CODEX (Reverse) -->
-            <section class="app-split-section reverse-layout">
-                <div class="app-text-column">
-                    <h1>BROCHURE</h1>
-                    <p>a guide to the technical operation of our gun.</p>
-                </div>
-                <div class="app-visual-column">
-                    <div class="mockup-container about-visual">
-                        <img src="asset/immagini/render_brochure.png" alt="Brochure">
-                    </div>
-                </div>
-            </section>
+        <!-- Scheda che sale dal basso (mobile) -->
+        <div class="sheet-backdrop" id="sheet-backdrop" hidden></div>
+        <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-name" hidden>
+            <button class="sheet-close" type="button" id="sheet-close">CLOSE [X]</button>
+            <div class="sheet-photo" id="sheet-photo"></div>
+            <h3 class="sheet-name" id="sheet-name"></h3>
+            <p class="sheet-desc" id="sheet-desc"></p>
         </div>
 
         <!-- Fixed CTA Container -->
         <div class="cta-container cta-fixed">
-            <a href="#" class="cta-button">/SHOP NOW</a>
+            <a href="#checkout" class="cta-button" id="shop-now">/SHOP NOW</a>
         </div>
     </main>
 
@@ -232,108 +226,9 @@
     <script src="hacker_text.js"></script>
     <script src="hover_sync.js"></script>
     <script src="cta_sticky.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const scrollContainer = document.getElementById('kit-scroll-container');
-            const layerClosed = document.getElementById('layer-closed');
-            const paths = document.querySelectorAll('.kit-path');
-            const labelGroups = document.querySelectorAll('.kit-label-group');
-
-            // Mobile: allarga il viewBox così etichette e linee restano dentro lo schermo
-            // (la larghezza della scatola in mobile_fixes.css usa lo stesso rapporto: 650/1200 = 54%)
-            if (window.matchMedia('(max-width: 768px)').matches) {
-                document.getElementById('kit-svg-overlay').setAttribute('viewBox', '-100 0 1200 1000');
-                paths.forEach(path => {
-                    path.setAttribute('d', path.getAttribute('d')
-                        .replace('M -50 ', 'M -95 ')
-                        .replace(/L 1050 (\d+)$/, 'L 1095 $1'));
-                });
-                labelGroups.forEach(group => {
-                    const text = group.querySelector('text');
-                    text.setAttribute('x', text.getAttribute('text-anchor') === 'end' ? 1095 : -95);
-                });
-            }
-
-            // Easy Ease Helper Function (Cubic)
-            const easeInOutCubic = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-            // Initialize SVG paths for drawing animation
-            paths.forEach(path => {
-                const length = path.getTotalLength();
-                path.style.strokeDasharray = length;
-                path.style.strokeDashoffset = length;
-            });
-
-            window.addEventListener('scroll', () => {
-                const containerRect = scrollContainer.getBoundingClientRect();
-                const containerHeight = scrollContainer.offsetHeight;
-                const windowHeight = window.innerHeight;
-
-                // Calculate linear progress (0 to 1)
-                let progress = -containerRect.top / (containerHeight - windowHeight);
-                progress = Math.max(0, Math.min(1, progress));
-
-                // 1. PHASE 1: Reveal Box - SLIDE UP (10% to 40% of scroll)
-                if (progress < 0.1) {
-                    layerClosed.style.transform = 'translate(-50%, -50%)';
-                    layerClosed.style.opacity = 1;
-                    layerClosed.style.visibility = 'visible';
-                } else if (progress >= 0.1 && progress <= 0.4) {
-                    const phase1Progress = (progress - 0.1) / 0.3;
-                    const easedProgress = easeInOutCubic(phase1Progress);
-
-                    const ySlide = -50 - (easedProgress * 100); // Slides from -50% to -150%
-                    layerClosed.style.transform = `translate(-50%, ${ySlide}%)`;
-                    layerClosed.style.opacity = 1;
-                    layerClosed.style.visibility = 'visible';
-                } else {
-                    layerClosed.style.transform = 'translate(-50%, -150%)';
-                    layerClosed.style.opacity = 1;
-                    layerClosed.style.visibility = 'hidden';
-                }
-
-                // 2. PAUSE between Phase 1 and Phase 2 (40% to 50%)
-
-                // 3. PHASE 2: Draw Paths (50% to 95% of scroll)
-                if (progress > 0.50) {
-                    const phase2TotalProgress = Math.min(1, (progress - 0.50) / 0.45);
-
-                    // Sort elements by Y position for top-to-bottom animation
-                    const elements = Array.from(paths).map((path, index) => {
-                        const group = labelGroups[index];
-                        const text = group.querySelector('text');
-                        const y = parseFloat(text.getAttribute('y'));
-                        return { path, group, y };
-                    }).sort((a, b) => a.y - b.y);
-
-                    elements.forEach((item, index) => {
-                        const length = item.path.getTotalLength();
-                        // Stagger logic based on sorted index
-                        const itemStart = (index / elements.length) * 0.75;
-                        const itemEnd = Math.min(1, itemStart + 0.25);
-
-                        let itemProgress = (phase2TotalProgress - itemStart) / (itemEnd - itemStart);
-                        itemProgress = Math.max(0, Math.min(1, itemProgress));
-
-                        const easedItemProgress = easeInOutCubic(itemProgress);
-                        item.path.style.strokeDashoffset = length * (1 - easedItemProgress);
-
-                        if (itemProgress >= 1.0) {
-                            item.group.classList.add('visible');
-                        } else {
-                            item.group.classList.remove('visible');
-                        }
-                    });
-                } else {
-                    // Reset SVG during pre-reveal and pause
-                    paths.forEach(path => {
-                        path.style.strokeDashoffset = path.getTotalLength();
-                    });
-                    labelGroups.forEach(group => group.classList.remove('visible'));
-                }
-            });
-        });
-    </script>
+    <script src="kit.js"></script>
+    <script src="checkout.js"></script>
+    <script src="site.js"></script>
 </body>
 
 </html>

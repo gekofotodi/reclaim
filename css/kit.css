@@ -52,6 +52,7 @@
 
 .kit-scrolly-img {
     width: 65%;
+    /* margin 0 anche su mobile (la regola generale delle immagini mette auto) */
     max-width: none;
     height: auto;
     filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.3));
@@ -111,128 +112,365 @@
         filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
     }
 
-    .svg-label-text {
-        font-size: 34px;
+    /* su mobile le etichette lasciano il posto ai cerchi numerati */
+    .layer-overlay {
+        display: none;
     }
 
-    .kit-path {
-        stroke-width: 3;
+    .kit-scrolly-img,
+    .kit-figure {
+        width: 92%;
     }
 }
 
-/* --- Sei oggetti: blocchi split 50/50 ---------------------------------------- */
-.kit-products .app-split-section {
-    flex-direction: row;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    min-height: 40vh;
-    max-height: 700px;
-    gap: 0;
+/* La scatola aperta e i suoi cerchi stanno nello stesso riquadro */
+.kit-figure {
+    position: relative;
+    width: 65%;
 }
 
-.kit-products .app-split-section.reverse-layout {
-    flex-direction: row-reverse;
-    padding: 0;
-}
-
-.kit-products .app-text-column {
-    width: 50%;
-    background: transparent;
-    /* testo a sinistra allineato verso il centro */
-    align-items: flex-end;
-    padding: 2rem 4rem 2rem 2rem;
-}
-
-.kit-products .reverse-layout .app-text-column {
-    align-items: flex-start;
-    padding: 2rem 2rem 2rem 4rem;
-}
-
-.kit-products .app-text-column h1,
-.kit-products .app-text-column p {
-    max-width: 400px;
+.kit-figure .kit-scrolly-img {
     width: 100%;
-    text-align: left;
-    margin: 0;
 }
 
-.kit-products .app-visual-column {
-    width: 50%;
-    overflow: visible;
-    justify-content: flex-start;
-    padding: 0 0 0 4rem;
+/* --- Cerchi numerati (S6) ------------------------------------------------------ */
+.hotspots {
+    position: absolute;
+    inset: 0;
     pointer-events: none;
 }
 
-.kit-products .reverse-layout .app-visual-column {
-    justify-content: flex-end;
-    padding: 0 4rem 0 0;
+.hotspot {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--orange);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    line-height: 30px;
+    text-align: center;
+    pointer-events: auto;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.2, 1.4, 0.4, 1);
 }
 
-.about-visual {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    transform: translateX(-10%);
+/* area di tocco più grande del cerchio */
+.hotspot::before {
+    content: '';
+    position: absolute;
+    inset: -9px;
 }
 
-.reverse-layout .about-visual {
-    transform: translateX(10%);
+/* anello che pulsa */
+.hotspot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid var(--orange);
+    animation: hs-pulse 1.8s ease-out infinite;
+    pointer-events: none;
 }
 
-.kit-products .about-visual img {
-    width: 100%;
-    height: auto;
-    margin: 0;
+@keyframes hs-pulse {
+    0% { transform: scale(1); opacity: 0.9; }
+    100% { transform: scale(2.1); opacity: 0; }
+}
+
+.hotspot.show,
+.gun-figure.show .hotspot {
+    opacity: 1;
     transform: none;
-    display: block;
-    border-radius: 10px;
-    -webkit-mask-image: none;
-    mask-image: none;
-    box-shadow: none;
+}
+
+.gun-figure.show .hotspot {
+    transition-delay: calc(var(--i) * 0.28s);
+}
+
+.hs-num {
+    position: relative;
+    z-index: 1;
+}
+
+/* i cerchi della scatola servono solo su mobile */
+.hotspots[data-group="box"] {
+    display: none;
 }
 
 @media (max-width: 768px) {
-    .kit-products .app-split-section,
-    .kit-products .app-split-section.reverse-layout {
-        flex-direction: column;
-        padding: 0;
+    .hotspots[data-group="box"] {
+        display: block;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hotspot::after {
+        animation: none;
+    }
+}
+
+/* --- La ReclaimX pezzo per pezzo ----------------------------------------------- */
+.section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.6rem, 1rem + 6vw, 6rem);
+    line-height: 1;
+    color: var(--ink);
+    text-align: center;
+    letter-spacing: 0;
+    margin: 0 0 2rem 0;
+}
+
+.gun-section {
+    padding: 6rem 2rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gun-figure {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.gun-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* desktop: accanto a ogni cerchio il nome del pezzo */
+.hs-label {
+    position: absolute;
+    top: 50%;
+    white-space: nowrap;
+    padding: 0.3rem 0.6rem;
+    background: var(--black);
+    color: var(--paper);
+    font-size: 0.8rem;
+    line-height: 1.2;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.hs-right .hs-label {
+    left: calc(100% + 14px);
+}
+
+.hs-left .hs-label {
+    right: calc(100% + 14px);
+}
+
+.gun-note {
+    max-width: var(--measure);
+    margin: 2.5rem auto 0;
+    text-align: center;
+    font-size: var(--fs-body);
+}
+
+@media (max-width: 768px) {
+    .gun-section {
+        padding: 4rem 0 3rem;
     }
 
-    .kit-products .app-text-column,
-    .kit-products .reverse-layout .app-text-column {
-        width: 100%;
-        padding: 0;
-        align-items: center;
+    .gun-note {
+        padding: 0 1.25rem;
+        font-size: 0.95rem;
     }
 
-    .kit-products .app-text-column h1,
-    .kit-products .app-text-column p {
+    /* su mobile solo il numero: il nome è nella scheda */
+    .hs-label {
+        display: none;
+    }
+}
+
+/* --- Gli oggetti nella scatola: schede compatte -------------------------------- */
+.kit-cards-section {
+    padding: 4rem 2rem 6rem;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.kit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--ink);
+    border: 1px solid var(--ink);
+}
+
+.kit-card {
+    background: var(--grey);
+    padding: 1.5rem 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-control);
+}
+
+.kit-card-img {
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.kit-card-img img {
+    max-width: 80%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.25));
+}
+
+.kit-card h3 {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: var(--fs-h2);
+    line-height: 1.1;
+    margin-bottom: 0.6rem;
+}
+
+.kit-card p {
+    font-size: var(--fs-small);
+    max-width: var(--measure);
+}
+
+@media (max-width: 900px) {
+    .kit-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .kit-cards-section {
+        padding: 2rem 0 4rem;
+    }
+
+    .kit-grid {
+        border-left: none;
+        border-right: none;
+    }
+
+    .kit-card {
+        padding: 1rem 0.75rem 1.25rem;
         text-align: center;
-        max-width: 100%;
     }
 
-    .kit-products .app-text-column h1 {
-        margin: 0.5rem 0 1rem 0;
+    .kit-card-img img {
+        width: auto;
+        margin: 0;
     }
 
-    .kit-products .app-visual-column,
-    .kit-products .reverse-layout .app-visual-column {
-        width: 100%;
-        padding: 0;
-        justify-content: center;
+    .kit-card h3 {
+        font-size: 1.05rem;
     }
 
-    .about-visual,
-    .reverse-layout .about-visual {
-        transform: none;
-        margin: 0 auto;
-        padding: 2rem 0 0 0;
+    .kit-card p {
+        font-size: 0.75rem;
+        line-height: 1.35;
+        text-align: center;
     }
+}
 
-    .kit-products .about-visual img {
-        aspect-ratio: 956 / 1280;
-        object-fit: cover;
-    }
+/* --- Scheda dal basso ---------------------------------------------------------- */
+.sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 10010;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sheet-backdrop.open {
+    opacity: 1;
+}
+
+.sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10011;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 1.25rem 1.25rem calc(1.75rem + env(safe-area-inset-bottom));
+    background: var(--paper);
+    color: var(--ink);
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    text-align: left;
+}
+
+.sheet.open {
+    transform: none;
+}
+
+.sheet-close {
+    display: block;
+    margin: 0 0 0.75rem auto;
+    min-height: 44px;
+    padding: 0 0.25rem;
+    background: none;
+    border: none;
+    border-radius: var(--radius-control);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.sheet-photo {
+    height: 34vh;
+    max-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--grey);
+    background-repeat: no-repeat;
+    border-radius: var(--radius-media);
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+/* dettaglio della ReclaimX: la stessa foto, ingrandita sul pezzo */
+.sheet-photo.is-zoom {
+    background-size: 320% auto;
+}
+
+.sheet-photo img {
+    max-height: 88%;
+    max-width: 80%;
+    width: auto;
+    height: auto;
+    margin: 0;
+    object-fit: contain;
+}
+
+.sheet-name {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+}
+
+.sheet-desc {
+    font-size: 0.9rem;
+    text-align: left;
+    max-width: none;
+}
+
+body.sheet-open {
+    overflow: hidden;
 }
