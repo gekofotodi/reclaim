@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /* --- Scatola che si apre allo scroll ---------------------------------- */
     const scrollContainer = document.getElementById('kit-scroll-container');
     const layerClosed = document.getElementById('layer-closed');
-    const paths = document.querySelectorAll('.kit-path');
+    const paths = document.querySelectorAll('#kit-svg-overlay .kit-path');
     const labelGroups = document.querySelectorAll('.kit-label-group');
     const boxSpots = document.querySelectorAll('.hotspots[data-group="box"] .hotspot');
     if (!scrollContainer || !layerClosed) return;
