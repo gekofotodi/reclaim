@@ -19,7 +19,11 @@
         const btn = document.getElementById('hamburger-btn');
         const menu = document.getElementById('mobile-menu');
         if (!btn || !menu) return;
-        const sync = () => btn.setAttribute('aria-expanded', menu.classList.contains('active'));
+        const sync = () => {
+            const open = menu.classList.contains('active');
+            btn.setAttribute('aria-expanded', open);
+            document.documentElement.classList.toggle('menu-open', open);
+        };
         new MutationObserver(sync).observe(menu, { attributes: true, attributeFilter: ['class'] });
         btn.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }

@@ -126,7 +126,6 @@ p {
 /* Area cliccabile più ampia (+15%) */
 .cta-button,
 .hamburger-menu,
-.nav-links-mobile li a,
 .footer-links a,
 .map-marker,
 .close-modal,
@@ -136,7 +135,6 @@ p {
 
 .cta-button::before,
 .hamburger-menu::before,
-.nav-links-mobile li a::before,
 .footer-links a::before,
 .map-marker::before,
 .close-modal::before,
@@ -374,6 +372,14 @@ p {
     z-index: 2005;
 }
 
+.hamburger-menu::before {
+    /* area di tocco di circa 48px intorno all'icona */
+    top: -14px;
+    bottom: -14px;
+    left: -9px;
+    right: -9px;
+}
+
 .hamburger-menu span {
     display: block;
     width: 100%;
@@ -451,7 +457,7 @@ p {
     top: 0;
     right: -100%;
     width: 100%;
-    max-width: 224px;
+    max-width: 280px;
     height: 100vh;
     background-color: var(--black);
     z-index: 2002;
@@ -470,16 +476,35 @@ p {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 0.75rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
+.nav-links-mobile li {
+    width: 100%;
+}
+
+/* F1: ogni voce è un blocco unico a tutta riga; l'area cliccabile è quella che si vede */
 .nav-links-mobile a {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    margin-left: -0.6rem;
+    box-sizing: content-box;
     font-family: var(--font-mono);
     font-size: 1.5rem;
+    line-height: 1.2;
     color: var(--paper);
     text-decoration: none;
     text-transform: uppercase;
-    transition: all 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* le lettere dell'effetto hacker non devono rubare il mouse alla voce */
+.nav-links-mobile a * {
+    pointer-events: none !important;
 }
 
 .nav-links-mobile a:hover {
@@ -488,6 +513,7 @@ p {
 
 .nav-name {
     display: block;
+    white-space: nowrap;
 }
 
 /* descrizione della voce: solo su mobile */
@@ -495,11 +521,10 @@ p {
     display: none;
 }
 
-.nav-links-mobile a.active {
+.nav-links-mobile a.active,
+.nav-links-mobile a.active:hover {
     background-color: var(--green);
     color: var(--ink);
-    padding: 0.25rem 0.5rem;
-    display: inline-block;
 }
 
 @media (max-width: 768px) {
@@ -510,14 +535,16 @@ p {
         width: 100%;
         max-width: none;
         height: 100vh;
+        height: 100dvh;
         justify-content: center;
         align-items: center;
         padding: 106px 2rem 2rem 2rem;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease;
+        transition: opacity 0.3s ease, visibility 0.3s;
         z-index: 10000;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        overflow-y: auto;
     }
 
     .mobile-menu-overlay.active {
@@ -525,35 +552,21 @@ p {
         visibility: visible;
     }
 
+    /* la pagina sotto non scorre mentre il menu è aperto */
+    html.menu-open,
+    html.menu-open body {
+        overflow: hidden;
+    }
+
     .nav-links-mobile {
-        gap: 1.5rem;
-        text-align: center;
-        align-items: flex-start;
-        width: 100%;
-    }
-
-    .nav-links-mobile li {
-        width: 100%;
-        text-align: left;
+        gap: 0.75rem;
     }
 
     .nav-links-mobile a {
-        display: flex;
-        align-items: center;
-        min-height: 48px;
-        width: 100%;
         font-size: 1.8rem;
-    }
-
-    .nav-links-mobile a {
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-    }
-
-    .nav-links-mobile a.active {
-        width: auto;
-        padding: 0.25rem 10px;
+        padding: 0.5rem 10px;
+        margin-left: -10px;
+        min-height: 48px;
     }
 
     .nav-desc {
@@ -563,6 +576,7 @@ p {
         letter-spacing: 0;
         opacity: 0.7;
         margin-top: 0.15rem;
+        white-space: normal;
     }
 }
 

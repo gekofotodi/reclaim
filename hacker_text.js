@@ -91,7 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            target.addEventListener('mouseover', (e) => {
+            // nel menu l'effetto parte solo all'apertura, non al passaggio del mouse (F1)
+            if (!target.classList.contains('nav-name')) target.addEventListener('mouseover', (e) => {
                 const t = e.target;
                 if (t.classList.contains('hacker-char')) {
                     triggerHackerEffect(t);
