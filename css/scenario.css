@@ -18,7 +18,6 @@
 
 .scn-stats,
 .scenario-texts .app-split-section,
-.scenario .video-hero-outer,
 #about-map-section {
     width: 100%;
     max-width: calc(var(--scn-max) + 2 * var(--scn-pad));
@@ -168,10 +167,9 @@
     filter: invert(1);
 }
 
-/* qui il video sta nella griglia: niente ingrandimento allo scroll */
-.scenario .video-wrapper {
-    transform: none !important;
-    border-radius: var(--radius-media);
+/* stesso comportamento del trailer in home: la larghezza la dà .video-hero-container */
+.scenario .video-hero-outer {
+    padding: var(--scn-space) 0 0;
 }
 
 /* --- Mappa delle città attive (I7) --------------------------------------------- */

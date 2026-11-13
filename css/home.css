@@ -88,9 +88,13 @@
     width: 100%;
 }
 
+/* trailer e teaser: stessa larghezza massima della griglia (1200px), mai fino ai bordi */
 .video-hero-container {
     width: 100%;
+    max-width: calc(1200px + 4rem);
     margin: 0 auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
 }
@@ -170,8 +174,8 @@
         z-index: 10;
     }
 
-    .video-wrapper {
-        border-radius: var(--radius-media);
+    .video-hero-container {
+        padding: 0 1.25rem;
     }
 
     .video-cover {

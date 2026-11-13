@@ -81,18 +81,11 @@ document.addEventListener('DOMContentLoaded', () => {
             progress = Math.min(Math.max(progress, 0), 1);
         }
 
+        // trailer e teaser: dal 50% alla larghezza della griglia (mai a tutto schermo)
         const scale = 0.5 + (0.5 * progress);
         videoWrapper.style.transform = `scale(${scale})`;
-
-        if (progress >= 0.99) {
-            videoWrapper.style.width = '100.2vw';
-            videoWrapper.style.maxWidth = '100vw';
-            videoWrapper.classList.add('is-expanded');
-        } else {
-            videoWrapper.style.width = '';
-            videoWrapper.style.maxWidth = '';
-            videoWrapper.classList.remove('is-expanded');
-        }
+        // angoli sempre uguali a vista, qualunque sia la scala
+        videoWrapper.style.borderRadius = `calc(var(--radius-media) / ${scale.toFixed(3)})`;
 
         // --- MOUSE INTERSECTION CHECK (FOR STATIONARY MOUSE ON SCROLL) ---
         if (window.innerWidth > 768) {
