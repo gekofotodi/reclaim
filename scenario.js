@@ -1,7 +1,6 @@
 /**
  * scenario.js — pagina Scenario
- * 1. i numeri contano da zero quando entrano nello schermo (S5)
- * 2. DAO: la piramide si scioglie in una rete mentre si scorre (S5)
+ * i numeri contano da zero quando entrano nello schermo (S5)
  */
 document.addEventListener('DOMContentLoaded', () => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -37,82 +36,4 @@ document.addEventListener('DOMContentLoaded', () => {
             io.observe(el);
         });
     }
-
-    /* --- 2. DAO ------------------------------------------------------------- */
-    const dao = document.getElementById('dao');
-    const svg = dao && dao.querySelector('.dao-svg');
-    if (!svg) return;
-    const NS = 'http://www.w3.org/2000/svg';
-
-    // piramide: 1 in cima, 3, poi 9 cittadini in basso
-    const A = [[300, 50],
-        [160, 170], [300, 170], [440, 170],
-        [70, 340], [130, 340], [190, 340], [250, 340], [310, 340], [370, 340], [430, 340], [490, 340], [550, 340]];
-    // rete: gli stessi 13 nodi distribuiti, nessun vertice
-    const B = [[300, 210],
-        [170, 120], [420, 110], [470, 270],
-        [80, 200], [120, 320], [220, 360], [330, 330], [250, 230], [380, 210], [540, 180], [520, 340], [280, 70]];
-    const edgesA = [[0, 1], [0, 2], [0, 3], [1, 4], [1, 5], [1, 6], [2, 7], [2, 8], [2, 9], [3, 10], [3, 11], [3, 12]];
-    const edgesB = [[0, 8], [0, 9], [0, 7], [0, 3], [1, 4], [1, 8], [1, 12], [2, 12], [2, 9], [2, 10], [3, 10], [3, 11],
-        [3, 7], [4, 5], [4, 8], [5, 6], [5, 8], [6, 7], [7, 11], [9, 10], [8, 9], [1, 0], [12, 0], [6, 8]];
-
-    const mk = (tag, attrs, parent) => {
-        const el = document.createElementNS(NS, tag);
-        Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
-        parent.appendChild(el);
-        return el;
-    };
-    const gA = svg.querySelector('.dao-edges-a');
-    const gB = svg.querySelector('.dao-edges-b');
-    const gN = svg.querySelector('.dao-nodes');
-    const linesA = edgesA.map(() => mk('line', { class: 'dao-edge' }, gA));
-    const linesB = edgesB.map(() => mk('line', { class: 'dao-edge net' }, gB));
-    const nodes = A.map((_, i) => mk('circle', { r: i === 0 ? 14 : 9, class: i === 0 ? 'dao-node top' : 'dao-node' }, gN));
-
-    const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-    const draw = (p) => {
-        const e = ease(p);
-        const pos = A.map((a, i) => [a[0] + (B[i][0] - a[0]) * e, a[1] + (B[i][1] - a[1]) * e]);
-        nodes.forEach((n, i) => {
-            n.setAttribute('cx', pos[i][0]);
-            n.setAttribute('cy', pos[i][1]);
-            // il vertice perde peso: diventa un nodo come gli altri
-            if (i === 0) n.setAttribute('r', 14 - 5 * e);
-        });
-        const set = (lines, edges) => lines.forEach((l, k) => {
-            const [a, b] = edges[k];
-            l.setAttribute('x1', pos[a][0]); l.setAttribute('y1', pos[a][1]);
-            l.setAttribute('x2', pos[b][0]); l.setAttribute('y2', pos[b][1]);
-        });
-        set(linesA, edgesA);
-        set(linesB, edgesB);
-        gA.style.opacity = 1 - e;
-        gB.style.opacity = e;
-        dao.style.setProperty('--p', e.toFixed(3));
-        dao.classList.toggle('is-net', e > 0.5);
-    };
-
-    if (reduce) { draw(1); return; }
-
-    // desktop: la sezione è alta e il disegno resta fermo (sticky) → progresso sulla sezione
-    // mobile: niente sticky → progresso mentre il disegno attraversa lo schermo
-    const mq = window.matchMedia('(max-width: 768px)');
-    const clamp01 = v => Math.max(0, Math.min(1, v));
-    const onScroll = () => {
-        const vh = window.innerHeight;
-        let p;
-        if (mq.matches) {
-            const r = svg.getBoundingClientRect();
-            p = clamp01((vh * 0.85 - r.top) / (vh * 0.55));
-        } else {
-            const r = dao.getBoundingClientRect();
-            const total = dao.offsetHeight - vh;
-            p = total > 0 ? clamp01((-r.top) / (total * 0.8)) : 1;
-        }
-        draw(p);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    window.addEventListener('load', onScroll);
-    onScroll();
 });

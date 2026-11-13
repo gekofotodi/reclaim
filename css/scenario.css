@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SCENARIO — numeri, Barcellona, la domanda, la DAO, i tre testi, video, mappa
+   SCENARIO — numeri, teaser, mappa, i tre testi (in quest'ordine)
    F5: una griglia sola. Tutti i blocchi hanno la stessa larghezza massima,
    gli stessi margini laterali e la stessa distanza tra una sezione e l'altra.
    ========================================================================== */
@@ -17,8 +17,6 @@
 }
 
 .scn-stats,
-.scn-bcn,
-.scn-dao,
 .scenario-texts .app-split-section,
 .scenario .video-hero-outer,
 #about-map-section {
@@ -41,7 +39,6 @@
     gap: 1px;
     background: var(--ink);
     border: 1px solid var(--ink);
-    margin-bottom: 2.5rem;
 }
 
 .stat {
@@ -67,195 +64,6 @@
 .stat-label {
     font-size: var(--fs-small);
     line-height: 1.3;
-}
-
-.scn-text {
-    max-width: var(--measure);
-    margin: 0 auto;
-}
-
-/* --- Barcellona ---------------------------------------------------------------- */
-.scn-bcn {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: clamp(2rem, 4vw, 4rem);
-    align-items: center;
-}
-
-.bcn-figure {
-    margin: 0;
-}
-
-.bcn-photo {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    background: var(--black);
-    border-radius: var(--radius-media);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.bcn-photo img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    margin: 0;
-    max-width: none;
-}
-
-.bcn-placeholder {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 1rem + 4vw, 4.5rem);
-    color: var(--grey);
-}
-
-.bcn-figure figcaption {
-    margin-top: 0.75rem;
-    font-size: var(--fs-micro);
-}
-
-.bcn-title {
-    font-family: var(--font-title);
-    font-size: var(--fs-h1);
-    font-weight: 700;
-    line-height: 1.05;
-    margin: 0 0 1.25rem;
-    overflow-wrap: break-word;
-}
-
-.bcn-text p,
-.dao-text p {
-    margin: 0 0 1rem;
-    max-width: var(--measure);
-}
-
-/* --- La domanda a tutto schermo ------------------------------------------------ */
-.scn-question {
-    margin-top: var(--scn-space);
-    min-height: 100vh;
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6rem var(--scn-pad);
-    background: var(--black);
-    box-sizing: border-box;
-}
-
-.scn-question h2 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    font-size: clamp(2.2rem, 0.8rem + 5vw, 6.5rem);
-    line-height: 1.05;
-    color: var(--paper);
-    text-align: center;
-    max-width: 16ch;
-    margin: 0;
-    letter-spacing: 0;
-}
-
-/* --- DAO: piramide → rete ------------------------------------------------------ */
-/* desktop: disegno e testo restano fermi insieme mentre la piramide diventa rete */
-.scn-dao {
-    position: relative;
-    height: 220vh;
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    gap: clamp(2rem, 4vw, 4rem);
-    align-items: start;
-    padding-top: 0;
-}
-
-.dao-sticky,
-.dao-text {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* sotto l'header fisso */
-    padding-top: 100px;
-    box-sizing: border-box;
-}
-
-.dao-sticky {
-    align-items: center;
-}
-
-.dao-svg {
-    width: 100%;
-    max-width: 600px;
-    height: auto;
-    overflow: visible;
-}
-
-.dao-edge {
-    stroke: var(--ink);
-    stroke-width: 1.5;
-}
-
-.dao-edge.net {
-    stroke: var(--orange);
-}
-
-.dao-node {
-    fill: var(--ink);
-    transition: fill 0.4s ease;
-}
-
-.is-net .dao-node {
-    fill: var(--orange);
-}
-
-.dao-caption {
-    position: relative;
-    height: 1.6em;
-    width: 100%;
-    margin-top: 1.5rem;
-    text-align: center;
-    font-size: var(--fs-small);
-}
-
-.dao-caption span {
-    position: absolute;
-    left: 0;
-    right: 0;
-    transition: opacity 0.4s ease;
-}
-
-.dao-to,
-.is-net .dao-from {
-    opacity: 0;
-}
-
-.is-net .dao-to {
-    opacity: 1;
-}
-
-/* mobile: niente blocchi fermi; il disegno cambia mentre attraversa lo schermo */
-@media (max-width: 768px) {
-    .scn-dao {
-        display: block;
-        height: auto;
-        padding-top: var(--scn-space);
-    }
-
-    .dao-sticky,
-    .dao-text {
-        position: static;
-        height: auto;
-        padding-top: 0;
-    }
-
-    .dao-text {
-        margin-top: 2rem;
-    }
 }
 
 /* --- Tre testi ---------------------------------------------------------------- */
@@ -369,6 +177,10 @@
 /* --- Mappa delle città attive (I7) --------------------------------------------- */
 #about-map-section {
     position: relative;
+}
+
+/* i tre testi chiudono la pagina: spazio prima del footer */
+.scenario-texts .app-split-section:last-child {
     padding-bottom: var(--scn-space);
 }
 
@@ -569,14 +381,10 @@
 }
 
 
-/* --- Numeri, Barcellona su schermi stretti ------------------------------------- */
+/* --- Numeri su schermi stretti ------------------------------------------------ */
 @media (max-width: 900px) {
     .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .scn-bcn {
-        grid-template-columns: minmax(0, 1fr);
     }
 }
 
@@ -591,15 +399,7 @@
         font-size: 0.7rem;
     }
 
-    .bcn-title {
-        font-size: 1.8rem;
-    }
-
     /* testi lunghi a sinistra, come i titoli */
-    .bcn-text,
-    .bcn-text p,
-    .dao-text,
-    .dao-text p,
     .scenario-texts .app-text-column h1,
     .scenario-texts .app-text-column p {
         text-align: left;

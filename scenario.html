@@ -50,7 +50,7 @@
             <li><a href="kit.html"><span class="nav-name">/Kit</span><span class="nav-desc">The ReclaimX box, piece by piece</span></a></li>
             <li><a href="app.html"><span class="nav-name">/App</span><span class="nav-desc">Hunt targets, mark territory, rank up</span></a></li>
             <li><a href="badges.html"><span class="nav-name">/Badges</span><span class="nav-desc">The eight magnetic milestones</span></a></li>
-            <li><a href="scenario.html" class="active" aria-current="page"><span class="nav-name">/Scenario</span><span class="nav-desc">Why Reclaim exists: cities, numbers, the DAO</span></a></li>
+            <li><a href="scenario.html" class="active" aria-current="page"><span class="nav-name">/Scenario</span><span class="nav-desc">Why Reclaim exists: numbers, cities, the struggle</span></a></li>
         </ul>
     </div>
     <script src="ui_interactions.js"></script>
@@ -83,7 +83,7 @@
             </div>
         </section>
 
-        <!-- S5.1 I numeri -->
+        <!-- 1. I numeri -->
         <section class="scn-stats" aria-labelledby="stats-title">
             <h2 class="section-title hk" id="stats-title">THE INVASION</h2>
             <div class="stats-grid">
@@ -92,54 +92,33 @@
                 <div class="stat scn-reveal"><span class="stat-num" data-to="21.5" data-decimals="1" data-suffix="M">21.5M</span><span class="stat-label">ARRIVALS IN LONDON</span></div>
                 <div class="stat scn-reveal"><span class="stat-num" data-to="13.8" data-decimals="1" data-suffix="M">13.8M</span><span class="stat-label">TOURISTS IN BARCELONA (+7%)</span></div>
             </div>
-            <p class="scn-text scn-reveal">THE STARTING POINT OF THE RECLAIM PROJECT IS AN UNPRECEDENTED DEMOGRAPHIC CRISIS: WE ARE FACING A TRUE STRUCTURAL INVASION, AS OUTLINED BY THE STATISTICAL ANALYSES OF THE CURRENT YEAR, WHICH DESCRIBE A TRAJECTORY THAT HAS EXCEEDED THE THRESHOLD OF SUSTAINABILITY, TURNING TOURISM FROM AN ECONOMIC RESOURCE INTO A PHENOMENON OF SOCIAL EROSION.</p>
         </section>
 
-        <!-- S5.2 Barcellona, luglio 2025 -->
-        <section class="scn-bcn" aria-labelledby="bcn-title">
-            <figure class="bcn-figure scn-reveal">
-                <div class="bcn-photo">
-                    <span class="bcn-placeholder" aria-hidden="true">06.07.2025</span>
-                    <!-- la foto compare da sola quando il file esiste -->
-                    <img src="asset/immagini/barcellona.jpg" alt="Residents protesting against overtourism in Barcelona, 6 July 2025" loading="lazy" decoding="async" onerror="this.remove()">
-                </div>
-                <figcaption>/ PROTESTS IN BARCELONA, SPAIN, 6TH JULY 2025</figcaption>
-            </figure>
-            <div class="bcn-text scn-reveal">
-                <h2 class="bcn-title" id="bcn-title">BARCELONA</h2>
-                <p>OUR DESIGN SPECULATION IS ROOTED IN A NEWS EVENT THAT ACTS AS A CATALYST FOR THE ENTIRE RECLAIM NARRATIVE: THE DOCUMENTED FOOTAGE SHOT IN BARCELONA IN THE SUMMER OF 2025, WHERE ACCUMULATED TENSION ERUPTED INTO A FORM OF DESPERATE, UNCONVENTIONAL, AND—THOUGH NON-VIOLENT—GUERRILLA-INSPIRED URBAN RESISTANCE.</p>
-                <p>CITIZENS IN BARCELONA, EXHAUSTED BY INSTITUTIONAL INACTION, REACTED TO OVERTOURISM WITH DISRUPTIVE, CONFRONTATIONAL ACTIONS. THESE ACTS FRAMED TOURISTS AS INVADERS AND THE CITY AS A SPACE UNDER OCCUPATION.</p>
-                <p>THIS CONDITION IS INTERPRETED AS THE RESULT OF PREDATORY ECONOMIC POLICIES. THE SITUATION MARKS A BREAKDOWN OF THE SOCIAL CONTRACT, WHERE PROFIT OVERRIDES LIVABILITY. RECLAIM IS CONCEIVED AS A RESPONSE EMERGING FROM THIS INSTITUTIONAL AND POLITICAL VACUUM.</p>
-            </div>
-        </section>
-
-        <!-- S5.3 La domanda -->
-        <section class="scn-question">
-            <h2 class="hk">WHAT IF CITIZENS COULD HUNT TOURISTS TO TAKE THEIR CITIES BACK?</h2>
-        </section>
-
-        <!-- S5.4 DAO: dalla piramide alla rete -->
-        <section class="scn-dao" id="dao" aria-labelledby="dao-title">
-            <div class="dao-sticky">
-                <svg class="dao-svg" viewBox="0 0 600 420" role="img" aria-labelledby="dao-svg-title">
-                    <title id="dao-svg-title">From a top-down pyramid to a bottom-up network of citizens</title>
-                    <g class="dao-edges-a"></g>
-                    <g class="dao-edges-b"></g>
-                    <g class="dao-nodes"></g>
-                </svg>
-                <div class="dao-caption">
-                    <span class="dao-from">INSTITUTIONS: TOP-DOWN</span>
-                    <span class="dao-to">RECLAIM: BOTTOM-UP</span>
+        <!-- 2. Teaser -->
+        <section class="video-hero-outer">
+            <div class="video-hero-container">
+                <div class="video-wrapper" id="video-trigger" data-video-id="9TZdygXTz9I">
+                    <video src="asset/video/introxsito.mp4" poster="asset/web/intro_poster.webp" class="video-cover" autoplay muted loop playsinline aria-label="Reclaim teaser preview"></video>
                 </div>
             </div>
-            <div class="dao-text">
-                <h2 class="bcn-title" id="dao-title">A DECENTRALIZED AUTONOMOUS ORGANIZATION</h2>
-                <p>ANALYSING THE CRITICAL SCENARIO, WE UNDERSTOOD THAT THERE IS A NEED FOR A TOOL OF DEFENSE AND REVOLUTION OPERATING OUTSIDE TRADITIONAL BUREAUCRATIC CHANNELS.</p>
-                <p>RECLAIM IS A DAO (DECENTRALIZED AUTONOMOUS ORGANIZATION): A BOTTOM-UP STRUCTURE, DETACHED FROM INSTITUTIONAL CONSTRAINTS AND GUIDED EXCLUSIVELY BY THE WILL OF THE CITIZENS IT SERVES.</p>
+            <div class="play-label" id="play-btn">
+                <span>/PLAY TEASER</span>
             </div>
         </section>
 
-        <!-- S5.5 I tre testi -->
+        <!-- 3. Mappa delle città attive (I7) -->
+        <section id="about-map-section" aria-labelledby="map-title">
+            <h2 class="section-title hk" id="map-title">ACTIVE CITIES</h2>
+            <div class="map-frame">
+                <div class="map-inner">
+                    <img src="asset/web/map-1200.webp" alt="World map with the cities where Reclaim is active" class="full-screen-map" loading="lazy" decoding="async">
+                    <!-- i nodi li crea map_dynamics.js -->
+                </div>
+            </div>
+            <ul class="city-list" aria-label="Active cities"></ul>
+        </section>
+
+        <!-- 4. I tre testi -->
         <div class="content-section scenario-texts">
             <!-- Section 1: THE STRUGGLE -->
             <section class="app-split-section">
@@ -198,33 +177,6 @@
                 </div>
             </section>
         </div>
-
-        <!-- Video Hero Section -->
-        <section class="video-hero-outer">
-            <div class="video-hero-container">
-                <div class="video-wrapper" id="video-trigger" data-video-id="9TZdygXTz9I">
-                    <video src="asset/video/introxsito.mp4" poster="asset/web/intro_poster.webp" class="video-cover" autoplay muted loop playsinline aria-label="Reclaim teaser preview"></video>
-                </div>
-            </div>
-            <div class="play-label" id="play-btn">
-                <span>/PLAY TEASER</span>
-            </div>
-        </section>
-
-
-
-
-        <!-- I7 Mappa delle città attive -->
-        <section id="about-map-section" aria-labelledby="map-title">
-            <h2 class="section-title hk" id="map-title">ACTIVE CITIES</h2>
-            <div class="map-frame">
-                <div class="map-inner">
-                    <img src="asset/web/map-1200.webp" alt="World map with the cities where Reclaim is active" class="full-screen-map" loading="lazy" decoding="async">
-                    <!-- i nodi li crea map_dynamics.js -->
-                </div>
-            </div>
-            <ul class="city-list" aria-label="Active cities"></ul>
-        </section>
     </main>
 
     <footer>
