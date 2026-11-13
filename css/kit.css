@@ -1,0 +1,238 @@
+/* ==========================================================================
+   KIT — scatola che si apre allo scroll con le etichette, poi i sei oggetti
+   ========================================================================== */
+
+/* --- Scrollytelling della scatola ------------------------------------------ */
+#kit-scroll-container {
+    height: 800vh;
+    position: relative;
+    background-color: transparent;
+}
+
+.sticky-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+.kit-layer {
+    position: absolute;
+    /* centrata tra l'header fisso e il bottone in basso */
+    top: calc(50% - 15px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.layer-top {
+    z-index: 3;
+    will-change: transform;
+}
+
+.layer-overlay {
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    pointer-events: none;
+}
+
+.layer-base {
+    z-index: 1;
+}
+
+.kit-scrolly-img {
+    width: 65%;
+    max-width: none;
+    height: auto;
+    filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.3));
+    display: block;
+}
+
+#kit-svg-overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.kit-path {
+    fill: none;
+    stroke: var(--orange);
+    stroke-width: 2;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.1s linear;
+}
+
+.kit-label-group {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.kit-label-group.visible {
+    opacity: 1;
+}
+
+.svg-label-text {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    fill: #000;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+@media (max-width: 768px) {
+    /* stessa animazione del desktop, più corta */
+    #kit-scroll-container {
+        height: 450vh;
+        margin-bottom: 0;
+        overflow: visible;
+    }
+
+    .sticky-stage {
+        height: 100vh;
+        height: 100svh;
+        overflow: hidden;
+    }
+
+    /* 54% = 650/1200, lo stesso rapporto del viewBox mobile impostato in kit.html */
+    .kit-scrolly-img {
+        width: 54%;
+        filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.3));
+    }
+
+    .svg-label-text {
+        font-size: 34px;
+    }
+
+    .kit-path {
+        stroke-width: 3;
+    }
+}
+
+/* --- Sei oggetti: blocchi split 50/50 ---------------------------------------- */
+.kit-products .app-split-section {
+    flex-direction: row;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    min-height: 40vh;
+    max-height: 700px;
+    gap: 0;
+}
+
+.kit-products .app-split-section.reverse-layout {
+    flex-direction: row-reverse;
+    padding: 0;
+}
+
+.kit-products .app-text-column {
+    width: 50%;
+    background: transparent;
+    /* testo a sinistra allineato verso il centro */
+    align-items: flex-end;
+    padding: 2rem 4rem 2rem 2rem;
+}
+
+.kit-products .reverse-layout .app-text-column {
+    align-items: flex-start;
+    padding: 2rem 2rem 2rem 4rem;
+}
+
+.kit-products .app-text-column h1,
+.kit-products .app-text-column p {
+    max-width: 400px;
+    width: 100%;
+    text-align: left;
+    margin: 0;
+}
+
+.kit-products .app-visual-column {
+    width: 50%;
+    overflow: visible;
+    justify-content: flex-start;
+    padding: 0 0 0 4rem;
+    pointer-events: none;
+}
+
+.kit-products .reverse-layout .app-visual-column {
+    justify-content: flex-end;
+    padding: 0 4rem 0 0;
+}
+
+.about-visual {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateX(-10%);
+}
+
+.reverse-layout .about-visual {
+    transform: translateX(10%);
+}
+
+.kit-products .about-visual img {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    transform: none;
+    display: block;
+    border-radius: 10px;
+    -webkit-mask-image: none;
+    mask-image: none;
+    box-shadow: none;
+}
+
+@media (max-width: 768px) {
+    .kit-products .app-split-section,
+    .kit-products .app-split-section.reverse-layout {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .kit-products .app-text-column,
+    .kit-products .reverse-layout .app-text-column {
+        width: 100%;
+        padding: 0;
+        align-items: center;
+    }
+
+    .kit-products .app-text-column h1,
+    .kit-products .app-text-column p {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .kit-products .app-text-column h1 {
+        margin: 0.5rem 0 1rem 0;
+    }
+
+    .kit-products .app-visual-column,
+    .kit-products .reverse-layout .app-visual-column {
+        width: 100%;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .about-visual,
+    .reverse-layout .about-visual {
+        transform: none;
+        margin: 0 auto;
+        padding: 2rem 0 0 0;
+    }
+
+    .kit-products .about-visual img {
+        aspect-ratio: 956 / 1280;
+        object-fit: cover;
+    }
+}

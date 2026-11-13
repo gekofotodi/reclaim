@@ -1,0 +1,44 @@
+/* ==========================================================================
+   TOKENS — regole dell'identità RECLAIM (booklet 03.3 / 03.4)
+   Ogni colore ha un ruolo; se un valore cambia, cambia solo qui.
+   ========================================================================== */
+
+@font-face {
+    font-family: 'Codeink';
+    src: url('../CODEINK%20TYPEFACE/CODEINK-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    /* Colori (V1) */
+    --orange: #ff3c01;        /* azione e marcatura: bottoni, timbri, linee del kit, ticker */
+    --orange-dark: #e63600;
+    --green: #97f106;         /* solo cose vive: contatore, nodi della mappa, voce di menu attiva */
+    --grey: #c5c5c5;          /* fondo di tutte le pagine */
+    --paper: #ededed;         /* superfici: manifesto, schede */
+    --black: #050505;         /* testo, footer, menu aperto, video */
+    --ink: #000000;
+
+    /* Caratteri (V2) */
+    --font-display: 'Codeink', monospace;                          /* titoli che scorrono, numeri grandi */
+    --font-title: "neue-haas-unica", sans-serif;                   /* titoli dei contenuti */
+    --font-mono: "cofo-sans-mono-variable", "Necto Mono", monospace; /* tutto il resto */
+
+    /* Scala tipografica: il massimo è il valore desktop, su mobile scende */
+    --fs-display: clamp(5rem, 8.9vw, 8rem);
+    --fs-h1: 3rem;
+    --fs-h2: 2rem;
+    --fs-body: 1.1rem;
+    --fs-small: 1rem;
+    --fs-micro: 0.75rem;
+
+    /* Angoli (V3): squadrato per tasti e controlli, tondo per i contenuti */
+    --radius-control: 0;
+    --radius-media: 10px;
+
+    /* Header fisso: ticker + info bar + navbar */
+    --ticker-h: 30px;
+    --infobar-h: 35px;
+}

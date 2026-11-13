@@ -6,88 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>About</title>
     <link rel="icon" href="asset/loghi/logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="app.css">
-    <link rel="stylesheet" href="mobile_fixes.css">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/split.css">
+    <link rel="stylesheet" href="css/scenario.css">
     <link rel="stylesheet" href="https://use.typekit.net/aol2lxx.css">
-    <style>
-        /* Specific adjustments for About page versions of split sections */
-        .app-split-section {
-            max-height: none;
-            height: auto;
-            min-height: 60vh;
-            padding: 8rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8rem;
-        }
-
-        .app-split-section.reverse-layout {
-            padding: 8rem 2rem;
-            flex-direction: row-reverse;
-        }
-
-        .app-text-column,
-        .app-visual-column {
-            flex: 1;
-            max-width: 550px;
-            /* Equal width for both columns */
-            width: 100%;
-        }
-
-        .about-visual {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            pointer-events: auto;
-            /* Enable interaction if needed */
-        }
-
-        .about-visual img {
-            width: 100% !important;
-            /* Matches text column width */
-            aspect-ratio: 956 / 1280;
-            /* Ratio of about2v.jpeg to uniform heights */
-            height: auto !important;
-            margin: 0 !important;
-            transform: none !important;
-            object-fit: cover;
-            display: block;
-            border-radius: 10px;
-            -webkit-mask-image: none !important;
-            mask-image: none !important;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
-        }
-
-        @media (max-width: 1024px) {
-            .app-split-section {
-                padding: 6rem 4rem;
-                gap: 4rem;
-            }
-        }
-
-        .about-visual::after {
-            display: none !important;
-        }
-
-
-        /* Invert video colors only for about page */
-        .video-cover {
-            filter: invert(1);
-        }
-
-        /* Green video cursor for about page */
-        .play-label {
-            background-color: #97f106 !important;
-        }
-    </style>
 </head>
 
-<body>
-    <div class="header-gradient-overlay"></div>
+<body class="scenario">
 
     <nav class="main-navbar">
         <div class="nav-logo-container">
@@ -143,11 +70,9 @@
         </section>
 
         <!-- Map Section (Now at the top) -->
-        <section id="about-map-section" class="home-hero"
-            style="margin-bottom: 5rem; margin-top: -1.1rem; width: 100vw; position: relative; left: 50%; right: 50%; margin-left: -50vw; margin-right: -50vw; overflow: visible !important; z-index: 5;">
-            <div style="position: relative; width: 100%;">
-                <img src="asset/immagini/map.png" alt="Global Network Map" class="full-screen-map"
-                    style="width: 100%; height: auto; display: block;">
+        <section id="about-map-section">
+            <div class="map-frame">
+                <img src="asset/immagini/map.png" alt="Global Network Map" class="full-screen-map">
 
 
                 <!-- Map Markers (Positioned relative to map image) -->
@@ -192,7 +117,7 @@
 
 
 
-        <div class="content-section" style="padding: 0; margin-top: 4rem;">
+        <div class="content-section scenario-texts">
             <!-- Section 1: THE STRUGGLE -->
             <section class="app-split-section">
                 <div class="app-text-column">

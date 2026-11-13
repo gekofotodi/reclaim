@@ -1,0 +1,226 @@
+/* ==========================================================================
+   SCENARIO (ex About) — mappa delle città attive, video, testi
+   ========================================================================== */
+
+/* --- Mappa ------------------------------------------------------------------ */
+#about-map-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* a tutta larghezza anche dentro un contenitore più stretto */
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin: -1.1rem -50vw 5rem -50vw;
+    overflow: visible;
+    z-index: 5;
+}
+
+.map-frame {
+    position: relative;
+    width: 100%;
+}
+
+.full-screen-map {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(100%) contrast(120%);
+    border-radius: 20px;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+}
+
+.map-marker {
+    position: absolute;
+    width: 1.8vw;
+    height: 1.8vw;
+    min-width: 14px;
+    min-height: 14px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s ease;
+}
+
+.map-marker:hover {
+    transform: scale(1.2);
+}
+
+.map-marker-icon {
+    width: 100%;
+    height: 100%;
+    background-color: var(--green);
+    -webkit-mask: url(../asset/loghi/logo_shape.svg) center / contain no-repeat;
+    mask: url(../asset/loghi/logo_shape.svg) center / contain no-repeat;
+}
+
+/* tooltip con i dati del nodo */
+.map-marker::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--ink);
+    color: var(--green);
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    white-space: pre;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    border: none;
+    margin-top: 0;
+    display: none;
+    font-family: var(--font-mono);
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.2;
+    z-index: 2000;
+    text-transform: uppercase;
+}
+
+.map-marker:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    display: block;
+}
+
+@media (max-width: 768px) {
+    #about-map-section {
+        flex-direction: column;
+        padding: 0;
+        width: 100vw;
+        max-width: 100vw;
+        left: 0;
+        right: 0;
+        margin: -13rem 0 -15rem 0;
+        gap: 1.5rem;
+        background-color: var(--grey);
+        text-align: center;
+        z-index: 1;
+    }
+
+    .full-screen-map {
+        object-fit: contain;
+    }
+
+    /* al tocco, non al passaggio */
+    .map-marker::after,
+    .map-marker::before {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+
+    .map-marker.active {
+        z-index: 100;
+    }
+
+    .map-marker.active::after,
+    .map-marker.active::before {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        z-index: 1001;
+    }
+
+    .map-marker::after {
+        font-size: 0.75rem;
+        width: 160px;
+        height: 58px;
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px solid var(--green);
+        bottom: 150%;
+    }
+}
+
+/* --- Video del teaser ------------------------------------------------------- */
+.scenario .video-cover {
+    filter: invert(1);
+}
+
+.scenario .play-label {
+    background-color: var(--green);
+}
+
+/* --- Tre testi ---------------------------------------------------------------- */
+.scenario-texts .app-split-section {
+    max-height: none;
+    height: auto;
+    min-height: 60vh;
+    padding: 8rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    gap: 8rem;
+}
+
+.scenario-texts .app-split-section.reverse-layout {
+    padding: 8rem 2rem;
+}
+
+.scenario-texts .app-text-column,
+.scenario-texts .app-visual-column {
+    flex: 1;
+    max-width: 550px;
+    width: 100%;
+}
+
+.scenario-texts .about-visual {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.scenario-texts .about-visual img {
+    width: 100%;
+    aspect-ratio: 956 / 1280;
+    height: auto;
+    margin: 0;
+    transform: none;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    -webkit-mask-image: none;
+    mask-image: none;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+    .scenario-texts .app-split-section,
+    .scenario-texts .app-split-section.reverse-layout {
+        padding: 6rem 4rem;
+        gap: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .scenario-texts .app-split-section,
+    .scenario-texts .app-split-section.reverse-layout {
+        padding: 4rem 1.5rem;
+        gap: 0;
+    }
+
+    .scenario-texts .app-text-column,
+    .scenario-texts .app-visual-column {
+        flex: none;
+        max-width: 100%;
+    }
+
+    .scenario-texts .about-visual {
+        transform: none;
+        margin: 0 auto;
+        padding: 2rem 0 0 0;
+    }
+
+    .scenario-texts .about-visual img {
+        max-width: none;
+        transform: none;
+    }
+}

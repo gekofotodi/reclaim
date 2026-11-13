@@ -1,0 +1,32 @@
+/* ==========================================================================
+   APP — cinque blocchi con le schermate dell'app (base in split.css)
+   ========================================================================== */
+
+/* Hunt Session: telefono ruotato, senza sfumatura */
+.rotated-asset img {
+    transform: rotate(-50deg);
+    width: 200%;
+    margin-left: -60%;
+    margin-top: 0%;
+}
+
+.hunt-section .app-text-column {
+    padding-left: 4rem;
+}
+
+.hunt-section .mockup-container img {
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+@media (max-width: 768px) {
+    .rotated-asset img {
+        width: 100%;
+        margin: 0 auto 2rem auto;
+        transform: scale(1.8);
+    }
+
+    .hunt-section .app-text-column {
+        padding-left: 0;
+    }
+}

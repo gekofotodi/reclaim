@@ -1,0 +1,899 @@
+/* ==========================================================================
+   BASE — reset, testo, header (ticker, info bar, navbar, menu), titoli che
+   scorrono, bottoni, footer, finestra video. Le regole per mobile stanno
+   subito sotto ogni componente, in @media (max-width: 768px).
+   ========================================================================== */
+
+/* --- Reset ----------------------------------------------------------------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    background-color: var(--ink);
+}
+
+body {
+    color: var(--ink);
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.025em;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* clip: taglia lo sbordo senza creare un contenitore di scroll (non rompe position: sticky) */
+    overflow-x: clip;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+main {
+    flex: 1;
+    width: 100%;
+    background-color: var(--grey);
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: var(--fs-h1);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    font-family: var(--font-title);
+    font-style: normal;
+}
+
+p {
+    color: var(--ink);
+    font-size: var(--fs-body);
+    max-width: 500px;
+    line-height: 1.4;
+    font-family: var(--font-mono);
+}
+
+@media (max-width: 768px) {
+    * {
+        -webkit-font-smoothing: antialiased;
+    }
+
+    html,
+    body {
+        background-color: var(--grey);
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: clip;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    body>main {
+        margin-top: 54px;
+        padding-bottom: 80px;
+        overflow: visible;
+        /* block e non flex: lo sticky del kit e della CTA ha bisogno dell'altezza naturale */
+        display: block;
+    }
+
+    h1 {
+        font-family: var(--font-display);
+        color: var(--ink);
+        font-size: 2rem;
+        line-height: 1.1;
+        margin: 0 0 1rem 0;
+        padding-left: 0;
+        padding-right: 0;
+        width: 100%;
+        max-width: 100%;
+        text-align: center;
+        white-space: normal;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    p {
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.4;
+        max-width: 100%;
+        text-transform: uppercase;
+        text-align: center;
+    }
+}
+
+/* Area cliccabile più ampia (+15%) */
+.cta-button,
+.hamburger-menu,
+.nav-links-mobile li a,
+.footer-links a,
+.map-marker,
+.close-modal,
+.nav-logo {
+    position: relative;
+}
+
+.cta-button::before,
+.hamburger-menu::before,
+.nav-links-mobile li a::before,
+.footer-links a::before,
+.map-marker::before,
+.close-modal::before,
+.nav-logo::before {
+    content: '';
+    position: absolute;
+    top: -15%;
+    left: -15%;
+    right: -15%;
+    bottom: -15%;
+    pointer-events: auto;
+}
+
+/* --- Ticker ---------------------------------------------------------------- */
+.news-ticker-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--ticker-h);
+    background-color: var(--orange);
+    color: var(--black);
+    z-index: 2000;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.news-ticker-bar:hover {
+    opacity: 0.9;
+}
+
+.news-ticker-content {
+    white-space: nowrap;
+    display: inline-block;
+    animation: news-ticker-scroll 30s linear infinite;
+}
+
+@keyframes news-ticker-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+    .news-ticker-bar {
+        z-index: 10005;
+        color: var(--ink);
+    }
+}
+
+/* --- Info bar (coordinate · contatore · data) ------------------------------ */
+.info-bar {
+    position: fixed;
+    top: var(--ticker-h);
+    left: 0;
+    width: 100%;
+    height: var(--infobar-h);
+    background-color: #d0d0d0;
+    z-index: 1999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--orange);
+    border: none;
+}
+
+.info-bar:hover {
+    /* i tooltip devono stare sopra navbar e logo */
+    z-index: 3050;
+}
+
+#info-counter {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: auto;
+}
+
+.info-item {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0 0.5rem;
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+.info-item:hover {
+    background-color: var(--orange);
+    color: var(--ink);
+    text-decoration: none;
+}
+
+/* Tooltip sotto la voce */
+.info-item::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--ink);
+    color: var(--green);
+    padding: 0.5rem;
+    font-size: 1rem;
+    white-space: pre;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-5px);
+    transition: all 0.2s ease;
+    border: none;
+    margin-top: 0;
+    display: none;
+    z-index: 3000;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-weight: 400;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.info-item:last-child::after {
+    left: auto;
+    right: 0;
+    text-align: right;
+}
+
+.info-item:hover::after {
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+}
+
+/* Contatore animato */
+.digit-wrapper {
+    display: inline-block;
+    height: 1.2em;
+    line-height: 1.2em;
+    overflow: hidden;
+    position: relative;
+    vertical-align: text-bottom;
+}
+
+.digit-slider {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s ease-in-out;
+    will-change: transform;
+}
+
+.digit-char {
+    height: 1.2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    /* su una riga sotto il ticker, compatta */
+    .info-bar {
+        height: 24px;
+        padding: 0 12px;
+        font-size: 0.68rem;
+        letter-spacing: 0;
+        z-index: 10003;
+    }
+
+    .info-item {
+        padding: 0;
+        white-space: nowrap;
+    }
+
+    /* niente tooltip su touch */
+    .info-item::after {
+        display: none !important;
+    }
+}
+
+/* --- Navbar: logo + hamburger ---------------------------------------------- */
+.main-navbar {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 2010;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+}
+
+.nav-logo-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-logo {
+    width: 40px;
+    height: auto;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-logo-container a:hover {
+    opacity: 1;
+}
+
+.hamburger-menu {
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 2005;
+}
+
+.hamburger-menu span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: var(--orange);
+    transition: all 0.3s ease;
+}
+
+.hamburger-menu.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+    .main-navbar {
+        top: 54px;
+        height: 52px;
+        padding: 0 20px;
+        z-index: 10002;
+        /* sfondo pieno: logo e hamburger non finiscono sopra il testo durante lo scroll */
+        background-color: var(--grey);
+    }
+
+    .nav-logo-container {
+        overflow: hidden;
+    }
+
+    .nav-logo {
+        height: 32px;
+        width: auto;
+        /* logo arancione con il trucco dell'ombra spostata */
+        left: -100px;
+        filter: drop-shadow(100px 0 0 var(--orange));
+    }
+
+    .hamburger-menu {
+        height: 48px;
+        width: 35px;
+        min-height: 48px;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        z-index: 10005;
+    }
+
+    .hamburger-menu span {
+        height: 4px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .hamburger-menu.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .hamburger-menu.active span:nth-child(2) {
+        opacity: 0;
+        width: 0;
+    }
+
+    .hamburger-menu.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+}
+
+/* --- Menu ------------------------------------------------------------------- */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    max-width: 224px;
+    height: 100vh;
+    background-color: var(--black);
+    z-index: 2002;
+    transition: right 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 150px 2rem 2rem 2rem;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-menu-overlay.active {
+    right: 0;
+}
+
+.nav-links-mobile {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.nav-links-mobile a {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    color: var(--green);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.nav-links-mobile a:hover {
+    color: #ffffff;
+}
+
+.nav-links-mobile a.active {
+    background-color: var(--green);
+    color: var(--ink);
+    padding: 0.25rem 0.5rem;
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-overlay {
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: none;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+        padding: 106px 2rem 2rem 2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 10000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .mobile-menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-links-mobile {
+        gap: 1.5rem;
+        text-align: center;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .nav-links-mobile li {
+        width: 100%;
+        text-align: left;
+    }
+
+    .nav-links-mobile a {
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+        width: 100%;
+        font-size: 1.8rem;
+    }
+
+    .nav-links-mobile a.active {
+        width: auto;
+        padding: 0 10px;
+    }
+}
+
+/* --- Titolo di pagina che scorre (Codeink) ---------------------------------- */
+.manifesto-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    overflow: visible;
+    position: relative;
+    /* spazio per l'header fisso */
+    padding-top: 200px;
+}
+
+.manifesto-header {
+    width: 100%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex: 0 0 auto;
+}
+
+.scrolling-line {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 0.9;
+    background-color: transparent;
+}
+
+.scrolling-track {
+    display: flex;
+    white-space: nowrap;
+    width: max-content;
+    will-change: transform;
+    pointer-events: auto;
+    cursor: default;
+}
+
+.scrolling-track span,
+.scrolling-track .phrase-container {
+    font-family: var(--font-display);
+    font-size: 8rem;
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    color: #ffffff;
+}
+
+.scroll-left {
+    animation: marquee-left 40s linear infinite;
+}
+
+@keyframes marquee-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.hacker-char {
+    display: inline-block;
+    pointer-events: auto;
+    transition: color 0.1s;
+}
+
+.hacker-char:hover,
+.static-char:hover {
+    color: var(--orange);
+}
+
+.static-char {
+    transition: color 0.1s;
+}
+
+@media (max-width: 768px) {
+    .manifesto-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100vw;
+        padding: 50px 1.25rem 0 1.25rem;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--grey);
+        z-index: 10;
+    }
+
+    /* titolo a tutta larghezza */
+    .manifesto-header {
+        width: calc(100% + 2.5rem);
+        margin: 0 -1.25rem 2rem -1.25rem;
+        max-width: none;
+        padding: 0.5rem 0;
+        background: transparent;
+    }
+
+    .scrolling-line {
+        height: auto;
+    }
+
+    .scrolling-track span {
+        font-size: clamp(1.8rem, 10vw, 3rem);
+        line-height: 1.1;
+        word-break: break-word;
+        color: #ffffff;
+    }
+
+    .scrolling-track .phrase-container {
+        font-size: 5rem;
+    }
+}
+
+/* --- Bottoni (CTA) ---------------------------------------------------------- */
+.cta-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: 100%;
+    z-index: 100;
+}
+
+/* fisso in basso (Kit, App) */
+.cta-container.cta-fixed {
+    position: sticky;
+    bottom: 0;
+    padding: 1.2rem 2rem;
+    background-color: var(--black);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    margin: 0;
+}
+
+/* nel flusso (home) */
+.cta-container.cta-static {
+    position: relative;
+    margin-top: 2rem;
+    background-color: transparent;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1.2rem 3.5rem;
+    background-color: var(--orange);
+    color: #ffffff;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 15px rgba(255, 60, 1, 0.3);
+}
+
+.cta-button:active {
+    transform: translateY(-1px);
+}
+
+@media (hover: hover) {
+    .cta-button:hover {
+        background-color: #ff5522;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(255, 60, 1, 0.4);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .cta-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 48px;
+        padding: 1rem;
+        color: var(--ink);
+    }
+
+    .cta-button:active {
+        background-color: #d43201;
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+
+    /* solo il bottone, con l'area sicura di iPhone (prima era una fascia nera che copriva i contenuti) */
+    .cta-container.cta-fixed {
+        position: fixed;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        background: linear-gradient(to top, rgba(197, 197, 197, 0.95) 40%, rgba(197, 197, 197, 0));
+        border-top: none;
+        padding: 18px 15px calc(12px + env(safe-area-inset-bottom));
+        z-index: 9990;
+        pointer-events: none;
+    }
+
+    .cta-container.cta-fixed .cta-button {
+        pointer-events: auto;
+        padding: 0.8rem 2.2rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* --- Footer ----------------------------------------------------------------- */
+footer {
+    position: relative;
+    width: 100%;
+    padding: 1.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--ink);
+    color: var(--green);
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    font-weight: 400;
+    /* sopra i timbri, sotto il cursore */
+    z-index: 9991;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: -0.025em;
+    margin-top: auto;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    text-align: right;
+}
+
+.footer-links a {
+    color: var(--green);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    footer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100vw;
+        padding: 20px 1.25rem 10px 1.25rem;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-top: 2rem;
+        height: auto;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links a {
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+        color: var(--green);
+    }
+}
+
+/* --- Finestra video / immagine a schermo intero ----------------------------- */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(15px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.video-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.video-modal-content {
+    width: 80%;
+    max-width: 1200px;
+    aspect-ratio: 16/9;
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin: 0;
+    padding: 0;
+}
+
+.video-modal.active .video-modal-content {
+    transform: scale(1);
+}
+
+#modal-iframe-container {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.close-modal {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.video-modal iframe,
+.video-modal video,
+.video-modal img {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #000;
+    box-shadow: 0 0 50px rgba(255, 60, 1, 0.4);
+    display: block;
+    object-fit: contain;
+}
+
+/* --- Media su mobile -------------------------------------------------------- */
+@media (max-width: 768px) {
+    img,
+    video {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        object-fit: contain;
+        margin: 0 auto;
+        display: block;
+    }
+}

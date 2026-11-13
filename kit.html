@@ -6,119 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Kit</title>
     <link rel="icon" href="asset/loghi/logo.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="app.css">
-    <link rel="stylesheet" href="kit_scrolly.css">
-    <link rel="stylesheet" href="mobile_fixes.css">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/split.css">
+    <link rel="stylesheet" href="css/kit.css">
     <link rel="stylesheet" href="https://use.typekit.net/aol2lxx.css">
-    <style>
-        /* Symmetrical split sections for Kit page - Matched to About Page */
-        /* Full Screen Split Layout (50/50) */
-        .app-split-section {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            max-width: none;
-            margin: 0;
-            padding: 0 !important;
-            min-height: 40vh;
-            /* Reduced by 50% from 80vh */
-            gap: 0;
-        }
-
-        .app-split-section.reverse-layout {
-            flex-direction: row-reverse;
-            padding: 0 !important;
-        }
-
-        .app-text-column {
-            flex: 1;
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            background: transparent;
-            /* Standard: Text Left -> Align Right (End) to move to center */
-            align-items: flex-end;
-            padding: 2rem 4rem 2rem 2rem;
-            /* R-padding creates center gap */
-        }
-
-        /* Reverse: Text Right -> Align Left (Start) to move to center */
-        .reverse-layout .app-text-column {
-            align-items: flex-start;
-            padding: 2rem 2rem 2rem 4rem;
-            /* L-padding creates center gap */
-        }
-
-        /* The Content: flag text */
-        .app-text-column h1,
-        .app-text-column p {
-            max-width: 400px;
-            /* Slightly tighter width */
-            width: 100%;
-            text-align: left;
-            /* Always Bandiera */
-            margin: 0;
-            /* Reset margins, alignment handled by parent */
-        }
-
-        .app-visual-column {
-            flex: 1;
-            width: 50%;
-            display: flex;
-            align-items: center;
-            overflow: visible;
-            position: relative;
-            /* Standard: Image Right -> Justify Left (Start) to move to center */
-            justify-content: flex-start;
-            padding: 0 0 0 4rem;
-            /* L-padding creates center gap */
-        }
-
-        /* Reverse: Image Left -> Justify Right (End) to move to center */
-        .reverse-layout .app-visual-column {
-            justify-content: flex-end;
-            padding: 0 4rem 0 0;
-            /* R-padding creates center gap */
-        }
-
-        .about-visual {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            transform: translateX(-10%);
-            /* Standard: Move Left towards Center */
-        }
-
-        .reverse-layout .about-visual {
-            transform: translateX(10%);
-            /* Reverse: Move Right towards Center */
-        }
-
-        .about-visual img {
-            width: 100% !important;
-            height: auto !important;
-            margin: 0 !important;
-            transform: none !important;
-            display: block;
-            border-radius: 10px;
-            -webkit-mask-image: none !important;
-            mask-image: none !important;
-            box-shadow: none !important;
-        }
-
-        @media (max-width: 1024px) {
-            .app-split-section {
-                padding: 6rem 4rem;
-                gap: 4rem;
-            }
-        }
-
-        .about-visual::after {
-            display: none !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -237,7 +129,7 @@
         </div>
 
         <!-- NEW ALTERNATING CONTENT SECTIONS -->
-        <div class="content-section" style="padding: 0; margin-top: 4rem;">
+        <div class="content-section kit-products">
             <!-- Block 1: THE DEVICE -->
             <section class="app-split-section">
                 <div class="app-text-column">
