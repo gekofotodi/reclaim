@@ -1,0 +1,299 @@
+/* ==========================================================================
+   CHECKOUT DIMOSTRATIVO (X2) — sembra vero, è dichiarato finto dal primo istante
+   ========================================================================== */
+
+.checkout {
+    position: fixed;
+    inset: 0;
+    z-index: 10020;
+    background: var(--grey);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.checkout.open {
+    opacity: 1;
+}
+
+body.checkout-open {
+    overflow: hidden;
+}
+
+/* fascia fissa per tutto il percorso */
+.co-band {
+    flex: none;
+    padding: 0.7rem 1rem;
+    background: var(--orange);
+    color: var(--ink);
+    font-size: 0.85rem;
+    line-height: 1.3;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+.co-body {
+    flex: 1;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+}
+
+.co-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.co-head h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.2rem, 1rem + 3vw, 3.5rem);
+    margin: 0;
+    letter-spacing: 0;
+}
+
+.co-close,
+.co-back,
+.co-qty button {
+    background: none;
+    border: none;
+    border-radius: var(--radius-control);
+    font-family: var(--font-mono);
+    color: var(--ink);
+    text-transform: uppercase;
+    cursor: pointer;
+    min-height: 44px;
+    font-size: 1rem;
+}
+
+.co-steps {
+    list-style: none;
+    display: flex;
+    gap: 1px;
+    background: var(--ink);
+    border: 1px solid var(--ink);
+    margin-bottom: 2rem;
+}
+
+.co-steps li {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    background: var(--grey);
+    font-size: 0.8rem;
+}
+
+.co-steps li.on {
+    background: var(--black);
+    color: var(--paper);
+}
+
+.co-steps li.done {
+    text-decoration: line-through;
+}
+
+.co-item {
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--ink);
+}
+
+.co-item img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-media);
+    margin: 0;
+}
+
+.co-item h3 {
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.co-contents {
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
+    text-align: left;
+}
+
+.co-qty {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--ink);
+}
+
+.co-qty button {
+    width: 44px;
+    font-size: 1.2rem;
+}
+
+.co-qty output {
+    min-width: 2.5rem;
+    text-align: center;
+}
+
+.co-price {
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.co-sum {
+    margin: 1.5rem 0 2rem;
+}
+
+.co-sum div {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+}
+
+.co-total {
+    border-top: 1px solid var(--ink);
+    margin-top: 0.5rem;
+    padding-top: 0.8rem !important;
+    font-size: 1.3rem;
+}
+
+.co-lock {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    background: var(--black);
+    color: var(--paper);
+    max-width: none;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.co-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.co-fields label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+}
+
+.co-wide {
+    grid-column: 1 / -1;
+}
+
+.co-fields input {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding: 0.8rem;
+    border: 1px dashed var(--ink);
+    border-radius: var(--radius-control);
+    background: var(--paper);
+    color: rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+}
+
+.co-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.co-next {
+    margin-left: auto;
+}
+
+.co-processing {
+    font-size: 1.4rem;
+    text-align: center;
+    max-width: none;
+    padding: 4rem 0;
+}
+
+.co-processing span {
+    animation: co-blink 1s steps(2) infinite;
+}
+
+@keyframes co-blink {
+    50% { opacity: 0; }
+}
+
+.co-result h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    color: var(--orange);
+    font-size: clamp(2rem, 1rem + 3vw, 3.2rem);
+    line-height: 1;
+    margin-bottom: 1rem;
+}
+
+.co-result p {
+    max-width: var(--measure);
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.co-receipt {
+    display: block;
+    width: min(320px, 70%);
+    height: auto;
+    margin: 0 auto 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    border-radius: 0;
+}
+
+@media (max-width: 768px) {
+    .co-band {
+        font-size: 0.7rem;
+        padding: calc(0.6rem + env(safe-area-inset-top)) 0.75rem 0.6rem;
+    }
+
+    .co-body {
+        padding: 1.25rem 1.25rem calc(3rem + env(safe-area-inset-bottom));
+    }
+
+    .co-head h2 {
+        text-align: left;
+        font-family: var(--font-display);
+        width: auto;
+    }
+
+    .co-steps li {
+        font-size: 0.65rem;
+        padding: 0.5rem 0.4rem;
+    }
+
+    .co-item {
+        grid-template-columns: 96px 1fr;
+        gap: 1rem;
+    }
+
+    .co-price {
+        grid-column: 2;
+    }
+
+    .co-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .co-nav .cta-button {
+        width: 100%;
+    }
+
+    .co-back {
+        width: 100%;
+    }
+}
