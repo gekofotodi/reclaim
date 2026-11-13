@@ -1,27 +1,28 @@
 /**
- * Particle Assembly Effect - Ultra Refined v3 (Wavy & Sparse)
- * Creative Developer: Antigravity
+ * Logo a particelle (I1): al caricamento le particelle compongono il logo in ~1.5 s;
+ * il puntatore o il dito le disperde solo vicino, poi tornano al loro posto.
  */
 
 const LOGO_BASE64 = `PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNDguMjggMTQ4LjU0Ij48cGF0aCBmaWxsPSIjZmYzYzAxIiBkPSJNMTQ2LjY4LDY3LjY3Yy0uNjUtLjc4LTEuNDYtMS40My0yLjM3LTEuODUtLjM2LS4xNi0uNzItLjI5LTEuMDQtLjQ2LS4wMywwLS4wNy0uMDMtLjEtLjAzLTkuNTMtMy45LTE4LjM3LTkuMS0yNi4zNC0xNS4zOC02LjgzLTUuNDMtMTMuMDEtMTEuNjEtMTguNDQtMTguNDQtNi4yOC03Ljk3LTExLjQ4LTE2LjgxLTE1LjM4LTI2LjM0LS4wMy0uMDMtLjAzLS4wNy0uMDMtLjA3LS4xNi0uMzYtLjI5LS43Mi0uNDYtMS4wNywwLS4xLS4wNi0uMTYtLjEtLjIzLS40Ni0uODUtMS4wNC0xLjU2LTEuNzYtMi4xNS0xLjI3LTEuMDQtMi44OS0xLjY2LTQuNjItMS42NmgtMy45M2MtMS43MiwwLTMuMzUuNjItNC41OCwxLjY2LS42OC41NS0xLjI0LDEuMi0xLjY5LDEuOTUtLjAzLjA2LS4wNy4xMy0uMS4yLS4xOS41Mi0uMzksMS4wNC0uNjIsMS41My0zLjksOS40Ni05LjEsMTguMjQtMTUuMzIsMjYuMTgtNS40Myw2LjgzLTExLjQ0LDEzLjA0LTE4LjQ3LDE4LjQ3LTcuOTcsNi4yNC0xNi44MSwxMS40NS0yNi4zNCwxNS4zOC0uMjkuMS0uNTUuMi0uODEuMzNoLS4wM2MtMS4wMS40Ni0xLjg5LDEuMTQtMi41NywxLjk4LS45OCwxLjItMS41OSwyLjc2LTEuNTksNC40NXY0LjIzYzAsMS42OS42MiwzLjI1LDEuNTksNC40NS42OC44NSwxLjU2LDEuNTMsMi41NywxLjk4LjI2LjEzLjU1LjIzLjg1LjMzLDkuNTMsMy45MywxOC4zNyw5LjE0LDI2LjM0LDE1LjM4LDYuODMsNS40MywxMy4wNCwxMS42NCwxOC40NywxOC40Nyw2LjIxLDcuOSwxMS4zOCwxNi42OCwxNS4zMiwyNi4xMS4yMy41OS40OSwxLjIuNzIsMS43OXYuMDNjLjQ2Ljc1LDEuMDEsMS40MywxLjY5LDEuOTgsMS4yNywxLjA0LDIuODksMS42Niw0LjYyLDEuNjZoMy45YzEuNzIsMCwzLjM1LS42Miw0LjYyLTEuNjYuNzItLjYyLDEuMy0xLjMzLDEuNzYtMi4xOHYuMDNjLjE5LS40Mi4zNi0uODUuNTUtMS4yNywwLS4wMy4wMy0uMTAsLjAzLS4xMywzLjkzLTkuNDksOS4xNC0xOC4zNCwxNS4zOC0yNi4zMSw1LjQzLTYuODMsMTEuNjEtMTMuMDEsMTguNDQtMTguNDQsNy45Ny02LjI4LDE2LjgxLTExLjQ4LDI2LjM0LTE1LjM4LjAzLDAsLjA3LS4wMy4xLS4wMy4zMy0uMTYuNjgtLjI5LDEuMDQtLjQ2LjkxLS40MiwxLjcyLTEuMDcsMi4zNy0xLjg1Ljk4LTEuMjQsMS41OS0yLjgwLDEuNTktNC40OXYtNC4xNmMwLTEuNjktLjYyLTMuMjUtMS41OS00LjQ5Wk02Ny41NCwxMDguMmMwLDQuODQtMy45Miw4Ljc2LTguNzYsOC43NmgwYy0xLjUzLDAtMy0uNjEtNC4wOS0xLjY5bC0yMC43NC0yMC43NGMtLjc4LS41Mi0xLjQ2LTEuMi0yLjAyLTIuMDItLjIzLS4zMy0uNDItLjY4LS41OS0xLjA3LS40Mi0uOTQtLjY4LTIuMDItLjY4LTMuMTJzLjI2LTIuMTguNjgtMy4xMmMxLjE3LTIuNiwzLjc3LTQuMzksNi44My00LjM5aDIwLjZjNC44NCwwLDguNzYsMy45Miw4Ljc2LDguNzZ2MTguNjRaTTY3LjU0LDU4LjkxYzAsNC44NC0zLjkyLDguNzYtOC43Niw4Ljc2aC0yMC42Yy0zLjA2LDAtNS42Ni0xLjc5LTYuODMtNC4zOS0uNDItLjk0LS42OC0yLjAyLS42OC0zLjEycy4yNi0yLjE4LjY4LTMuMTJjLjE2LS4zOS4zNi0uNzUuNTktMS4wNy41NS0uODEsMS4yNC0xLjUsMi4wMi0yLjAybDIwLjc0LTIwLjc0YzEuMDgtMS4wOCwyLjU1LTEuNjksNC4wOS0xLjY5aDBjNC44NCwwLDguNzYsMy45Miw4Ljc2LDguNzZ2MTguNjRaTTExNi44Myw5MS4yNGMtLjI2LjYyLS42MiwxLjItMS4wMSwxLjcybC0uMS4xMy0xLjAxLDEuMDEtLjEzLjEtMjEuMDcsMjEuMDdjLTEuMDgsMS4wOC0yLjU1LDEuNjktNC4wOSwxLjY5aDBjLTQuODQsMC04Ljc2LTMuOTItOC43Ni04Ljc2di0xOC42NGMwLTQuODQsMy45Mi04Ljc2LDguNzYtOC43NmgyMC40N2MzLjEyLDAsNS43OSwxLjg5LDYuOTMsNC41OC4zNi44OC41OSwxLjg5LjU5LDIuOTNzLS4yMywyLjA1LS41OSwyLjkzWk0xMTYuODMsNjMuMDhjLTEuMTQsMi43LTMuOCw0LjU4LTYuOTMsNC41OGgtMjAuNDdjLTQuODQsMC04Ljc2LTMuOTItOC43Ni04Ljc2di0xOC42NGMwLTQuODQsMy45Mi04Ljc2LDguNzYtOC43NmgwYzEuNTMsMCwzLC42MSw0LjA5LDEuNjlsMjEuMDcsMjEuMDdjLjQyLjM2Ljg1Ljc4LDEuMjQsMS4yNC4zOS41Mi43NSwxLjExLDEuMDEsMS43Mi4zNi44OC41OSwxLjg5LjU5LDIuOTNzLS4yMywyLjA1LS41OSwyLjkzWiIvPjwvc3ZnPg==`;
+
+const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
 
 class Particle {
     constructor(effect, x, y, isStatic = false) {
         this.effect = effect;
         this.x = Math.random() * this.effect.width;
         this.y = Math.random() * this.effect.height;
+        this.startX = this.x;
+        this.startY = this.y;
         this.originX = x;
         this.originY = y;
         this.color = '#ff3c01';
         this.size = this.effect.gap;
-        this.vx = (Math.random() - 0.5) * 5.8;
-        this.vy = (Math.random() - 0.5) * 5.8;
-        this.ease = 0.035;
-        this.friction = 0.8;
+        this.vx = 0;
+        this.vy = 0;
         this.isStatic = isStatic;
-
-        this.jitterX = (Math.random() - 0.5) * 7.8;
-        this.jitterY = (Math.random() - 0.5) * 7.8;
+        // piccolo ritardo per ogni particella: il logo si compone, non scatta
+        this.delay = Math.random() * 350;
 
         this.randomX = (Math.random() - 0.5) * 5.8;
         this.randomY = (Math.random() - 0.5) * 5.8;
@@ -32,29 +33,52 @@ class Particle {
         context.fillRect(this.x, this.y, this.size, this.size);
     }
 
-    update() {
-        if (this.effect.mouse.active && !this.isStatic) {
-            const hoverFloatX = Math.sin(Date.now() * 0.0015 + this.originX) * 3.25 + this.jitterX;
-            const hoverFloatY = Math.cos(Date.now() * 0.0015 + this.originY) * 3.25 + this.jitterY;
+    update(now) {
+        const t = now * 0.0015;
 
-            let dx = (this.originX + hoverFloatX) - this.x;
-            let dy = (this.originY + hoverFloatY) - this.y;
-            this.x += dx * this.ease;
-            this.y += dy * this.ease;
-        } else {
-            this.x += Math.sin(Date.now() * 0.00195 + this.originX) * 0.78 + this.randomX * 0.52;
-            this.y += Math.cos(Date.now() * 0.00195 + this.originY) * 0.78 + this.randomY * 0.52;
-
-            this.vx *= 0.98;
-            this.vy *= 0.98;
-            this.x += this.vx;
-            this.y += this.vy;
-
+        // rumore di fondo: continua a vagare
+        if (this.isStatic) {
+            this.x += Math.sin(now * 0.00195 + this.originX) * 0.78 + this.randomX * 0.3;
+            this.y += Math.cos(now * 0.00195 + this.originY) * 0.78 + this.randomY * 0.3;
             if (this.x < 0) this.x = this.effect.width;
             if (this.x > this.effect.width) this.x = 0;
             if (this.y < 0) this.y = this.effect.height;
             if (this.y > this.effect.height) this.y = 0;
+            return;
         }
+
+        const tx = this.originX + Math.sin(t + this.originX) * 1.2;
+        const ty = this.originY + Math.cos(t + this.originY) * 1.2;
+
+        // I1: composizione del logo in ~1.5 s
+        const p = Math.min(1, Math.max(0, (now - this.effect.start - this.delay) / (this.effect.assembleMs - 350)));
+        if (p < 1) {
+            const e = easeOutCubic(p);
+            this.x = this.startX + (tx - this.startX) * e;
+            this.y = this.startY + (ty - this.startY) * e;
+            return;
+        }
+
+        // il puntatore (o il dito) le allontana solo lì vicino
+        const m = this.effect.mouse;
+        if (m.active) {
+            const dx = this.x - m.x;
+            const dy = this.y - m.y;
+            const R = this.effect.radius;
+            const d2 = dx * dx + dy * dy;
+            if (d2 < R * R) {
+                const d = Math.sqrt(d2) || 1;
+                const f = (R - d) / R;
+                this.vx += (dx / d) * f * 5;
+                this.vy += (dy / d) * f * 5;
+            }
+        }
+
+        // poi tornano al loro posto (molla smorzata)
+        this.vx = (this.vx + (tx - this.x) * 0.04) * 0.86;
+        this.vy = (this.vy + (ty - this.y) * 0.04) * 0.86;
+        this.x += this.vx;
+        this.y += this.vy;
     }
 }
 
@@ -78,38 +102,30 @@ class Effect {
             this.init();
         };
 
-        window.addEventListener('mousemove', (e) => {
-            // Desktop Only: Hover Effect
-            if (window.innerWidth <= 768) return;
+        this.start = performance.now();
+        this.assembleMs = 1500;
+        this.radius = window.innerWidth <= 768 ? 60 : 90;
 
+        const setPointer = (clientX, clientY) => {
             const rect = this.canvas.getBoundingClientRect();
-            this.mouse.x = e.clientX - rect.left;
-            this.mouse.y = e.clientY - rect.top;
+            this.mouse.x = clientX - rect.left;
+            this.mouse.y = clientY - rect.top;
+            this.mouse.active = this.mouse.x > 0 && this.mouse.x < this.width &&
+                this.mouse.y > 0 && this.mouse.y < this.height;
+        };
 
-            if (this.mouse.x > 0 && this.mouse.x < this.width &&
-                this.mouse.y > 0 && this.mouse.y < this.height) {
-                this.mouse.active = true;
-            } else {
-                this.mouse.active = false;
-            }
-        });
+        window.addEventListener('mousemove', (e) => setPointer(e.clientX, e.clientY));
+        document.addEventListener('mouseleave', () => { this.mouse.active = false; });
 
-        // Mobile Only: Click/Touch Effect (Toggle Switch)
-        this.canvas.addEventListener('click', (e) => {
-            if (window.innerWidth > 768) return;
-
-            const rect = this.canvas.getBoundingClientRect();
-            this.mouse.x = e.clientX - rect.left;
-            this.mouse.y = e.clientY - rect.top;
-
-            // Toggle Active State
-            this.mouse.active = !this.mouse.active;
-        });
-
+        // dito: non blocca lo scroll (listener passivi)
+        this.canvas.addEventListener('touchstart', (e) => setPointer(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+        this.canvas.addEventListener('touchmove', (e) => setPointer(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
+        this.canvas.addEventListener('touchend', () => { this.mouse.active = false; }, { passive: true });
     }
 
     init() {
         this.particles = [];
+        this.start = performance.now();
         const centerX = this.width / 2;
         const centerY = this.height / 2;
 
@@ -159,7 +175,8 @@ class Effect {
     }
 
     update() {
-        this.particles.forEach(particle => particle.update());
+        const now = performance.now();
+        this.particles.forEach(particle => particle.update(now));
     }
 
     resize(width, height) {
@@ -167,6 +184,7 @@ class Effect {
         this.canvas.height = height;
         this.width = width;
         this.height = height;
+        this.radius = window.innerWidth <= 768 ? 60 : 90;
         this.init();
     }
 }

@@ -24,3 +24,41 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn("VanillaTilt not loaded. Check script include in badges.html");
     }
 });
+
+// S8 — Mobile: un tocco gira il badge (dietro: nome e missione), un secondo tocco lo rigira.
+document.addEventListener('DOMContentLoaded', () => {
+    if (!window.matchMedia('(max-width: 768px)').matches) return;
+
+    document.querySelectorAll('.catalog-item').forEach(item => {
+        const front = item.querySelector('.badge-tilt-wrapper');
+        const meta = item.querySelector('.item-meta');
+        if (!front || !meta) return;
+
+        const inner = document.createElement('div');
+        inner.className = 'flip-inner';
+        const back = document.createElement('div');
+        back.className = 'badge-back';
+        const [name, mission] = meta.querySelectorAll('span');
+        back.innerHTML = `<span class="back-name">${name ? name.textContent : ''}</span>` +
+            `<span class="back-mission">${mission ? mission.textContent : ''}</span>`;
+        front.classList.add('badge-front');
+        item.insertBefore(inner, front);
+        inner.appendChild(front);
+        inner.appendChild(back);
+        item.classList.add('flippable');
+
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-pressed', 'false');
+        item.setAttribute('aria-label', `${name ? name.textContent : 'Badge'}: show mission`);
+
+        const toggle = () => {
+            const on = item.classList.toggle('flipped');
+            item.setAttribute('aria-pressed', String(on));
+        };
+        item.addEventListener('click', toggle);
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+    });
+});

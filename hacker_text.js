@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function initHackerEffect() {
-        const targets = document.querySelectorAll('.scrolling-track, .page-title-hacker, h1');
+        // I4: solo titoli di sezione in Codeink e voci di menu
+        const targets = document.querySelectorAll('.scrolling-track, .hk, .nav-links-mobile .nav-name');
         if (targets.length === 0) return;
 
         targets.forEach(target => {
@@ -97,56 +98,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Mobile logic moved to global scroll handler
+            // una volta quando entra nello schermo
+            observeOnce(target);
 
         });
     }
 
-    // NEW MOBILE LOGIC: Random letters on scroll
-    // NEW MOBILE LOGIC: Random letters on scroll (Optimized)
-    if (window.matchMedia("(max-width: 768px)").matches) {
-        let isScrolling = false;
-        let lastScrollTime = 0;
+    // Entrata: ogni lettera si mescola una volta, con un piccolo ritardo a cascata
+    const io = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+            if (!en.isIntersecting) return;
+            io.unobserve(en.target);
+            scrambleAll(en.target);
+        });
+    }, { threshold: 0.3 }) : null;
 
-        window.addEventListener('scroll', () => {
-            const now = Date.now();
-            if (now - lastScrollTime < 100) return; // Throttle to 100ms
-
-            if (!isScrolling) {
-                window.requestAnimationFrame(() => {
-                    handleMobileScroll();
-                    isScrolling = false;
-                    lastScrollTime = Date.now();
-                });
-                isScrolling = true;
-            }
-        }, { passive: true });
-
-        function handleMobileScroll() {
-            // Target all phrase containers (words/sentences)
-            const containers = document.querySelectorAll('.phrase-container');
-            const viewportHeight = window.innerHeight;
-
-            containers.forEach(container => {
-                const rect = container.getBoundingClientRect();
-                // Check if container is visible
-                if (rect.top < viewportHeight && rect.bottom > 0) {
-                    // Get all hacker candidates in this phrase
-                    const chars = Array.from(container.querySelectorAll('.hacker-char'));
-                    if (chars.length === 0) return;
-
-                    // "Random letters of every word" 
-                    // Pick ~15% of characters to glitch (Reduced from 30%)
-                    chars.forEach(char => {
-                        if (Math.random() < 0.15) {
-                            triggerHackerEffect(char);
-                        }
-                    });
-                }
-            });
-        }
+    function observeOnce(target) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        // le voci di menu si mescolano a ogni apertura
+        if (target.classList.contains('nav-name')) return;
+        if (io) io.observe(target);
     }
 
+    function scrambleAll(target) {
+        const chars = target.querySelectorAll('.hacker-char');
+        chars.forEach((c, i) => setTimeout(() => triggerHackerEffect(c), Math.min(i * 18, 600)));
+    }
+
+    const menu = document.getElementById('mobile-menu');
+    if (menu) {
+        new MutationObserver(() => {
+            if (menu.classList.contains('active')) menu.querySelectorAll('.nav-name').forEach(scrambleAll);
+        }).observe(menu, { attributes: true, attributeFilter: ['class'] });
+    }
 
     /**
      * Triggers the animation based on Font Family and Character Width.

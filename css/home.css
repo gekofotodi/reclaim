@@ -105,7 +105,8 @@
     cursor: none;
     /* parte al 50%, lo script la porta al 100% durante lo scroll */
     transform: scale(0.5);
-    border-radius: 40px;
+    /* scalato al 50%: il doppio del token per avere lo stesso angolo visivo */
+    border-radius: calc(var(--radius-media) * 2);
     transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.6s ease;
     box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
     will-change: transform, border-radius;
@@ -117,7 +118,7 @@
     object-fit: cover;
     transition: opacity 0.4s ease;
     display: block;
-    border-radius: 10px;
+    border-radius: var(--radius-media);
 }
 
 .video-wrapper iframe {
@@ -170,7 +171,7 @@
     }
 
     .video-wrapper {
-        border-radius: 10px;
+        border-radius: var(--radius-media);
     }
 
     .video-cover {
@@ -208,7 +209,8 @@
     display: block;
     height: auto;
     box-shadow: 0 20px 80px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    /* il manifesto è un foglio: angoli squadrati */
+    border-radius: 0;
 }
 
 .manifesto-wrapper {
@@ -244,7 +246,7 @@
     max-width: 150vw;
     display: block;
     object-fit: contain;
-    border-radius: 10px;
+    border-radius: 0;
     box-shadow: 0 0 80px rgba(255, 60, 1, 0.5);
 }
 
@@ -265,10 +267,10 @@
         width: 100%;
     }
 
+    /* S4: il manifesto si apre a tutto schermo al tocco */
     #manifesto-trigger,
     .manifesto-wrapper {
-        pointer-events: none;
-        cursor: default;
+        cursor: pointer;
     }
 
     #manifesto-label {
@@ -278,4 +280,73 @@
 
 .cta-static {
     gap: 2rem;
+}
+
+/* --- Manifesto a tutto schermo (mobile, S4) ----------------------------------- */
+.zoom-view {
+    position: fixed;
+    inset: 0;
+    z-index: 10050;
+    background: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.zoom-view.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.zoom-stage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    touch-action: none;
+}
+
+.zoom-stage img {
+    width: 92%;
+    height: auto;
+    max-height: 86vh;
+    object-fit: contain;
+    transform-origin: center center;
+    will-change: transform;
+    user-select: none;
+    -webkit-user-select: none;
+    border-radius: 0;
+}
+
+.zoom-close {
+    position: absolute;
+    top: calc(14px + env(safe-area-inset-top));
+    right: 16px;
+    z-index: 2;
+    min-height: 44px;
+    padding: 0 0.5rem;
+    background: none;
+    border: none;
+    border-radius: var(--radius-control);
+    color: var(--paper);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    letter-spacing: 2px;
+}
+
+.zoom-hint {
+    position: absolute;
+    bottom: calc(18px + env(safe-area-inset-bottom));
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    color: var(--grey);
+    font-size: var(--fs-micro);
+    text-align: center;
+    pointer-events: none;
 }

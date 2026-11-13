@@ -35,24 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
         body:has(.manifesto-wrapper:hover) #custom-cursor {
             opacity: 0 !important;
         }
-        .cursor-stamp {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            pointer-events: none;
-            z-index: 1; /* Below cursor, above content */
-            transform: translate(-50%, -50%) scale(0);
-            animation: stampPop 0.3s forwards;
-            
-            /* Orange logo used directly */
-            mix-blend-mode: normal;
-        }
-
-        @keyframes stampPop {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-
         /* Restore default cursor when modal is open */
         body.modal-open, body.modal-open * {
             cursor: auto !important;
@@ -69,25 +51,5 @@ document.addEventListener('DOMContentLoaded', () => {
         cursor.style.top = e.clientY + 'px';
     });
 
-    // 3. Stamp Logic
-    document.addEventListener('click', (e) => {
-        // Prevent stamp on structural/interactive elements and footers
-        // Prevent stamp on structural/interactive elements, footers, or when a modal is open, or scrollytelling container
-        if (document.body.classList.contains('modal-open') || e.target.closest('button, a, input, .hamburger-menu, .nav-links-mobile, footer, .checkout-footer, .info-bar, .news-ticker-bar, .main-navbar, .video-wrapper, .video-modal, .close-modal, #kit-scroll-container, .kit-layer')) return;
-
-
-        const stamp = document.createElement('img');
-        stamp.src = 'asset/immagini/logo_orange.png'; // Loghi path
-        stamp.classList.add('cursor-stamp');
-
-
-        // Position relative to document (handle scroll)
-        stamp.style.left = e.pageX + 'px';
-        stamp.style.top = e.pageY + 'px';
-
-        document.body.appendChild(stamp);
-
-        // Optional: Remove stamps after animation or some time if too many?
-        // keeping permanent as per previous implementation implicit behavior
-    });
+    // I timbri al click sono in site.js
 });
