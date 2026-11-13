@@ -1,11 +1,14 @@
 /**
  * Logo a particelle (I1): al caricamento le particelle compongono il logo in ~1.5 s;
  * il puntatore o il dito le disperde solo vicino, poi tornano al loro posto.
+ * F2: composte vibrano leggermente; scorrendo la pagina tornano sparse,
+ * risalendo in cima si ricompongono.
  */
 
 const LOGO_BASE64 = `PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNDguMjggMTQ4LjU0Ij48cGF0aCBmaWxsPSIjZmYzYzAxIiBkPSJNMTQ2LjY4LDY3LjY3Yy0uNjUtLjc4LTEuNDYtMS40My0yLjM3LTEuODUtLjM2LS4xNi0uNzItLjI5LTEuMDQtLjQ2LS4wMywwLS4wNy0uMDMtLjEtLjAzLTkuNTMtMy45LTE4LjM3LTkuMS0yNi4zNC0xNS4zOC02LjgzLTUuNDMtMTMuMDEtMTEuNjEtMTguNDQtMTguNDQtNi4yOC03Ljk3LTExLjQ4LTE2LjgxLTE1LjM4LTI2LjM0LS4wMy0uMDMtLjAzLS4wNy0uMDMtLjA3LS4xNi0uMzYtLjI5LS43Mi0uNDYtMS4wNywwLS4xLS4wNi0uMTYtLjEtLjIzLS40Ni0uODUtMS4wNC0xLjU2LTEuNzYtMi4xNS0xLjI3LTEuMDQtMi44OS0xLjY2LTQuNjItMS42NmgtMy45M2MtMS43MiwwLTMuMzUuNjItNC41OCwxLjY2LS42OC41NS0xLjI0LDEuMi0xLjY5LDEuOTUtLjAzLjA2LS4wNy4xMy0uMS4yLS4xOS41Mi0uMzksMS4wNC0uNjIsMS41My0zLjksOS40Ni05LjEsMTguMjQtMTUuMzIsMjYuMTgtNS40Myw2LjgzLTExLjQ0LDEzLjA0LTE4LjQ3LDE4LjQ3LTcuOTcsNi4yNC0xNi44MSwxMS40NS0yNi4zNCwxNS4zOC0uMjkuMS0uNTUuMi0uODEuMzNoLS4wM2MtMS4wMS40Ni0xLjg5LDEuMTQtMi41NywxLjk4LS45OCwxLjItMS41OSwyLjc2LTEuNTksNC40NXY0LjIzYzAsMS42OS42MiwzLjI1LDEuNTksNC40NS42OC44NSwxLjU2LDEuNTMsMi41NywxLjk4LjI2LjEzLjU1LjIzLjg1LjMzLDkuNTMsMy45MywxOC4zNyw5LjE0LDI2LjM0LDE1LjM4LDYuODMsNS40MywxMy4wNCwxMS42NCwxOC40NywxOC40Nyw2LjIxLDcuOSwxMS4zOCwxNi42OCwxNS4zMiwyNi4xMS4yMy41OS40OSwxLjIuNzIsMS43OXYuMDNjLjQ2Ljc1LDEuMDEsMS40MywxLjY5LDEuOTgsMS4yNywxLjA0LDIuODksMS42Niw0LjYyLDEuNjZoMy45YzEuNzIsMCwzLjM1LS42Miw0LjYyLTEuNjYuNzItLjYyLDEuMy0xLjMzLDEuNzYtMi4xOHYuMDNjLjE5LS40Mi4zNi0uODUuNTUtMS4yNywwLS4wMy4wMy0uMTAsLjAzLS4xMywzLjkzLTkuNDksOS4xNC0xOC4zNCwxNS4zOC0yNi4zMSw1LjQzLTYuODMsMTEuNjEtMTMuMDEsMTguNDQtMTguNDQsNy45Ny02LjI4LDE2LjgxLTExLjQ4LDI2LjM0LTE1LjM4LjAzLDAsLjA3LS4wMy4xLS4wMy4zMy0uMTYuNjgtLjI5LDEuMDQtLjQ2LjkxLS40MiwxLjcyLTEuMDcsMi4zNy0xLjg1Ljk4LTEuMjQsMS41OS0yLjgwLDEuNTktNC40OXYtNC4xNmMwLTEuNjktLjYyLTMuMjUtMS41OS00LjQ5Wk02Ny41NCwxMDguMmMwLDQuODQtMy45Miw4Ljc2LTguNzYsOC43NmgwYy0xLjUzLDAtMy0uNjEtNC4wOS0xLjY5bC0yMC43NC0yMC43NGMtLjc4LS41Mi0xLjQ2LTEuMi0yLjAyLTIuMDItLjIzLS4zMy0uNDItLjY4LS41OS0xLjA3LS40Mi0uOTQtLjY4LTIuMDItLjY4LTMuMTJzLjI2LTIuMTguNjgtMy4xMmMxLjE3LTIuNiwzLjc3LTQuMzksNi44My00LjM5aDIwLjZjNC44NCwwLDguNzYsMy45Miw4Ljc2LDguNzZ2MTguNjRaTTY3LjU0LDU4LjkxYzAsNC44NC0zLjkyLDguNzYtOC43Niw4Ljc2aC0yMC42Yy0zLjA2LDAtNS42Ni0xLjc5LTYuODMtNC4zOS0uNDItLjk0LS42OC0yLjAyLS42OC0zLjEycy4yNi0yLjE4LjY4LTMuMTJjLjE2LS4zOS4zNi0uNzUuNTktMS4wNy41NS0uODEsMS4yNC0xLjUsMi4wMi0yLjAybDIwLjc0LTIwLjc0YzEuMDgtMS4wOCwyLjU1LTEuNjksNC4wOS0xLjY5aDBjNC44NCwwLDguNzYsMy45Miw4Ljc2LDguNzZ2MTguNjRaTTExNi44Myw5MS4yNGMtLjI2LjYyLS42MiwxLjItMS4wMSwxLjcybC0uMS4xMy0xLjAxLDEuMDEtLjEzLjEtMjEuMDcsMjEuMDdjLTEuMDgsMS4wOC0yLjU1LDEuNjktNC4wOSwxLjY5aDBjLTQuODQsMC04Ljc2LTMuOTItOC43Ni04Ljc2di0xOC42NGMwLTQuODQsMy45Mi04Ljc2LDguNzYtOC43NmgyMC40N2MzLjEyLDAsNS43OSwxLjg5LDYuOTMsNC41OC4zNi44OC41OSwxLjg5LjU5LDIuOTNzLS4yMywyLjA1LS41OSwyLjkzWk0xMTYuODMsNjMuMDhjLTEuMTQsMi43LTMuOCw0LjU4LTYuOTMsNC41OGgtMjAuNDdjLTQuODQsMC04Ljc2LTMuOTItOC43Ni04Ljc2di0xOC42NGMwLTQuODQsMy45Mi04Ljc2LDguNzYtOC43NmgwYzEuNTMsMCwzLC42MSw0LjA5LDEuNjlsMjEuMDcsMjEuMDdjLjQyLjM2Ljg1Ljc4LDEuMjQsMS4yNC4zOS41Mi43NSwxLjExLDEuMDEsMS43Mi4zNi44OC41OSwxLjg5LjU5LDIuOTNzLS4yMywyLjA1LS41OSwyLjkzWiIvPjwvc3ZnPg==`;
 
 const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+const easeInOut = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 
 class Particle {
     constructor(effect, x, y, isStatic = false) {
@@ -23,6 +26,10 @@ class Particle {
         this.isStatic = isStatic;
         // piccolo ritardo per ogni particella: il logo si compone, non scatta
         this.delay = Math.random() * 350;
+
+        // fase e velocità proprie: la vibrazione non è sincronizzata
+        this.phase = Math.random() * Math.PI * 2;
+        this.speed = 0.0018 + Math.random() * 0.0014;
 
         this.randomX = (Math.random() - 0.5) * 5.8;
         this.randomY = (Math.random() - 0.5) * 5.8;
@@ -47,8 +54,20 @@ class Particle {
             return;
         }
 
-        const tx = this.originX + Math.sin(t + this.originX) * 1.2;
-        const ty = this.originY + Math.cos(t + this.originY) * 1.2;
+        // F2: vibrazione leggera intorno al punto del logo (~3px)
+        const w = now * this.speed + this.phase;
+        const fx = this.originX + Math.sin(w) * 2.4 + Math.sin(t * 0.7 + this.originY) * 0.8;
+        const fy = this.originY + Math.cos(w * 1.13) * 2.4 + Math.cos(t * 0.7 + this.originX) * 0.8;
+
+        // F2: scorrendo, ogni particella torna verso la sua posizione sparsa (che vaga piano)
+        const sc = this.effect.scatter;
+        let tx = fx, ty = fy;
+        if (sc > 0) {
+            const sx = this.startX + Math.sin(t * 0.6 + this.phase) * 14;
+            const sy = this.startY + Math.cos(t * 0.5 + this.phase) * 14;
+            tx = fx + (sx - fx) * sc;
+            ty = fy + (sy - fy) * sc;
+        }
 
         // I1: composizione del logo in ~1.5 s
         const p = Math.min(1, Math.max(0, (now - this.effect.start - this.delay) / (this.effect.assembleMs - 350)));
@@ -104,6 +123,7 @@ class Effect {
 
         this.start = performance.now();
         this.assembleMs = 1500;
+        this.scatter = 0; // 0 = logo composto, 1 = tutte sparse
         this.radius = window.innerWidth <= 768 ? 60 : 90;
 
         const setPointer = (clientX, clientY) => {
@@ -204,7 +224,20 @@ window.addEventListener('load', function () {
     setupCanvas();
     const effect = new Effect(canvas, ctx);
 
+    // F2: quanto è stato scorso il blocco del logo (0 in cima, 1 a ~60% della sua altezza)
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function scrollScatter() {
+        if (reduceMotion) return 0;
+        const r = container.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, -r.top / (r.height * 0.6)));
+        return easeInOut(p);
+    }
+
     function animate() {
+        const r = container.getBoundingClientRect();
+        // fuori dallo schermo non serve disegnare
+        if (r.bottom < 0 || r.top > window.innerHeight) { requestAnimationFrame(animate); return; }
+        effect.scatter = scrollScatter();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         effect.update();
         effect.draw();
