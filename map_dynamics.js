@@ -1,80 +1,99 @@
-// Map Marker Dynamics
+/**
+ * Mappa delle città attive (I7)
+ * Ogni nodo: cittadini (cambiano dal vivo), ora locale, data di attivazione.
+ * Desktop: mondo, dati al passaggio del mouse. Mobile: ritaglio sull'Europa + elenco toccabile.
+ * Le posizioni europee sono leggermente distanziate per restare leggibili sulla mappa del mondo.
+ */
 document.addEventListener('DOMContentLoaded', () => {
-
-    const markers = [
-        { id: 'marker-milan', city: 'MILAN', lat: 45.46, lon: 9.19, baseSoldiers: 420, tz: 'Europe/Rome' },
-        { id: 'marker-tokyo', city: 'TOKYO', lat: 35.68, lon: 139.76, baseSoldiers: 850, tz: 'Asia/Tokyo' },
-        { id: 'marker-nairobi', city: 'NAIROBI', lat: -1.29, lon: 36.82, baseSoldiers: 315, tz: 'Africa/Nairobi' },
-        { id: 'marker-nyc', city: 'NEW YORK', lat: 40.71, lon: -74.00, baseSoldiers: 600, tz: 'America/New_York' },
-        { id: 'marker-ba', city: 'BUENOS AIRES', lat: -34.60, lon: -58.38, baseSoldiers: 290, tz: 'America/Argentina/Buenos_Aires' }
+    const CITIES = [
+        { id: 'bcn', city: 'BARCELONA', lat: 41.39, lon: 2.17, top: 40.2, left: 47.2, citizens: 1204, tz: 'Europe/Madrid', since: '06.07.2025', origin: true },
+        { id: 'milan', city: 'MILAN', lat: 45.46, lon: 9.19, top: 37.0, left: 48.9, citizens: 420, tz: 'Europe/Rome', since: '14.10.2025' },
+        { id: 'venice', city: 'VENICE', lat: 45.44, lon: 12.33, top: 36.6, left: 50.6, citizens: 388, tz: 'Europe/Rome', since: '02.11.2025' },
+        { id: 'florence', city: 'FLORENCE', lat: 43.77, lon: 11.25, top: 39.4, left: 49.9, citizens: 276, tz: 'Europe/Rome', since: '21.12.2025' },
+        { id: 'london', city: 'LONDON', lat: 51.51, lon: -0.13, top: 34.0, left: 46.6, citizens: 512, tz: 'Europe/London', since: '30.01.2026' },
+        { id: 'nyc', city: 'NEW YORK', lat: 40.71, lon: -74.0, top: 38, left: 30, citizens: 600, tz: 'America/New_York', since: '03.03.2026' },
+        { id: 'tokyo', city: 'TOKYO', lat: 35.68, lon: 139.76, top: 43, left: 80, citizens: 850, tz: 'Asia/Tokyo', since: '18.04.2026' },
+        { id: 'nairobi', city: 'NAIROBI', lat: -1.29, lon: 36.82, top: 62, left: 56, citizens: 315, tz: 'Africa/Nairobi', since: '09.06.2026' },
+        { id: 'ba', city: 'BUENOS AIRES', lat: -34.6, lon: -58.38, top: 78, left: 33, citizens: 290, tz: 'America/Argentina/Buenos_Aires', since: '27.08.2026' }
     ];
 
-    function updateMarkers() {
-        markers.forEach(data => {
-            const el = document.getElementById(data.id);
-            if (!el) return;
+    const inner = document.querySelector('.map-inner');
+    const list = document.querySelector('.city-list');
+    if (!inner) return;
 
-            // Update Soldiers: random flux +/- 5
-            let currentSoldiers = parseInt(el.dataset.soldiers || data.baseSoldiers);
+    const time = (tz) => new Date().toLocaleTimeString('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit' });
+    const fmt = (n) => n.toLocaleString('en-US');
 
-            // Randomly update sometimes
-            if (Math.random() > 0.7) {
-                const change = Math.floor(Math.random() * 11) - 5; // -5 to +5
-                currentSoldiers = Math.max(0, currentSoldiers + change);
-                el.dataset.soldiers = currentSoldiers;
-            }
+    // nodi e righe dell'elenco
+    CITIES.forEach(c => {
+        const m = document.createElement('div');
+        m.className = 'map-marker' + (c.origin ? ' is-origin' : '');
+        m.id = 'marker-' + c.id;
+        m.style.top = c.top + '%';
+        m.style.left = c.left + '%';
+        m.innerHTML = '<div class="map-marker-icon"></div>';
+        inner.appendChild(m);
+        c.marker = m;
 
-            // Update Time
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-GB', { timeZone: data.tz, hour: '2-digit', minute: '2-digit' });
-
-            // Get Timezone abbreviation (simplified logic or hardcoded)
-            // Just displaying local time is enough as per request "orario e fuso"
-            // We can append zone code if needed, but standard locale string is clean.
-
-            const tooltipText = `COORD: ${data.lat}, ${data.lon}
-TIME: ${timeStr}
-CITY: ${data.city}
-SOLDIERS: ${currentSoldiers}`;
-
-            el.dataset.tooltip = tooltipText; // CSS handles the display via attr() but dynamic attributes in attr content might not auto-refresh in all browsers efficiently or if content style is static. 
-            // Actually CSS content: attr(data-tooltip) IS dynamic.
-        });
-    }
-
-    // Init constraints
-    markers.forEach(d => {
-        const el = document.getElementById(d.id);
-        if (el) el.dataset.soldiers = d.baseSoldiers;
+        if (list) {
+            const li = document.createElement('li');
+            li.innerHTML = `<button type="button" class="city-row" aria-expanded="false">
+                    <span class="city-name">${c.city}${c.origin ? ' <em>ORIGIN</em>' : ''}</span>
+                    <span class="city-count"></span>
+                </button>
+                <div class="city-detail" hidden></div>`;
+            list.appendChild(li);
+            c.row = li;
+        }
     });
 
-    setInterval(updateMarkers, 2000); // Update every 2 seconds
-    updateMarkers();
-
-    // Mobile Click Toggle Interaction
-    const markerEls = document.querySelectorAll('.map-marker');
-    const isMobile = window.innerWidth <= 768;
-
-    if (isMobile) {
-        markerEls.forEach(el => {
-            el.addEventListener('click', (e) => {
-                e.stopPropagation();
-
-                const wasActive = el.classList.contains('active');
-
-                // Close all
-                markerEls.forEach(m => m.classList.remove('active'));
-
-                // Toggle current: if it wasn't active, make it active
-                if (!wasActive) {
-                    el.classList.add('active');
-                }
-            });
+    const update = (first) => {
+        CITIES.forEach(c => {
+            if (!first && Math.random() > 0.7) c.citizens = Math.max(0, c.citizens + Math.floor(Math.random() * 11) - 5);
+            const t = time(c.tz);
+            c.marker.dataset.tooltip =
+                `CITY: ${c.city}${c.origin ? ' (ORIGIN)' : ''}\nCITIZENS: ${fmt(c.citizens)}\nLOCAL TIME: ${t}\nACTIVE SINCE: ${c.since}`;
+            if (c.row) {
+                c.row.querySelector('.city-count').textContent = fmt(c.citizens);
+                c.row.querySelector('.city-detail').textContent =
+                    `LOCAL TIME ${t} · ACTIVE SINCE ${c.since} · ${c.lat}, ${c.lon}`;
+            }
         });
+    };
+    update(true);
+    setInterval(update, 2000);
 
-        // Close on click outside
-        document.addEventListener('click', () => {
-            markerEls.forEach(m => m.classList.remove('active'));
+    // mobile: tocco su un nodo o su una riga
+    const markers = CITIES.map(c => c.marker);
+    const select = (c) => {
+        const open = !c.marker.classList.contains('active');
+        CITIES.forEach(o => {
+            o.marker.classList.remove('active');
+            if (o.row) {
+                o.row.classList.remove('open');
+                o.row.querySelector('.city-row').setAttribute('aria-expanded', 'false');
+                o.row.querySelector('.city-detail').hidden = true;
+            }
         });
-    }
+        if (!open) return;
+        c.marker.classList.add('active');
+        if (c.row) {
+            c.row.classList.add('open');
+            c.row.querySelector('.city-row').setAttribute('aria-expanded', 'true');
+            c.row.querySelector('.city-detail').hidden = false;
+        }
+    };
+
+    CITIES.forEach(c => {
+        if (c.row) c.row.querySelector('.city-row').addEventListener('click', () => select(c));
+        c.marker.addEventListener('click', (e) => {
+            if (window.innerWidth > 768) return;
+            e.stopPropagation();
+            select(c);
+        });
+    });
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth > 768 || e.target.closest('.city-list, .map-marker')) return;
+        markers.forEach(m => m.classList.remove('active'));
+    });
 });

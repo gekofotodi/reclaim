@@ -86,7 +86,7 @@
         .cta-button.js-hover { background-color: #e63600; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255, 60, 1, 0.5); opacity: 1; }
         .info-item.js-hover { background-color: #ff3c01; color: #000000; }
         .info-item.js-hover::after { opacity: 1; transform: translateY(0); display: block; }
-        .map-marker.js-hover { transform: scale(1.2); }
+        .map-marker.js-hover { transform: translate(-50%, -50%) scale(1.25); }
         .map-marker.js-hover::after { opacity: 1; transform: translateX(-50%) translateY(0); display: block; }
         .hacker-char.js-hover { color: #ff3c01; }
         .news-ticker-bar.js-hover { opacity: 0.9; }
