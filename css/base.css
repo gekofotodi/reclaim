@@ -978,7 +978,7 @@ footer {
     }
 }
 
-/* --- Timbri (I2, V4): lo sgocciolo vive solo qui ------------------------------ */
+/* --- Timbri (I2, V4): il logo grande quanto il cursore, con un leggero ink bleed --- */
 #stamp-layer {
     position: absolute;
     top: 0;
@@ -992,10 +992,11 @@ footer {
 
 .stamp {
     position: absolute;
-    transform: translate(-50%, -50%) rotate(var(--rot));
-    background: url(../asset/loghi/stamp_strip.webp) 0 0 / 900% 100% no-repeat;
-    /* 9 fotogrammi: il colore cola e si ferma all'ultimo */
-    animation: stamp-pop 0.18s ease-out, stamp-drip 0.9s steps(8) 0.12s forwards;
+    width: 24px;
+    height: 24px;
+    transform: translate(-50%, -50%);
+    filter: url(#ink-bleed);
+    animation: stamp-pop 0.3s ease-out;
     transition: opacity 0.6s ease;
 }
 
@@ -1004,18 +1005,11 @@ footer {
 }
 
 @keyframes stamp-pop {
-    from { transform: translate(-50%, -50%) rotate(var(--rot)) scale(0.4); }
-}
-
-@keyframes stamp-drip {
-    to { background-position: 100% 0; }
+    from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .stamp {
-        animation: none;
-        background-position: 100% 0;
-    }
+    .stamp { animation: none; }
 }
 
 @media (hover: none) {

@@ -1,6 +1,9 @@
 // Custom Cursor & Stamp Logic
 
 document.addEventListener('DOMContentLoaded', () => {
+    // I2: su touch il cursore non esiste, mai
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+
     // 1. Create Cursor Element
     const cursor = document.createElement('img');
     cursor.src = 'asset/loghi/logo.png'; // Loghi path

@@ -2,7 +2,7 @@
  * site.js — comportamenti comuni a tutte le pagine
  * 1. menu accessibile da tastiera
  * 2. entrata dei contenuti allo scroll (I8)
- * 3. timbro a sgocciolo dove si clicca / doppio tocco su mobile (I2)
+ * 3. timbro del logo dove si clicca, solo desktop (I2)
  */
 (function () {
     const isTouch = window.matchMedia('(hover: none)').matches;
@@ -50,8 +50,9 @@
         });
     }
 
-    /* --- 3. Timbri ---------------------------------------------------------- */
+    /* --- 3. Timbri (solo desktop: su touch non c'è cursore) ------------------ */
     function initStamps() {
+        if (isTouch || window.matchMedia('(pointer: coarse)').matches) return;
         const MAX = 30;
         const live = [];
         const layer = document.createElement('div');
@@ -59,17 +60,35 @@
         layer.setAttribute('aria-hidden', 'true');
         document.body.appendChild(layer);
 
+        // ink bleed: bordo appena irregolare + alone morbido, statico
+        const svgNS = 'http://www.w3.org/2000/svg';
+        const defs = document.createElementNS(svgNS, 'svg');
+        defs.setAttribute('width', '0');
+        defs.setAttribute('height', '0');
+        defs.setAttribute('aria-hidden', 'true');
+        defs.style.position = 'absolute';
+        defs.innerHTML =
+            '<filter id="ink-bleed" x="-40%" y="-40%" width="180%" height="180%">' +
+            '<feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>' +
+            '<feDisplacementMap in="SourceGraphic" in2="n" scale="1.4" xChannelSelector="R" yChannelSelector="G" result="d"/>' +
+            '<feGaussianBlur in="d" stdDeviation="0.7" result="b"/>' +
+            '<feComponentTransfer in="b" result="halo"><feFuncA type="linear" slope="0.55"/></feComponentTransfer>' +
+            '<feMerge><feMergeNode in="halo"/><feMergeNode in="d"/></feMerge>' +
+            '</filter>';
+        document.body.appendChild(defs);
+
         const blocked = 'a, button, input, select, textarea, label, [role="button"], .hamburger-menu, ' +
             '.mobile-menu-overlay, footer, .info-bar, .news-ticker-bar, .main-navbar, .video-wrapper, ' +
             '.video-modal, .manifesto-wrapper, .map-marker, .city-list, .hotspot, .sheet, .checkout, ' +
             '.catalog-item, .cta-container, #particle-canvas';
 
         const stamp = (x, y) => {
-            const s = document.createElement('div');
+            const s = document.createElement('img');
             s.className = 'stamp';
-            const size = 46 + Math.random() * 44;          // 46–90 px
-            const rot = (Math.random() - 0.5) * 70;         // ±35°
-            s.style.cssText = `left:${x}px;top:${y}px;width:${size}px;height:${size}px;--rot:${rot}deg`;
+            s.src = 'asset/immagini/logo_orange.png';
+            s.alt = '';
+            s.style.left = x + 'px';
+            s.style.top = y + 'px';
             layer.appendChild(s);
             live.push(s);
             // oltre i 30 il più vecchio sbiadisce e sparisce
@@ -80,28 +99,10 @@
             }
         };
 
-        const allowed = (target) => !document.body.classList.contains('modal-open') && !target.closest(blocked);
-
-        if (!isTouch) {
-            document.addEventListener('click', (e) => {
-                if (e.button !== 0 || !allowed(e.target)) return;
-                stamp(e.pageX, e.pageY);
-            });
-        } else {
-            // doppio tocco sulle aree vuote
-            let last = { t: 0, x: 0, y: 0 };
-            document.addEventListener('touchend', (e) => {
-                if (e.changedTouches.length !== 1) return;
-                const tch = e.changedTouches[0];
-                const now = Date.now();
-                const near = Math.hypot(tch.pageX - last.x, tch.pageY - last.y) < 40;
-                if (now - last.t < 320 && near && allowed(e.target)) {
-                    stamp(tch.pageX, tch.pageY);
-                    last = { t: 0, x: 0, y: 0 };
-                } else {
-                    last = { t: now, x: tch.pageX, y: tch.pageY };
-                }
-            }, { passive: true });
-        }
+        document.addEventListener('click', (e) => {
+            if (e.button !== 0) return;
+            if (document.body.classList.contains('modal-open') || e.target.closest(blocked)) return;
+            stamp(e.pageX, e.pageY);
+        });
     }
 })();

@@ -1,6 +1,7 @@
 /**
  * Logo a particelle (I1): al caricamento le particelle compongono il logo in ~1.5 s;
- * il puntatore o il dito le disperde solo vicino, poi tornano al loro posto.
+ * il puntatore le sposta appena, senza rimbalzi.
+ * Clic o tocco sul logo: le particelle si disperdono; un altro clic le riunisce.
  * F2: composte vibrano leggermente; scorrendo la pagina tornano sparse,
  * risalendo in cima si ricompongono.
  */
@@ -78,26 +79,24 @@ class Particle {
             return;
         }
 
-        // il puntatore (o il dito) le allontana solo lì vicino
+        // il puntatore le sposta appena (solo desktop): spostamento diretto, non velocità
         const m = this.effect.mouse;
         if (m.active) {
-            const dx = this.x - m.x;
-            const dy = this.y - m.y;
+            const dx = tx - m.x;
+            const dy = ty - m.y;
             const R = this.effect.radius;
             const d2 = dx * dx + dy * dy;
             if (d2 < R * R) {
                 const d = Math.sqrt(d2) || 1;
                 const f = (R - d) / R;
-                this.vx += (dx / d) * f * 5;
-                this.vy += (dy / d) * f * 5;
+                tx += (dx / d) * f * f * 26;
+                ty += (dy / d) * f * f * 26;
             }
         }
 
-        // poi tornano al loro posto (molla smorzata)
-        this.vx = (this.vx + (tx - this.x) * 0.04) * 0.86;
-        this.vy = (this.vy + (ty - this.y) * 0.04) * 0.86;
-        this.x += this.vx;
-        this.y += this.vy;
+        // avvicinamento morbido al bersaglio: nessuna molla, quindi nessun rimbalzo
+        this.x += (tx - this.x) * 0.09;
+        this.y += (ty - this.y) * 0.09;
     }
 }
 
@@ -124,6 +123,12 @@ class Effect {
         this.start = performance.now();
         this.assembleMs = 1500;
         this.scatter = 0; // 0 = logo composto, 1 = tutte sparse
+        // clic: 0 = riunite, 1 = disperse (animato in toggleScatter)
+        this.clickScatter = 0;
+        this.clickFrom = 0;
+        this.clickTo = 0;
+        this.clickStart = 0;
+        this.clickMs = 1100;
         this.radius = window.innerWidth <= 768 ? 60 : 90;
 
         const setPointer = (clientX, clientY) => {
@@ -134,13 +139,24 @@ class Effect {
                 this.mouse.y > 0 && this.mouse.y < this.height;
         };
 
-        window.addEventListener('mousemove', (e) => setPointer(e.clientX, e.clientY));
+        const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        if (hasHover) window.addEventListener('mousemove', (e) => setPointer(e.clientX, e.clientY));
         document.addEventListener('mouseleave', () => { this.mouse.active = false; });
 
-        // dito: non blocca lo scroll (listener passivi)
-        this.canvas.addEventListener('touchstart', (e) => setPointer(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
-        this.canvas.addEventListener('touchmove', (e) => setPointer(e.touches[0].clientX, e.touches[0].clientY), { passive: true });
-        this.canvas.addEventListener('touchend', () => { this.mouse.active = false; }, { passive: true });
+        // clic o tocco: disperde / riunisce (il tocco genera un click, lo scroll no)
+        this.canvas.addEventListener('click', () => this.toggleScatter());
+    }
+
+    toggleScatter() {
+        const now = performance.now();
+        this.clickFrom = this.currentClickScatter(now);
+        this.clickTo = this.clickTo > 0.5 ? 0 : 1;
+        this.clickStart = now;
+    }
+
+    currentClickScatter(now) {
+        const p = Math.min(1, (now - this.clickStart) / this.clickMs);
+        return this.clickFrom + (this.clickTo - this.clickFrom) * easeInOut(p);
     }
 
     init() {
@@ -237,7 +253,7 @@ window.addEventListener('load', function () {
         const r = container.getBoundingClientRect();
         // fuori dallo schermo non serve disegnare
         if (r.bottom < 0 || r.top > window.innerHeight) { requestAnimationFrame(animate); return; }
-        effect.scatter = scrollScatter();
+        effect.scatter = Math.max(scrollScatter(), effect.currentClickScatter(performance.now()));
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         effect.update();
         effect.draw();
