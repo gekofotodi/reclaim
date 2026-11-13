@@ -12,61 +12,72 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function initHackerEffect() {
-        // I4: solo titoli di sezione in Codeink e voci di menu
-        const targets = document.querySelectorAll('.scrolling-track, .hk, .nav-links-mobile .nav-name');
+        // F3: titoli di sezione di tutte le pagine (Codeink e Neue Haas) + voci di menu
+        const targets = document.querySelectorAll(
+            '.scrolling-track, .hk, .nav-links-mobile .nav-name, ' +
+            'main h1, main h2, main h3, .catalog-title'
+        );
         if (targets.length === 0) return;
 
         targets.forEach(target => {
             if (target.dataset.hackerProcessed) return;
+            // titoli riempiti dagli script (es. scheda del kit): niente effetto
+            if (target.closest('.sheet, .checkout, [data-no-hk]')) return;
+            if (target.children.length && !target.classList.contains('scrolling-track')) {
+                // contiene altri elementi (link, br...): non lo tocchiamo per non perderli
+                if (target.querySelector(':not(span)')) return;
+            }
             target.dataset.hackerProcessed = 'true';
 
             let spans = Array.from(target.querySelectorAll('span'));
             if (spans.length === 0 && target.textContent.trim().length > 0) {
-                const text = target.textContent;
+                const text = target.textContent.trim().replace(/\s+/g, ' ');
+                target.setAttribute('aria-label', text);
                 target.innerHTML = `<span>${text}</span>`;
                 spans = Array.from(target.querySelectorAll('span'));
             }
 
             if (spans.length === 0) return;
 
+            const isTrack = target.classList.contains('scrolling-track');
             const fragment = document.createDocumentFragment();
+
+            const makeChar = (char) => {
+                const charSpan = document.createElement('span');
+                charSpan.textContent = (char === ' ') ? '\u00A0' : char;
+                charSpan.dataset.char = char;
+                if (char === ' ') charSpan.style.width = '0.5em';
+                // Esclusione caratteri statici (I, i, -)
+                charSpan.className = (char !== ' ' && char !== 'I' && char !== 'i' && char !== '-') ? 'hacker-char' : 'static-char';
+                charSpan.style.display = 'inline-block';
+                charSpan.style.position = 'relative';
+                charSpan.setAttribute('aria-hidden', 'true');
+                return charSpan;
+            };
 
             spans.forEach(span => {
                 const text = span.textContent;
                 const phraseContainer = document.createElement('span');
                 phraseContainer.className = 'phrase-container';
-                phraseContainer.style.display = 'inline-block';
-                phraseContainer.style.whiteSpace = 'pre';
-                phraseContainer.style.pointerEvents = 'auto';
 
-                if (target.classList.contains('scrolling-track')) {
+                if (isTrack) {
+                    // il titolo che scorre resta su una riga sola
+                    phraseContainer.style.display = 'inline-block';
+                    phraseContainer.style.whiteSpace = 'pre';
                     phraseContainer.style.paddingRight = '2rem';
+                    text.split('').forEach(c => phraseContainer.appendChild(makeChar(c)));
+                } else {
+                    // F3/F5: ogni parola è un blocco unico, ma il titolo può andare a capo tra le parole
+                    text.split(' ').forEach((word, i, arr) => {
+                        const w = document.createElement('span');
+                        w.className = 'hk-word';
+                        w.style.display = 'inline-block';
+                        w.style.whiteSpace = 'nowrap';
+                        word.split('').forEach(c => w.appendChild(makeChar(c)));
+                        phraseContainer.appendChild(w);
+                        if (i < arr.length - 1) phraseContainer.appendChild(document.createTextNode(' '));
+                    });
                 }
-
-                text.split('').forEach(char => {
-                    const charSpan = document.createElement('span');
-                    charSpan.textContent = (char === ' ') ? '\u00A0' : char;
-                    charSpan.dataset.char = char;
-
-                    // SE È UNO SPAZIO, FORZIAMO LA LARGHEZZA
-                    if (char === ' ') {
-                        charSpan.style.width = '0.5em'; // O '10px', decidi tu quanto spazio vuoi
-                        charSpan.style.display = 'inline-block';
-                    }
-
-                    // Esclusione caratteri statici (I, i, -)
-                    if (char !== ' ' && char !== '\u00A0' && char !== 'I' && char !== 'i' && char !== '-') {
-                        charSpan.className = 'hacker-char';
-                    } else {
-                        charSpan.className = 'static-char';
-                    }
-
-                    charSpan.style.display = 'inline-block';
-                    charSpan.style.pointerEvents = 'auto';
-                    charSpan.style.position = 'relative';
-
-                    phraseContainer.appendChild(charSpan);
-                });
 
                 fragment.appendChild(phraseContainer);
             });
@@ -74,22 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
             target.innerHTML = '';
             target.appendChild(fragment);
 
-            requestAnimationFrame(() => {
-                const allChars = target.querySelectorAll('.hacker-char');
-                const measurements = Array.from(allChars).map(c => ({
-                    el: c,
-                    rect: c.getBoundingClientRect()
-                }));
-
-                measurements.forEach(m => {
-                    const w = m.rect.width;
-                    if (w > 0) {
-                        m.el.style.width = `${w}px`;
-                        m.el.style.textAlign = 'center';
-                        m.el.style.display = 'inline-block';
-                    }
-                });
-            });
+            requestAnimationFrame(() => measure(target));
 
             // nel menu l'effetto parte solo all'apertura, non al passaggio del mouse (F1)
             if (!target.classList.contains('nav-name')) target.addEventListener('mouseover', (e) => {
@@ -101,7 +97,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // una volta quando entra nello schermo
             observeOnce(target);
+        });
 
+        // le misure dei titoli cambiano con la finestra (caratteri fluidi): si rimisurano
+        let rt;
+        let lastW = window.innerWidth;
+        window.addEventListener('resize', () => {
+            if (window.innerWidth === lastW) return;
+            lastW = window.innerWidth;
+            clearTimeout(rt);
+            rt = setTimeout(() => document.querySelectorAll('[data-hacker-processed]').forEach(measure), 150);
+        });
+    }
+
+    // ogni lettera prende la larghezza della lettera vera, così mescolando non sposta il testo
+    function measure(target) {
+        const chars = target.querySelectorAll('.hacker-char');
+        chars.forEach(c => { if (!c.dataset.interval) c.style.width = ''; });
+        const widths = Array.from(chars).map(c => c.getBoundingClientRect().width);
+        chars.forEach((c, i) => {
+            if (widths[i] > 0) {
+                c.style.width = `${widths[i]}px`;
+                c.style.textAlign = 'center';
+            }
         });
     }
 
