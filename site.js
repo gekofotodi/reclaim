@@ -3,6 +3,7 @@
  * 1. menu accessibile da tastiera
  * 2. entrata dei contenuti allo scroll (I8)
  * 3. timbro del logo dove si clicca, solo desktop (I2)
+ * 4. tasti finti che riportano in cima alla pagina (X3)
  */
 (function () {
     const isTouch = window.matchMedia('(hover: none)').matches;
@@ -12,7 +13,18 @@
         initMenuA11y();
         initReveal();
         initStamps();
+        initToTop();
     });
+
+    /* --- 4. Tasto finto: torna in cima (X3) ---------------------------------- */
+    function initToTop() {
+        document.querySelectorAll('.js-to-top').forEach(el => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+            });
+        });
+    }
 
     /* --- 1. Menu ------------------------------------------------------------ */
     function initMenuA11y() {
